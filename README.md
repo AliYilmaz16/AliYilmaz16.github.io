@@ -41,8 +41,8 @@ Stack it & Break it, klasik Tetris ve Breakout(Blok Kırma) oyunlarının benzer
 ## Ekran Görüntüleri
 ![Oyun Ana Menü](https://github.com/user-attachments/assets/afe3b79f-93a3-4ecc-87d5-443e4e0472a9)
 ![Nasıl Oynanır Menü](https://github.com/user-attachments/assets/7dd5e6c2-5b17-4faf-86c0-68da28a601c0)
-![Stack it Modu](https://github.com/user-attachments/assets/33b78ccb-2b87-4715-afe0-48652ce87c3a)
-![Break it Modu](https://github.com/user-attachments/assets/968d8e3e-6749-4b78-a7f2-97a6015cf944)
+![Stack it Modu](https://github.com/user-attachments/assets/968d8e3e-6749-4b78-a7f2-97a6015cf944)
+![Break it Modu](https://github.com/user-attachments/assets/33b78ccb-2b87-4715-afe0-48652ce87c3a)
 
 
 ## Oynanış Videosu
