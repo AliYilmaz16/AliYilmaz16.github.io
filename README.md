@@ -2,7 +2,7 @@
 
 ## Açıklama
 
-Stack it & Break it, klasik Tetris ve Breakout oyunlarının benzersiz bir hibritidir. Oyuncular iki farklı mod arasında geçiş yaparak stratejik oynanış deneyimi yaşarlar.
+Stack it & Break it, klasik Tetris ve Breakout(Blok Kırma) oyunlarının benzersiz bir hibritidir. Oyuncular iki farklı mod arasında geçiş yaparak stratejik oynanış deneyimi yaşarlar.
 
 ### Oyun Modları
 
