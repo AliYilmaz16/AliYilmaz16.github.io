@@ -16,6 +16,7 @@ Stack it & Break it, klasik Tetris ve Breakout(Blok Kırma) oyunlarının benzer
 - **Skor Sistemi**: Ardışık blok kırma bonusları
 - **İlerleme Takibi**: Top kazanma progress barı
 - **Türkçe Arayüz**: Tamamen Türkçe menü ve talimatlar
+- **Zorluk Sistemi**: Skor arttıkca oyun hızlanır
 
 ## Nasıl Oynanır
 
