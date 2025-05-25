@@ -46,5 +46,5 @@ Stack it & Break it, klasik Tetris ve Breakout oyunlarının benzersiz bir hibri
 
 
 ## Oynanış Videosu
---video gelicek--
+[Youtube Videosu](https://www.youtube.com/watch?v=UsufsOm6NYk)
 
