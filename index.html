@@ -422,6 +422,33 @@
             
             oyunDongusu(); 
         }
+
+        // Oyunu bitir ve ana menüye dön
+        function oyunuBitir() {
+            oyunCalisiyorMu = false;
+            
+            // Müziği durdur
+            try {
+                arkaPlanMuzigi.pause();
+                arkaPlanMuzigi.currentTime = 0;
+            } catch(e) {}
+            
+            // Skor göster ve ana menüye dön
+            setTimeout(() => {
+                alert(`Oyun Bitti!\n\nSkorunuz: ${puan}\n\nAna menüye dönülüyor...`);
+                
+                // Ana menüyü göster
+                document.getElementById('anaMenu').style.display = 'flex';
+                
+                // Oyun değişkenlerini sıfırla
+                tahta = [];
+                toplar = [];
+                mevcutParca = null;
+                
+                // Canvas'ı temizle
+                cizimKonteksti.clearRect(0, 0, canvas.width, canvas.height);
+            }, 100);
+        }
         // Yeni Tetris parçası
         function yeniParca() {
             const sekilIndeksi = Math.floor(Math.random() * SEKILLER.length); 
@@ -434,7 +461,7 @@
             // Parça yerleştirilemezse oyun bitti
             if (!gecerliHareketMi(0, 0)) {
                 oyunBitti = true;
-                alert('Oyun Bitti! Skorunuz: ' + puan);
+                oyunuBitir();
             }
         }
         // Parçayı yerleştir
