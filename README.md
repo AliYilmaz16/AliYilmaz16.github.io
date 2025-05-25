@@ -44,7 +44,9 @@ Stack it & Break it, klasik Tetris ve Breakout(Blok Kırma) oyunlarının benzer
 ![Stack it Modu](https://github.com/user-attachments/assets/968d8e3e-6749-4b78-a7f2-97a6015cf944)
 ![Break it Modu](https://github.com/user-attachments/assets/33b78ccb-2b87-4715-afe0-48652ce87c3a)
 
-
 ## Oynanış Videosu
 [Youtube Videosu](https://www.youtube.com/watch?v=UsufsOm6NYk)
 
+## Oyunun Linkleri
+Oyunun Linki = https://itch.io/jam/bigmode-2023/rate/2421242
+Game Jam'deki Linki = https://gamingstef.itch.io/stack-it-break-it
