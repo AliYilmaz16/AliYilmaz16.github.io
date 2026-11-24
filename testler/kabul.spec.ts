@@ -4,7 +4,8 @@ import { test, expect, type Page } from '@playwright/test';
 import fs from 'node:fs';
 import path from 'node:path';
 
-const KANIT = 'docs/kanit';
+const KANIT = process.env.TABAN ? 'docs/kanit/canli' : 'docs/kanit';
+const TABAN = new URL(process.env.TABAN ?? 'http://127.0.0.1:4321').origin;
 const sayfalar = ['/', '/en/', '/proje/balon-takip/', '/en/project/isg-guard/'];
 const cek = async (page: Page, ad: string, tam = false) => {
   const proje = test.info().project.name;
@@ -325,8 +326,8 @@ test('D8 bütün bağlantılar', async ({ page, request, browserName }) => {
     for (const h of hepsi) {
       if (!h || h.startsWith('mailto:')) continue;
       const u = new URL(h);
-      if (u.origin === 'http://127.0.0.1:4321') { ic.add(u.pathname); if (u.pathname.endsWith('/') && !bakildi.has(u.pathname)) bakilacak.push(u.pathname); }
-      else if (u.origin !== 'https://aliyilmaz16.github.io') dis.add(u.href.split('#')[0]);
+      if (u.origin === TABAN) { ic.add(u.pathname); if (u.pathname.endsWith('/') && !bakildi.has(u.pathname)) bakilacak.push(u.pathname); }
+      else if (u.origin !== 'https://aliyilmaz16.github.io' && u.origin !== 'http://127.0.0.1:4321') dis.add(u.href.split('#')[0]);
     }
     // sayfa içi çapalar
     const kirik = await page.evaluate(() => [...document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]')].map((a) => a.getAttribute('href')!).filter((h) => h.length > 1 && !document.getElementById(decodeURIComponent(h.slice(1)))));

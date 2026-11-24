@@ -1,0 +1,15 @@
+kart-balon-takip
+kart-isg-guard
+kart-pardus-muzik-calar
+kart-sec-ded
+kart-c-syntax-highlighter
+kart-hayvanat-bahcesi
+durak:Yazılım Stajyeri
+durak:Takım Kaptanı, Matris
+durak:Yazılım Stajyeri
+durak:Yazılım Stajyeri
+durak:Takım Üyesi, Matris
+durak:Çekirdek Ekip Üyesi
+durak:Görüntü İşleme Stajyeri
+durak:Takım Üyesi, Sefir-i Gök
+durak:Bursa Teknik Üniversitesi
