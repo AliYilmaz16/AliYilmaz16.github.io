@@ -101,7 +101,9 @@ Bir staj bittiğinde yalnızca `bitis` satırını eklemen yeter; "sürüyor" bi
 
 ```bash
 npx playwright install chromium firefox webkit   # bir kez
-npm run build && npm test                        # D1-D9, D12: üç tarayıcıda
+npm run build && npx astro preview --background  # derle, önizlemeyi arka planda başlat
+npm test                                         # D1-D9, D12: üç tarayıcıda
+npx astro preview stop                           # önizlemeyi kapat
 node araclar/lighthouse.mjs                      # D10: sayfa denetimi
 node araclar/d11.mjs                             # D11: içerik dosyasına deneme projesi
 ```

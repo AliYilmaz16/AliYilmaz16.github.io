@@ -2,7 +2,7 @@
 
 MTS-PRJ-2026-014, 10. bölümdeki kabul denemelerinin sonuçları. Denemeler 25.11.2026 gecesi hem yerel önizlemede hem yayındaki adreste (<https://aliyilmaz16.github.io/>) çalıştırıldı.
 
-Ortam: Playwright 1.65 ile indirilen Chromium 159, Firefox 159 ve WebKit 27.2 (macOS). Lighthouse, Playwright'ın Chromium'uyla çalıştırıldı. Otomatik denemeler `testler/kabul.spec.ts` dosyasında; yerelde ve canlıda 49'u geçti, 8'i bilerek atlandı (aşağıda açıklanıyor).
+Ortam: Playwright 1.65 ile indirilen Chromium 159, Firefox 159 ve WebKit 27.2 (macOS). Lighthouse, Playwright'ın Chromium'uyla çalıştırıldı. Otomatik denemeler `testler/kabul.spec.ts` dosyasında; yerelde ve canlıda 52'si geçti, 8'i bilerek atlandı (aşağıda açıklanıyor).
 
 ## Sonuçlar
 
@@ -36,6 +36,14 @@ Canlı site, ortanca (üç koşunun değerleri parantez içinde):
 
 Lighthouse'un işaretlediği tek madde "bf-cache": neden olarak `CacheLimitPrunedOnCriticalMemoryPressure` verdi. Bu, başsız tarayıcının bellek durumuyla ilgili; sayfada geri önbelleğini engelleyen bir şey bildirilmedi. D9'daki geri dönüş denemesi üç tarayıcıda geçti.
 
+## Denemelerin yakaladığı kusurlar
+
+| Kusur | Yakalayan | Düzeltme |
+| --- | --- | --- |
+| CSS küçültücü `animation-timeline` bildirimini bozuyordu; ilerleme çubuğu derlenmiş sitede hiç dolmuyordu | D4b | CSS küçültme kapatıldı |
+| GitHub'dan gelen "son güncelleme" satırları listeye sonradan eklenince alttaki bölümler yaklaşık 100 px aşağı kayıyor, `/#deneyim` gibi bağlantılar yanlış yere iniyordu. Yalnızca canlı sitede, ilk yayından sonra görüldü | D6 (canlı) | Tarih satırına baştan yer ayrıldı; kalıcı bir deneme eklendi |
+| Dil değişiminde bölüm, kaydırma sürerken yanlış hesaplanabiliyordu | D6 | Bölüm, tıklama anındaki konumdan hesaplanıyor |
+
 ## Atlanan ve yapılamayan denemeler
 
 | Konu | Durum |
@@ -64,7 +72,7 @@ Lighthouse'un işaretlediği tek madde "bf-cache": neden olarak `CacheLimitPrune
 | E4 | `adim3-kart-telefon.jpg`: özet ve araçlar kartta görünür |
 | E7 | D3 |
 | E8 | D4, D4c, D12 |
-| E9 | D1 ve D2'de yatay taşma ölçümü; Lighthouse CLS 0 (bir masaüstü koşusunda 0,058) |
+| E9 | D1 ve D2'de yatay taşma ölçümü; Lighthouse CLS 0 (bir masaüstü koşusunda 0,058); GitHub verisi gelince alttaki bölümün yerinin değişmediği ayrı bir denemeyle ölçülüyor |
 | E10 | D5 |
 | T1 | GitHub Pages, durağan çıktı |
 | T2 | D1 |
@@ -77,7 +85,7 @@ Lighthouse'un işaretlediği tek madde "bf-cache": neden olarak `CacheLimitPrune
 ## Denemeleri yeniden çalıştırma
 
 ```bash
-npm run build && npm test                                   # yerel
+npm run build && npx astro preview --background && npm test   # yerel
 TABAN=https://aliyilmaz16.github.io npx playwright test     # canlı
 node araclar/lighthouse.mjs https://aliyilmaz16.github.io   # D10
 node araclar/d11.mjs                                        # D11

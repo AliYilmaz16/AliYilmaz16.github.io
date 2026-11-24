@@ -348,6 +348,25 @@ test('D8 bütün bağlantılar', async ({ page, request, browserName }) => {
   expect(sorunlu).toEqual([]);
 });
 
+test('E9 GitHub verisi gelince sayfa düzeni kaymıyor', async ({ page }) => {
+  // GitHub yanıtı geciktirilir; yanıt gelmeden ve geldikten sonra alttaki bölümün konumu aynı olmalı.
+  let birak: () => void = () => {};
+  const bekle = new Promise<void>((r) => { birak = r; });
+  await page.route('https://api.github.com/**', async (rota) => {
+    await bekle;
+    await rota.fulfill({ json: [{ name: 'mucars-random-forest-classification', description: 'x', html_url: 'https://github.com/AliYilmaz16/mucars-random-forest-classification', pushed_at: '2026-06-07T10:00:00Z', fork: false }, { name: 'SmartHome-Energy-Classifier', description: 'x', html_url: 'https://github.com/AliYilmaz16/SmartHome-Energy-Classifier', pushed_at: '2026-01-22T10:00:00Z', fork: false }] });
+  });
+  await page.goto('/');
+  await page.evaluate(() => document.fonts.ready);
+  await page.locator('.diger-liste').scrollIntoViewIfNeeded();
+  await page.waitForTimeout(600);
+  const konum = () => page.evaluate(() => Math.round(document.getElementById('deneyim')!.getBoundingClientRect().top + scrollY));
+  const once = await konum();
+  birak();
+  await expect(page.locator('.diger-liste [data-tarih]').first()).toContainText('2026');
+  expect(await konum()).toBe(once);
+});
+
 test('D9 proje adresi doğrudan açılıyor, geri tuşu çalışıyor', async ({ page }) => {
   await page.goto('/proje/sec-ded/');
   await expect(page.locator('h1')).toHaveText('Hamming SEC-DED Simülatörü');

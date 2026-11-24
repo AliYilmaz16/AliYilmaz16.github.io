@@ -257,8 +257,10 @@ h3 { font-size: 1.1875rem; line-height: 1.3; font-weight: 600; letter-spacing: -
 .diger-liste a:hover .diger-ad { color: var(--vurgu); }
 .diger-alan { grid-column: 3; grid-row: 1; font-family: var(--es); font-size: 0.75rem; color: var(--soluk); white-space: nowrap; }
 .diger-aciklama { grid-column: 2; grid-row: 1; color: var(--soluk); font-size: 0.9375rem; line-height: 1.5; }
-.diger-tarih { grid-column: 2; font-family: var(--es); font-size: 0.75rem; color: var(--soluk); }
+.diger-tarih { grid-column: 2; font-family: var(--es); font-size: 0.75rem; line-height: 1.35; color: var(--soluk); }
 .diger-tarih:empty { display: none; }
+/* Betik varken tarih satırına baştan yer ayrılır: GitHub verisi gelince sayfa aşağı kaymaz. */
+html.js .diger-tarih, html.js .diger-tarih:empty { display: block; min-height: 1.35em; }
 @media (max-width: 760px) {
   .diger-liste a { grid-template-columns: 1fr auto; }
   .diger-ad { grid-column: 1; } .diger-alan { grid-column: 2; }
