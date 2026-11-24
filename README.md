@@ -1,53 +1,123 @@
-# Stack it & Break it  
-Oyunun Bağlantısı : AliYilmaz16.github.io
-## Açıklama
+# Ali Yılmaz · kişisel web sitesi
 
-Stack it & Break it, klasik Tetris ve Breakout(Blok Kırma) oyunlarının benzersiz bir hibritidir. Oyuncular iki farklı mod arasında geçiş yaparak stratejik oynanış deneyimi yaşarlar.
+Yayın adresi: <https://aliyilmaz16.github.io/> (İngilizce: <https://aliyilmaz16.github.io/en/>)
 
-### Oyun Modları
+Tek sayfalık tanıtım sitesi ve her proje için bir ayrıntı sayfası. Türkçe ve İngilizce, koyu ve açık tema. Sunucu tarafı, veritabanı, çerez ve izleme aracı yok.
 
-- **STACK IT (Tetris Modu)**: Tetris parçalarını düşürerek tam satırlar oluşturun
-- **BREAK IT (Breakout Modu)**: Kazandığınız toplarla beyaz blokları kırın
+Sitenin bütün içeriği kökteki **`icerik.yaml`** dosyasındadır. Yeni proje ya da staj eklemek için yalnızca o dosya değişir.
 
-## Özellikler
+## Yerelde çalıştırma
 
-- **Hibrit Oynanış**: İki farklı oyun türünün mükemmel birleşimi
-- **Ses Efektleri**: Oyun deneyimi eğlenceli kılan arka plan müziği ve efekt sesleri
-- **Skor Sistemi**: Ardışık blok kırma bonusları
-- **İlerleme Takibi**: Top kazanma progress barı
-- **Türkçe Arayüz**: Tamamen Türkçe menü ve talimatlar
-- **Zorluk Sistemi**: Skor arttıkca oyun hızlanır
+Node 22.23 ya da üstü gerekir.
 
-## Nasıl Oynanır
+```bash
+npm install
+npm run dev        # http://localhost:4321 adresinde açılır, dosya değişince yenilenir
+```
 
-### Tetris Modu (Stack it)
-- **← → Ok Tuşları**: Parçaları yanlara hareket ettir
-- **↓ Aşağı Ok**: Parçaları hızlı düşür
-- **↑Yukarı Ok / W**: Parçaları döndür
-- **S**: Parçayı anında düşür
-- **Boşluk Tuşu**: Breakout moduna geç (top gerekli)
+Yayındaki hâlin aynısını görmek için:
 
-### Breakout Modu (Break it)
-- **← → Ok Tuşları**: Platformu hareket ettir
-- **↑ Yukarı Ok**: Topu fırlat
-- **Boşluk Tuşu**: Tetris moduna geri dön
+```bash
+npm run build      # dist/ klasörüne derler
+npm run preview    # derlenmiş siteyi http://localhost:4321 adresinde sunar
+npx astro preview stop   # önizlemeyi kapatır
+```
 
-### Oyun Mekanikleri
-1. **Top Kazanma**: Tetris'te tam satır oluşturun → Bloklar beyaza döner → Her 10 beyaz blok = 1 top
-2. **Puanlama**: 
-   - Tetris: Her 10 blok dönüşümü = 100 puan
-   - Breakout: Ardışık blok kırma (1, 2, 3, 4... puan)
-3. **Hız Artışı**: Skor arttıkça oyun hızlanır
+## Yayına alma
 
-## Ekran Görüntüleri
-![Oyun Ana Menü](https://github.com/user-attachments/assets/afe3b79f-93a3-4ecc-87d5-443e4e0472a9)
-![Nasıl Oynanır Menü](https://github.com/user-attachments/assets/7dd5e6c2-5b17-4faf-86c0-68da28a601c0)
-![Stack it Modu](https://github.com/user-attachments/assets/968d8e3e-6749-4b78-a7f2-97a6015cf944)
-![Break it Modu](https://github.com/user-attachments/assets/33b78ccb-2b87-4715-afe0-48652ce87c3a)
+`main` dalına gönderilen her değişiklik, `.github/workflows/yayin.yml` ile kendiliğinden derlenir ve GitHub Pages'e konur. Ayrıca bir şey yapmak gerekmez:
 
-## Oynanış Videosu
-[Youtube Videosu](https://www.youtube.com/watch?v=UsufsOm6NYk)
+```bash
+git add -A
+git commit -m "Yeni staj açıklaması"
+git push
+```
 
-## Oyunun Linkleri
-Oyunun Linki = https://itch.io/jam/bigmode-2023/rate/2421242
-Game Jam'deki Linki = https://gamingstef.itch.io/stack-it-break-it
+Derlemenin durumu deponun **Actions** sekmesinde görünür; bir iki dakika sürer.
+
+Kendi alan adını bağlamak için: `public/CNAME` dosyasına alan adını yaz (tek satır), `icerik.yaml` ve `astro.config.mjs` içindeki `https://aliyilmaz16.github.io` adresini değiştir, alan adı sağlayıcısında GitHub Pages kayıtlarını gir.
+
+Eski site (2025) `eski-site-2025` dalında durur.
+
+## Yeni proje ekleme
+
+1. Görselleri `src/assets/projeler/<kimlik>/` klasörüne koy. Boyutlarını küçültmen gerekmez; derleme küçültür.
+2. `icerik.yaml` içinde `projeler:` listesine bir kayıt ekle. Listedeki sıra, sitedeki sıradır.
+
+```yaml
+  - kimlik: yeni-proje            # adres olur: /proje/yeni-proje/
+    ad: { tr: Yeni Proje, en: New Project }
+    alan: web                     # "alanlar" listesindeki anahtarlardan biri
+    baglam: { tr: Ders projesi, en: Course project }
+    ozet: { tr: Tek cümlelik özet., en: One-sentence summary. }
+    sorun: { tr: "...", en: "..." }
+    rol: { tr: "...", en: "..." }
+    araclar: [Python, OpenCV]
+    karar: { tr: "...", en: "..." }
+    sonuc: { tr: "...", en: "..." }
+    gorseller:                    # ilki kartta görünür
+      - dosya: ekran.png
+        alt: { tr: Ana ekran, en: Main screen }
+    video: /video/yeni-proje.mp4  # isteğe bağlı; dosya public/video/ altında, H.264
+    video_baglanti: https://www.youtube.com/watch?v=...   # isteğe bağlı
+    depo: https://github.com/AliYilmaz16/yeni-proje
+```
+
+Boş bırakılan alan sitede gösterilmez. Görsel verilmezse kart, adın ilk harfleriyle çizilir. Kısa listeye (öteki projeler) eklemek için `diger_projeler:` altına `depo_adi`, `ad`, `alan`, `aciklama` yazman yeter.
+
+GitHub'da açıklaması yazılmış yeni bir depo açarsan, öteki projeler listesinin sonunda kendiliğinden görünür. Görünmesini istemediğin depoyu `gizli_depolar:` listesine ekle.
+
+## Yeni staj ya da görev ekleme
+
+`icerik.yaml` içinde `deneyim:` listesinin başına ekle (en yeni en üstte):
+
+```yaml
+  - kurum: Kurum Adı
+    gorev: { tr: Yazılım Stajyeri, en: Software Intern }
+    tur: staj                     # staj | takim
+    baslangic: 2027-01
+    bitis: 2027-03                # yazılmazsa "sürüyor" görünür ve girişteki "şu an" satırına çıkar
+    maddeler:                     # en çok üç madde; boş bırakılabilir
+      - { tr: Ne yaptığın., en: What you did. }
+```
+
+Bir staj bittiğinde yalnızca `bitis` satırını eklemen yeter; "sürüyor" bilgisi ve girişteki "şu an" satırı buradan türetilir.
+
+## Öteki sık işler
+
+| İş | Yapılacak |
+| --- | --- |
+| Fotoğraf eklemek | Dosyayı `src/assets/ali.jpg` olarak koy, `kisi.fotograf: ali.jpg` yaz |
+| E-posta göstermek | `kisi.eposta` alanına yaz |
+| Özgeçmiş indirme düğmesi | PDF'i `public/` altına koy, `kisi.ozgecmis` alanına dosya adını yaz |
+| Hakkımda yazısını değiştirmek | `kisi.hakkimda.tr` ve `kisi.hakkimda.en` |
+| Paylaşım önizleme görselini yenilemek | `node araclar/og.mjs` (ad ya da unvan değişince) |
+| Düğme ve başlık metinleri | `src/lib/i18n.ts` |
+| Renkler ve yazı tipleri | `src/styles/global.css` dosyasının başı |
+
+`icerik.yaml` içinde biçim hatası olursa derleme durur ve hangi alanın yanlış olduğunu söyler.
+
+## Denemeler
+
+```bash
+npx playwright install chromium firefox webkit   # bir kez
+npm run build && npm test                        # D1-D9, D12: üç tarayıcıda
+node araclar/lighthouse.mjs                      # D10: sayfa denetimi
+node araclar/d11.mjs                             # D11: içerik dosyasına deneme projesi
+```
+
+Sonuçlar `docs/DENEME.md` dosyasında, kanıtları `docs/kanit/` klasöründedir.
+
+## Klasörler
+
+```
+icerik.yaml            bütün içerik
+src/assets/projeler/   proje görselleri
+src/views/             ana sayfa ve proje sayfası
+src/layouts/Base.astro üst menü, alt bilgi, komut paleti
+src/scripts/           site.ts (etkileşimler), takip.ts (girişteki benzetim)
+src/styles/global.css  bütün stiller
+public/                yazı tipleri, video, paylaşım görselleri
+testler/, araclar/     kabul denemeleri ve yardımcı betikler
+docs/                  karar notu, deneme tablosu, eksikler listesi
+```

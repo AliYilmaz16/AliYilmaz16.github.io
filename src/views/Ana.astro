@@ -1,0 +1,214 @@
+---
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import ProjeKarti from '../components/ProjeKarti.astro';
+import { icerik, c, kisiGorseli, type Dil } from '../lib/icerik';
+import { t, anaYol, digerDil, bolumler, projeYolu, aralik, tarih } from '../lib/i18n';
+
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const k = icerik.kisi;
+const diger = digerDil(dil);
+const id = (b: keyof typeof bolumler) => bolumler[b][dil];
+const karsi = (b: keyof typeof bolumler) => bolumler[b][diger];
+const suruyor = icerik.deneyim.filter((d) => !d.bitis);
+const foto = k.fotograf ? kisiGorseli(k.fotograf) : undefined;
+const alanlar = Object.entries(icerik.alanlar).filter(
+  ([anahtar]) => icerik.projeler.some((p) => p.alan === anahtar) || icerik.diger_projeler.some((p) => p.alan === anahtar),
+);
+const ilkProje = icerik.projeler[0];
+---
+
+<Base dil={dil} baslik={c(icerik.site.baslik, dil)} aciklama={c(icerik.site.aciklama, dil)} karsiYol={anaYol(diger)} sayfa="ana">
+  <!-- GİRİŞ -->
+  <section class="giris kap" id="ust" data-karsi="">
+    <div class="giris-metin">
+      <p class="ustluk"><span class="nokta" aria-hidden="true"></span>{c(k.unvan, dil)} · {c(k.konum, dil)}</p>
+      <h1>{k.ad}</h1>
+      <p class="tanitim">{c(k.tanitim, dil)}</p>
+      <div class="dugmeler">
+        <a class="dugme birincil" href={`#${id('projeler')}`}>{t('projeleriGor', dil)}</a>
+        <a class="dugme" href={`#${id('iletisim')}`}>{t('iletisimeGec', dil)}</a>
+      </div>
+      {suruyor.length > 0 && (
+        <dl class="simdi">
+          <dt>{t('suAn', dil)}</dt>
+          {suruyor.map((d) => (
+            <dd>{c(d.gorev, dil)} <span class="soluk">· {c(d.kurum, dil)}</span></dd>
+          ))}
+        </dl>
+      )}
+    </div>
+
+    <figure class="benzetim">
+      <div class="benzetim-alan">
+        <canvas
+          data-takip
+          data-etiket-takip={t('takip', dil)}
+          data-etiket-tahmin={t('tahmin', dil)}
+          data-etiket-tespit={t('tespit', dil)}
+          aria-hidden="true"></canvas>
+        <span class="kose k1" aria-hidden="true"></span><span class="kose k2" aria-hidden="true"></span><span class="kose k3" aria-hidden="true"></span><span class="kose k4" aria-hidden="true"></span>
+      </div>
+      <figcaption>
+        <strong>{t('benzetimBaslik', dil)}.</strong>{' '}{t('benzetimAciklama', dil)}{' '}{ilkProje && <a href={projeYolu(dil, ilkProje.kimlik)}>{t('benzetimProje', dil)} →</a>}
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- HAKKIMDA -->
+  <section class="bolum kap" id={id('hakkimda')} data-karsi={karsi('hakkimda')} aria-labelledby="b-hakkimda">
+    <h2 id="b-hakkimda" data-belir>{t('hakkimda', dil)}</h2>
+    <div class:list={['hakkimda', { fotolu: !!foto }]}>
+      {foto && (
+        <Image class="foto" src={foto} alt={k.ad} width={360} height={360} fit="cover" format="webp" data-belir />
+      )}
+      <div class="yazi" data-belir>
+        {k.hakkimda[dil].map((p) => <p>{p}</p>)}
+      </div>
+      {k.simdi.length > 0 && (
+        <aside class="odak" data-belir style="--i:1" aria-label={t('suAnUzerinde', dil)}>
+          <h3>{t('suAnUzerinde', dil)}</h3>
+          <ul>
+            {k.simdi.map((s) => <li>{c(s, dil)}</li>)}
+          </ul>
+        </aside>
+      )}
+    </div>
+  </section>
+
+  <!-- PROJELER -->
+  <section class="bolum kap" id={id('projeler')} data-karsi={karsi('projeler')} aria-labelledby="b-projeler">
+    <h2 id="b-projeler" data-belir>{t('projeler', dil)}</h2>
+    <p class="bolum-giris" data-belir>{t('projelerGiris', dil)}</p>
+
+    <div class="suzgec js-only" role="group" aria-label={t('suz', dil)} data-suzgec data-belir>
+      <button type="button" aria-pressed="true" data-alan="">{t('hepsi', dil)}</button>
+      {alanlar.map(([anahtar, ad]) => (
+        <button type="button" aria-pressed="false" data-alan={anahtar}>{c(ad, dil)}</button>
+      ))}
+    </div>
+
+    <ul class="kartlar" data-kartlar>
+      {icerik.projeler.map((p, i) => <ProjeKarti proje={p} dil={dil} sira={i} />)}
+    </ul>
+
+    {icerik.diger_projeler.length > 0 && (
+      <div class="diger" data-diger>
+        <h3 data-belir>{t('digerProjeler', dil)}</h3>
+        <ul
+          class="diger-liste"
+          data-github={k.github_kullanici}
+          data-gizli={[...icerik.gizli_depolar, ...icerik.diger_projeler.map((d) => d.depo_adi)].join(',')}
+          data-etiket-guncelleme={t('sonGuncelleme', dil)}
+        >
+          {icerik.diger_projeler.map((d, i) => (
+            <li data-alan={d.alan} data-depo={d.depo_adi} data-belir style={`--i:${i % 3}`}>
+              <a href={`${k.github}/${d.depo_adi}`}>
+                <span class="diger-ad">{c(d.ad, dil)}</span>
+                <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}</span>
+                <span class="diger-aciklama">{c(d.aciklama, dil)}</span>
+                <span class="diger-tarih" data-tarih></span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+    <p class="suzgec-bos" data-suzgec-bos hidden>{t('suzgecBos', dil)}</p>
+  </section>
+
+  <!-- DENEYİM -->
+  <section class="bolum kap" id={id('deneyim')} data-karsi={karsi('deneyim')} aria-labelledby="b-deneyim">
+    <h2 id="b-deneyim" data-belir>{t('deneyim', dil)}</h2>
+    <p class="bolum-giris" data-belir>{t('deneyimGiris', dil)}</p>
+    <ol class="cizgi" data-cizgi>
+      {icerik.deneyim.map((d) => (
+        <li class:list={['durak', { acik: !d.bitis }]} data-belir>
+          <p class="durak-tarih">
+            <time>{aralik(d.baslangic, d.bitis, dil)}</time>
+          </p>
+          <div class="durak-govde">
+            <h3>{c(d.gorev, dil)}</h3>
+            <p class="durak-kurum">{c(d.kurum, dil)} <span class="rozet">{t(d.tur, dil)}</span></p>
+            {d.maddeler.length > 0 && (
+              <ul class="maddeler">
+                {d.maddeler.map((m) => <li>{c(m, dil)}</li>)}
+              </ul>
+            )}
+            {d.proje && icerik.projeler.some((p) => p.kimlik === d.proje) && (
+              <p class="durak-bag"><a href={projeYolu(dil, d.proje)}>{t('ilgiliProje', dil)}: {c(icerik.projeler.find((p) => p.kimlik === d.proje)!.ad, dil)} →</a></p>
+            )}
+          </div>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <!-- EĞİTİM -->
+  <section class="bolum kap" id={id('egitim')} data-karsi={karsi('egitim')} aria-labelledby="b-egitim">
+    <h2 id="b-egitim" data-belir>{t('egitim', dil)}</h2>
+    <ol class="cizgi" data-cizgi>
+      {icerik.egitim.map((e) => (
+        <li class:list={['durak', { acik: !e.bitis || Number(e.bitis) >= new Date().getFullYear() }]} data-belir>
+          <p class="durak-tarih"><time>{tarih(e.baslangic, dil)} – {e.bitis ? tarih(e.bitis, dil) : t('suruyor', dil)}</time></p>
+          <div class="durak-govde">
+            <h3>{c(e.kurum, dil)}</h3>
+            <p class="durak-kurum">{c(e.bolum, dil)}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+    {icerik.programlar.length > 0 && (
+      <div class="programlar" data-belir>
+        <h3>{t('programlar', dil)}</h3>
+        <ul>
+          {icerik.programlar.map((p) => (
+            <li>
+              {p.baglanti ? <a href={p.baglanti}>{c(p.ad, dil)}</a> : c(p.ad, dil)}
+              {p.tarih && <span class="soluk"> · {tarih(p.tarih, dil)}</span>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+  </section>
+
+  <!-- YETENEKLER -->
+  <section class="bolum kap" id={id('yetenekler')} data-karsi={karsi('yetenekler')} aria-labelledby="b-yetenekler">
+    <h2 id="b-yetenekler" data-belir>{t('yetenekler', dil)}</h2>
+    <dl class="yetenekler">
+      {icerik.yetenekler.map((y, i) => (
+        <div data-belir style={`--i:${i % 3}`}>
+          <dt>{c(y.grup, dil)}</dt>
+          <dd><ul class="etiketler">{y.ogeler.map((o) => <li>{o}</li>)}</ul></dd>
+        </div>
+      ))}
+      {icerik.diller.length > 0 && (
+        <div data-belir>
+          <dt>{t('konusulanDiller', dil)}</dt>
+          <dd><ul class="etiketler">{icerik.diller.map((d) => <li>{c(d.ad, dil)}{c(d.duzey, dil) && ` · ${c(d.duzey, dil)}`}</li>)}</ul></dd>
+        </div>
+      )}
+    </dl>
+  </section>
+
+  <!-- İLETİŞİM -->
+  <section class="bolum kap iletisim" id={id('iletisim')} data-karsi={karsi('iletisim')} aria-labelledby="b-iletisim">
+    <h2 id="b-iletisim" data-belir>{t('iletisim', dil)}</h2>
+    <p class="bolum-giris" data-belir>{t('iletisimGiris', dil)}</p>
+    <ul class="baglar" data-belir>
+      {k.eposta && <li><a href={`mailto:${k.eposta}`}><span class="soluk">{t('eposta', dil)}</span>{k.eposta}</a></li>}
+      {k.linkedin && <li><a href={k.linkedin} rel="me"><span class="soluk">LinkedIn</span>ali-yılmaz</a></li>}
+      {k.github && <li><a href={k.github} rel="me"><span class="soluk">GitHub</span>{k.github_kullanici}</a></li>}
+    </ul>
+    <div class="dugmeler" data-belir>
+      {k.ozgecmis && <a class="dugme birincil" href={`/${k.ozgecmis}`} download>{t('ozgecmisIndir', dil)}</a>}
+      <button class="dugme js-only" type="button" data-yazdir>{t('yazdir', dil)}</button>
+    </div>
+  </section>
+
+  <script>
+    import '../scripts/takip.ts';
+  </script>
+</Base>

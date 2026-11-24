@@ -1,0 +1,11 @@
+---
+import Base from '../layouts/Base.astro';
+import { t } from '../lib/i18n';
+---
+<Base dil="tr" baslik="404 · Ali Yılmaz" aciklama={t('bulunamadi', 'tr')} karsiYol="/en/" sayfa="proje">
+  <section class="kap bolum" style="min-height:60vh">
+    <h1>404</h1>
+    <p class="tanitim">{t('bulunamadi', 'tr')} · {t('bulunamadi', 'en')}</p>
+    <p class="dugmeler"><a class="dugme birincil" href="/">{t('anaSayfa', 'tr')}</a> <a class="dugme" href="/en/">{t('anaSayfa', 'en')}</a></p>
+  </section>
+</Base>

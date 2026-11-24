@@ -1,0 +1,21 @@
+{
+  "name": "ali-yilmaz-site",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "playwright test"
+  },
+  "dependencies": {
+    "astro": "^7.4.13",
+    "sharp": "^0.35.5",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.65.1",
+    "lighthouse": "^13.6.0"
+  }
+}

@@ -1,0 +1,8 @@
+Değiştirilen tek dosya: icerik.yaml (6 satır eklendi)
+GEÇTİ  TR ana sayfada kart
+GEÇTİ  EN ana sayfada kart
+GEÇTİ  TR ayrıntı sayfası
+GEÇTİ  EN ayrıntı sayfası
+GEÇTİ  komut paletinde
+GEÇTİ  görselsiz kart yer tutucuyla çiziliyor
+deneme sonrası icerik.yaml geri alındı: true

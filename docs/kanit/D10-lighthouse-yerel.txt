@@ -1,0 +1,14 @@
+yerel mobile  /                        başarım 99 (üç koşu: 98/99/100)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 0.8 s, CLS 0, TBT 100 ms)
+    - bf-cache: 1 failure reason
+yerel desktop /                        başarım 100 (üç koşu: 100/100/100)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 0.4 s, CLS 0, TBT 20 ms)
+yerel mobile  /en/                     başarım 100 (üç koşu: 100/100/100)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 0.7 s, CLS 0, TBT 0 ms)
+yerel desktop /en/                     başarım 100 (üç koşu: 100/100/100)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 0.3 s, CLS 0, TBT 0 ms)
+    - bf-cache: 1 failure reason
+yerel mobile  /proje/balon-takip/      başarım 95 (üç koşu: 71/95/96)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 2.3 s, CLS 0, TBT 190 ms)
+    - bf-cache: 1 failure reason
+yerel desktop /proje/balon-takip/      başarım 100 (üç koşu: 100/100/100)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 0.5 s, CLS 0, TBT 0 ms)
+    - bf-cache: 1 failure reason
+yerel mobile  /proje/isg-guard/        başarım 96 (üç koşu: 92/96/96)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 2.7 s, CLS 0, TBT 60 ms)
+    - bf-cache: 1 failure reason
+yerel desktop /proje/isg-guard/        başarım 100 (üç koşu: 100/100/100)  erişilebilirlik 100  iyi uygulamalar 100  SEO 100  (LCP 0.7 s, CLS 0, TBT 0 ms)
+    - bf-cache: 1 failure reason

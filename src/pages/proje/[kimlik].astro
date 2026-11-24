@@ -1,0 +1,9 @@
+---
+import ProjeSayfasi from '../../views/ProjeSayfasi.astro';
+import { icerik } from '../../lib/icerik';
+export function getStaticPaths() {
+  return icerik.projeler.map((proje) => ({ params: { kimlik: proje.kimlik }, props: { proje } }));
+}
+const { proje } = Astro.props;
+---
+<ProjeSayfasi dil="tr" proje={proje} />

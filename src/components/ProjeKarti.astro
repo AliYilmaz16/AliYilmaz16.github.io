@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { icerik, c, projeGorseli, type Dil, type Proje } from '../lib/icerik';
+import { t, projeYolu } from '../lib/i18n';
+
+interface Props { proje: Proje; dil: Dil; sira: number }
+const { proje, dil, sira } = Astro.props;
+const kapak = proje.gorseller[0];
+const ad = c(proje.ad, dil);
+---
+
+<li class="kart" data-belir style={`--i:${sira % 2}`} data-alan={proje.alan} id={`kart-${proje.kimlik}`}>
+  <article>
+    <div class="kart-gorsel" style={`view-transition-name: g-${proje.kimlik}`}>
+      {kapak ? (
+        <Image
+          src={projeGorseli(proje.kimlik, kapak.dosya)}
+          alt=""
+          widths={[420, 640, 960]}
+          sizes="(min-width: 900px) 540px, 92vw"
+          width={960}
+          height={600}
+          fit="cover"
+          position="top"
+          format="webp"
+          quality={72}
+          loading={sira < 2 ? 'eager' : 'lazy'}
+        />
+      ) : (
+        <div class="kart-yer" aria-hidden="true"><span>{ad.slice(0, 2)}</span></div>
+      )}
+    </div>
+    <div class="kart-govde">
+      <p class="kart-ust">
+        <span>{c(icerik.alanlar[proje.alan], dil)}</span>
+        {c(proje.baglam, dil) && <span class="soluk">{c(proje.baglam, dil)}</span>}
+      </p>
+      <h3>
+        <a href={projeYolu(dil, proje.kimlik)} data-proje={proje.kimlik}>
+          {ad}<span class="gizli"> — {t('ayrinti', dil)}</span>
+        </a>
+      </h3>
+      <span class="kart-ok" aria-hidden="true">→</span>
+    </div>
+    <div class="kart-ozet">
+      <p>{c(proje.ozet, dil)}</p>
+      {proje.araclar.length > 0 && (
+        <ul class="etiketler" aria-label={t('araclar', dil)}>
+          {proje.araclar.slice(0, 6).map((a) => <li>{a}</li>)}
+        </ul>
+      )}
+    </div>
+    <span class="kose k1" aria-hidden="true"></span><span class="kose k2" aria-hidden="true"></span><span class="kose k3" aria-hidden="true"></span><span class="kose k4" aria-hidden="true"></span>
+  </article>
+</li>

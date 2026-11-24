@@ -1,0 +1,418 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# SİTENİN BÜTÜN İÇERİĞİ BU DOSYADADIR.
+# Yeni proje, staj ya da metin eklemek için yalnızca bu dosyayı değiştir.
+#
+# Kurallar
+#  - İki dilli alanlar { tr: "...", en: "..." } biçimindedir.
+#  - Boş bırakılan alan ("" ya da hiç yazılmamış) sitede gösterilmez.
+#  - "EKSIK:" ile başlayan yorumlar Ali'nin doldurması gereken yerlerdir.
+#  - Tarihler "YYYY-AA" biçimindedir. "bitis" yazılmazsa satır "sürüyor" görünür.
+#  - Görseller src/assets/projeler/<proje-kimligi>/ klasöründen dosya adıyla okunur.
+# Ayrıntılı anlatım: README.md
+# ─────────────────────────────────────────────────────────────────────────────
+
+site:
+  adres: https://aliyilmaz16.github.io
+  baslik:
+    tr: Ali Yılmaz · Bilgisayar Mühendisliği Öğrencisi
+    en: Ali Yılmaz · Computer Engineering Student
+  aciklama:
+    tr: Bursa Teknik Üniversitesi Bilgisayar Mühendisliği öğrencisi Ali Yılmaz'ın projeleri, stajları ve eğitimi. Görüntü işleme, nesne tespiti ve takibi.
+    en: Projects, internships and education of Ali Yılmaz, a Computer Engineering student at Bursa Technical University working on computer vision, object detection and tracking.
+
+kisi:
+  ad: Ali Yılmaz
+  unvan:
+    tr: Bilgisayar Mühendisliği Öğrencisi
+    en: Computer Engineering Student
+  # Giriş ekranındaki tek cümlelik tanıtım.
+  tanitim:
+    tr: Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği okuyorum; görüntü işleme, nesne tespiti ve takibi üzerine çalışıyorum.
+    en: I study Computer Engineering at Bursa Technical University and work on computer vision, object detection and tracking.
+  konum:
+    tr: Bursa, Türkiye
+    en: Bursa, Türkiye
+  # TASLAK: Bu yazıyı ajan eldeki bilgilerden yazdı. Ali okuyup kendi sözleriyle düzeltmeli.
+  hakkimda:
+    tr:
+      - Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği öğrencisiyim. En çok görüntü işleme ile uğraşıyorum; Teknofest takımlarında YOLO ile hedef tespiti ve takibi üzerine çalıştım.
+      - Derslerde ve boş zamanımda masaüstü arayüzleri, küçük web uygulamaları ve makine öğrenmesi modelleri geliştirdim. Şu sıralar Spring Boot ile arka uç geliştirmeyi öğreniyorum.
+    en:
+      - I am a Computer Engineering student at Bursa Technical University. Most of my work is in computer vision; on Teknofest teams I worked on target detection and tracking with YOLO.
+      - In coursework and in my own time I have built desktop interfaces, small web applications and machine learning models. I am currently learning backend development with Spring Boot.
+  # Şu an üzerinde çalıştığı konular (GitHub profil yazısından).
+  simdi:
+    - tr: Python ile nesne tespiti
+      en: Object detection with Python
+    - tr: Spring Boot ile arka uç geliştirme
+      en: Backend development with Spring Boot
+  # EKSIK: Fotoğraf. Dosyayı src/assets/ali.jpg olarak koy ve aşağıya "ali.jpg" yaz.
+  fotograf: ""
+  # EKSIK: E-posta. Ali onaylarsa yazılır; boşken sitede görünmez.
+  eposta: ""
+  # EKSIK: Özgeçmiş dosyası. public/ klasörüne koy (ör. Ali_Yilmaz_CV.pdf) ve adını yaz.
+  ozgecmis: ""
+  linkedin: https://www.linkedin.com/in/ali-yılmaz-7a67b2343/
+  github: https://github.com/AliYilmaz16
+  github_kullanici: AliYilmaz16
+
+# Proje süzgecindeki alanlar. Yeni alan eklemek için buraya bir satır ekle.
+alanlar:
+  goruntu-isleme: { tr: Görüntü işleme, en: Computer vision }
+  makine-ogrenmesi: { tr: Makine öğrenmesi, en: Machine learning }
+  web: { tr: Web, en: Web }
+  masaustu: { tr: Masaüstü, en: Desktop }
+
+# ─── ÖNE ÇIKAN PROJELER ──────────────────────────────────────────────────────
+# Sıra, sitedeki sıradır. "kimlik" adres olur: /proje/<kimlik>/
+# Alanlar: ad, ozet (tek cümle), sorun, rol, araclar, karar, sonuc,
+#          gorseller (ilki kartta görünür), video / video_baglanti, depo.
+projeler:
+  - kimlik: balon-takip
+    ad: { tr: Balon Takip, en: Balloon Tracker }
+    alan: goruntu-isleme
+    baglam:
+      tr: Teknofest Hava Savunma Sistemleri Yarışması
+      en: Teknofest Air Defence Systems Competition
+    ozet:
+      tr: YOLOv8n ile balon tespiti ve kaçan karelerde kilidi koruyan, projeye özel bir takip sınıfı.
+      en: Balloon detection with YOLOv8n and a purpose-built tracker that holds its lock through missed frames.
+    sorun:
+      tr: Yarışma kuralları ve donanım sınırları yüksek kare hızı istiyordu. En hafif model olan YOLOv8n hızlıydı ama uzak mesafede ve ani hareketlerde hedefi kaçırıyor, ham tespitler titriyordu; bu da atış mekanizmasını bozuyordu.
+      en: Competition rules and hardware limits demanded a high frame rate. YOLOv8n, the lightest model, was fast but lost the target at long range and during sudden movement, and the raw detections jittered, which upset the firing mechanism.
+    # EKSIK: Takımdaki payın LinkedIn satırından alındı; istersen ayrıntılandır.
+    rol:
+      tr: Sefir-i Gök takımının üyesi olarak YOLO mimarisiyle hedef tespiti ve takibi üzerinde çalıştım.
+      en: As a member of the Sefir-i Gök team I worked on target detection and tracking with the YOLO architecture.
+    araclar: [Python, YOLOv8n, OpenCV, NumPy]
+    karar:
+      tr: DeepSORT gibi hazır bir takipçi yerine sisteme özel bir takip sınıfı yazıldı. Sınıf, hedefin son 8 konumundan hız vektörünü hesaplıyor, kamera hedefi kaçırdığında bir sonraki konumu tahmin ediyor ve koordinatları üstel hareketli ortalamayla yumuşatıyor.
+      en: Instead of an off-the-shelf tracker such as DeepSORT, a tracking class was written for this system. It computes a velocity vector from the target's last 8 positions, predicts the next position when the camera misses the target, and smooths the coordinates with an exponential moving average.
+    sonuc:
+      tr: Tespit bir karede kaçsa da kilit korunuyor ve titreme süzülüyor. Sahnedeki hedefler ana hedef ve ikincil olarak ayrılıyor, en kararlı olan kendiliğinden seçiliyor. Model, yarışma sahasına uygun balonlarla çekilip makesense.ai üzerinde elle etiketlenen fotoğraflarla eğitildi.
+      en: The lock is held even when a detection drops for a frame, and the jitter is filtered out. Targets in the scene are split into a main target and secondaries, and the most stable one is selected automatically. The model was trained on photos of competition-style balloons, shot for the project and labelled by hand on makesense.ai.
+    gorseller:
+      - dosya: video-kare.jpg
+        alt: { tr: "Takip çıktısı: ana hedef ve iki ikincil hedef", en: "Tracker output: main target and two secondary targets" }
+      - dosya: tespit.jpg
+        alt: { tr: Üç balonun tespiti ve ana hedef seçimi, en: Detection of three balloons and main target selection }
+    video: /video/balon-takip.mp4
+    depo: https://github.com/AliYilmaz16/Balon-Takip
+
+  - kimlik: isg-guard
+    ad: { tr: İSG Guard, en: ISG Guard }
+    alan: web
+    baglam:
+      tr: Node.js ile Web Programlama dersi projesi
+      en: Course project, Web Programming with Node.js
+    ozet:
+      tr: Saha çalışanının telefonunu algılayıcı olarak kullanan iş güvenliği sistemi; düşme, tehlikeli bölge ve gürültü alarmları yönetici paneline canlı düşer.
+      en: A workplace safety system that uses the worker's phone as the sensor; fall, danger-zone and noise alarms reach the admin panel live.
+    sorun:
+      tr: Sahada çalışan birinin düşmesi, sert bir darbe alması ya da tehlikeli bir bölgeye girmesi çoğu zaman geç fark edilir. Amaç, ek donanım gerektirmeden bu durumları anında yöneticiye bildirmekti.
+      en: When a field worker falls, takes a hard impact or walks into a hazardous area, it is often noticed late. The goal was to report these events to a supervisor immediately, without extra hardware.
+    # EKSIK: Bu projedeki rolün (tek başına mı, takımla mı, hangi kısım senin).
+    rol: { tr: "", en: "" }
+    araclar: [Node.js, Express, Socket.io, PostgreSQL, Prisma, React, Leaflet, Flutter, Telegram Bot API]
+    karar:
+      tr: Özel bir cihaz yerine telefonun ivmeölçeri, GPS'i ve mikrofonu kullanıldı. İvme verisi eşik değeri ve z-skoru ile çözümleniyor; konum, tanımlı tehlikeli bölgelerle karşılaştırılıyor.
+      en: Rather than a dedicated device, the phone's accelerometer, GPS and microphone are used. Acceleration data is analysed with thresholds and z-scores, and location is checked against defined danger zones.
+    sonuc:
+      tr: Sert darbe, düşme şüphesi, tehlikeli bölgeye giriş, hareketsizlik ve yüksek gürültü alarm üretiyor. Yönetici çalışanları haritada canlı izliyor; yüksek riskli alarmlar Telegram'dan da gidiyor.
+      en: Hard impacts, suspected falls, danger-zone entry, inactivity and high noise raise alarms. The supervisor follows workers live on a map, and high-risk alarms are also sent over Telegram.
+    gorseller:
+      - dosya: web-1.png
+        alt: { tr: Yönetici paneli, canlı harita, en: Admin panel with live map }
+      - dosya: web-2.png
+        alt: { tr: Haritada çalışanlar ve tehlikeli bölgeler, en: Workers and danger zones on the map }
+      - dosya: web-4.png
+        alt: { tr: Cihaz ayrıntıları ve uyarılar, en: Device details and alerts }
+      - dosya: web-3.png
+        alt: { tr: Yönetici arayüzü, en: Admin interface }
+      - dosya: mobile-1.png
+        alt: { tr: Mobil veri toplama uygulaması, en: Mobile data collection app }
+      - dosya: mobile-2.png
+        alt: { tr: Mobil uygulama, izleme ekranı, en: Mobile app, monitoring screen }
+    depo: https://github.com/AliYilmaz16/isg-guard
+
+  - kimlik: pardus-muzik-calar
+    ad: { tr: Pardus Müzik Çalar, en: Pardus Music Player }
+    alan: masaustu
+    baglam:
+      tr: Pardus Linux için
+      en: For Pardus Linux
+    ozet:
+      tr: Pardus için grafik ve terminal arayüzlü müzik çalar; tamamı tek bir Bash betiği.
+      en: A music player for Pardus with both a graphical and a terminal interface, all in a single Bash script.
+    sorun:
+      tr: Aynı çalarının hem masaüstünde hem de yalnızca terminal bulunan ortamda kullanılabilmesi isteniyordu.
+      en: The same player needed to work both on the desktop and where only a terminal is available.
+    rol: { tr: "", en: "" }
+    araclar: [Bash, YAD, Whiptail, mpg123]
+    karar:
+      tr: Bütün özellikler tek betikte toplandı; grafik arayüz YAD ile, terminal arayüzü Whiptail ile çiziliyor, sesi mpg123 çalıyor. Duraklatma ve sürdürme süreç sinyalleriyle yapılıyor.
+      en: Everything lives in one script; the graphical interface is drawn with YAD, the terminal interface with Whiptail, and mpg123 plays the audio. Pause and resume are done with process signals.
+    sonuc:
+      tr: Çalma listesi, oynatma denetimleri, anlık süre gösterimi ve şarkı bitince sonrakine geçiş çalışıyor. Bağımlılıkların hepsi Pardus'un kendi paket deposundan kuruluyor.
+      en: Playlist management, playback controls, a live time display and automatic advance to the next track all work. Every dependency installs from Pardus's own package repository.
+    gorseller:
+      - dosya: ArayuzSecimMenusu.png
+        alt: { tr: Arayüz seçim menüsü, en: Interface selection menu }
+      - dosya: GUIKontrolPaneli.png
+        alt: { tr: Grafik arayüz denetim paneli, en: Graphical control panel }
+      - dosya: GUIDosyaEkleme.png
+        alt: { tr: Grafik arayüzde dosya ekleme, en: Adding files in the graphical interface }
+      - dosya: TUIMenusu.png
+        alt: { tr: Terminal arayüzü menüsü, en: Terminal interface menu }
+    video_baglanti: https://www.youtube.com/watch?v=QVcJiZsK1GY
+    depo: https://github.com/AliYilmaz16/Pardus-Muzik-Calar
+
+  - kimlik: sec-ded
+    ad: { tr: Hamming SEC-DED Simülatörü, en: Hamming SEC-DED Simulator }
+    alan: masaustu
+    baglam:
+      tr: Bilgisayar Mimarisi dersi dönem projesi
+      en: Term project, Computer Architecture
+    ozet:
+      tr: Hamming kodunda tek hata düzeltmeyi ve çift hata tespitini bit bit gösteren PyQt5 simülatörü.
+      en: A PyQt5 simulator that shows single-error correction and double-error detection in Hamming codes, bit by bit.
+    sorun:
+      tr: Hamming kodunun hatayı nasıl bulup düzelttiği kâğıt üzerinde izlenmesi zor bir konu. Amaç, kodlamayı, hata eklemeyi ve düzeltmeyi görünür kılmaktı.
+      en: How a Hamming code locates and corrects an error is hard to follow on paper. The aim was to make encoding, error injection and correction visible.
+    rol: { tr: "", en: "" }
+    araclar: [Python, PyQt5]
+    karar: { tr: "", en: "" }
+    sonuc:
+      tr: 8, 16 ve 32 bitlik veri kodlanıyor; veri, eşlik ve hatalı bitler ayrı renklerle gösteriliyor. Seçilen bite hata eklenebiliyor, sendrom hesaplanıyor, tek hata düzeltiliyor, çift hata bildiriliyor. Kodlar belleğe yazılıp geri okunabiliyor.
+      en: 8-, 16- and 32-bit data can be encoded; data, parity and faulty bits are shown in different colours. An error can be injected at a chosen bit, the syndrome is computed, single errors are corrected and double errors are reported. Codes can be written to memory and read back.
+    gorseller:
+      - dosya: ana_ekran.png
+        alt: { tr: Simülatör ana ekranı, en: Simulator main screen }
+      - dosya: tek_hata.png
+        alt: { tr: Tek bit hatası, en: Single-bit error }
+      - dosya: cift_hata.png
+        alt: { tr: Çift bit hatası, en: Double-bit error }
+      - dosya: bellege_kaydet.png
+        alt: { tr: Belleğe kaydetme, en: Saving to memory }
+    video_baglanti: https://www.youtube.com/watch?v=j0MOhqZ0uog
+    depo: https://github.com/AliYilmaz16/SEC-DED-Kodlay-c-
+
+  - kimlik: c-syntax-highlighter
+    ad: { tr: C Sözdizimi Vurgulayıcı, en: C Syntax Highlighter }
+    alan: masaustu
+    baglam:
+      tr: Python ve tkinter
+      en: Python and tkinter
+    ozet:
+      tr: C kodunu yazarken renklendiren, belirteç listesini ve ayrıştırma ağacını gösteren araç.
+      en: A tool that highlights C code as you type and shows its token list and parse tree.
+    sorun:
+      tr: Bir derleyicinin kodu nasıl belirteçlere ayırdığını ve yapısını nasıl çıkardığını görmek için, bunu her tuş vuruşunda yapan bir düzenleyici yazıldı.
+      en: To see how a compiler splits code into tokens and derives its structure, an editor was written that does this on every keystroke.
+    rol: { tr: "", en: "" }
+    araclar: [Python, tkinter]
+    karar:
+      tr: Belirteç listesi yukarıdan aşağıya (top-down) ayrıştırılıyor ve kodun yapısı hiyerarşik bir ağaç olarak ayrı pencerede gösteriliyor.
+      en: The token list is parsed top-down and the structure of the code is shown as a hierarchical tree in a separate window.
+    sonuc:
+      tr: Anahtar sözcükler, tanımlayıcılar, sayılar, işleçler, metinler, yorumlar ve ön işlemci komutları yazıldığı anda renkleniyor. Proje bir tanıtım videosu ve bir yazıyla belgelendi.
+      en: Keywords, identifiers, numbers, operators, strings, comments and preprocessor directives are coloured as they are typed. The project is documented with a demo video and an article.
+    gorseller:
+      - dosya: giris.png
+        alt: { tr: Düzenleyici ana ekranı, en: Editor main screen }
+      - dosya: tokens.png
+        alt: { tr: Belirteç listesi, en: Token list }
+      - dosya: parsetree.png
+        alt: { tr: Ayrıştırma ağacı, en: Parse tree }
+    video_baglanti: https://www.youtube.com/watch?v=BTF3QeLcvoc
+    depo: https://github.com/AliYilmaz16/C-Syntax-Highlighter-with-Python
+
+  - kimlik: hayvanat-bahcesi
+    ad: { tr: Hayvanat Bahçesi Yönetim Sistemi, en: Zoo Management System }
+    alan: web
+    baglam:
+      tr: Web Tabanlı Programlama dersi projesi
+      en: Course project, Web-Based Programming
+    ozet:
+      tr: Hayvanların sağlık, beslenme ve yaşam alanı kayıtlarını tutan PHP ve MySQL uygulaması.
+      en: A PHP and MySQL application that keeps health, feeding and habitat records for zoo animals.
+    sorun:
+      tr: Bir hayvanat bahçesindeki hayvanların sağlık durumu, beslenme programı ve yaşam alanı tek bir yerden izlenmeliydi.
+      en: The health status, feeding schedule and habitat of the animals in a zoo needed to be tracked from one place.
+    rol: { tr: "", en: "" }
+    araclar: [PHP, MySQL, Bootstrap, JavaScript]
+    karar:
+      tr: Çatı kullanılmadan düz PHP ile yazıldı; parolalar özetlenerek saklanıyor, oturumlar PHP oturumlarıyla yönetiliyor.
+      en: Written in plain PHP without a framework; passwords are stored hashed and sessions are handled with PHP sessions.
+    sonuc:
+      tr: Kayıt ve giriş, hayvan ekleme, düzenleme ve silme, toplam hayvan sayısını ve sağlık durumu dağılımını gösteren bir panel çalışıyor.
+      en: Sign-up and login, adding, editing and deleting animals, and a dashboard showing the animal count and health distribution all work.
+    gorseller:
+      - dosya: panel.png
+        alt: { tr: Yönetim paneli, en: Management dashboard }
+      - dosya: anasayfa.png
+        alt: { tr: Ana sayfa, en: Home page }
+      - dosya: hayvan_ekle.png
+        alt: { tr: Hayvan ekleme formu, en: Add-animal form }
+      - dosya: giris_yapma.png
+        alt: { tr: Giriş ekranı, en: Login screen }
+    video_baglanti: https://youtu.be/BIDU2iQhnhc
+    depo: https://github.com/AliYilmaz16/hayvanat-bahcesi-php-mysql
+
+# ─── ÖTEKİ PROJELER ──────────────────────────────────────────────────────────
+# Kısa liste. "depo_adi" GitHub'daki depo adıdır; canlı veri bununla eşleşir.
+# GitHub'a ulaşılamazsa bu liste olduğu gibi gösterilir.
+diger_projeler:
+  - depo_adi: mucars-random-forest-classification
+    ad: MUCars Random Forest
+    alan: makine-ogrenmesi
+    aciklama:
+      tr: Fas ikinci el araç verisinde (MUCars-2024) Random Forest ile dört fiyat sınıfı tahmini. Veri Madenciliğine Giriş dersi projesi; test doğruluğu 0,8519.
+      en: Predicting four price classes on Moroccan used-car data (MUCars-2024) with Random Forest. Course project for Introduction to Data Mining; test accuracy 0.8519.
+  - depo_adi: SmartHome-Energy-Classifier
+    ad: SmartHome Energy Classifier
+    alan: makine-ogrenmesi
+    aciklama:
+      tr: Yalnızca hava durumu ve zaman bilgisiyle bir evin enerji tüketimini yüksek ya da düşük diye sınıflandırma. Üç model karşılaştırıldı; en iyisi KNN, %81,38.
+      en: Classifying a home's energy use as high or low from weather and time data alone. Three models compared; KNN was best at 81.38%.
+  - depo_adi: Hava-Kalitesi-Tahmin-Modeli
+    ad: { tr: Hava Kalitesi Tahmin Modeli, en: Air Quality Prediction Model }
+    alan: makine-ogrenmesi
+    aciklama:
+      tr: CO, ozon, NO₂ ve PM2.5 değerlerinden hava kalitesi sınıfı tahmini. Makine Öğrenmesine Giriş dersi projesi.
+      en: Predicting the air-quality class from CO, ozone, NO₂ and PM2.5 values. Course project for Introduction to Machine Learning.
+  - depo_adi: Akbank-Makine-Ogrenmesi-Bootcamp
+    ad: { tr: Trafik Kazası Şiddeti Tahmini, en: Traffic Accident Severity Prediction }
+    alan: makine-ogrenmesi
+    aciklama:
+      tr: Birleşik Krallık trafik kazası verisinde (1,5 milyon satır) kaza şiddeti tahmini. Akbank ve Global AI Hub Makine Öğrenmesi Bootcamp projesi; sınıf dengesizliği sorunu ve sınırları belgelendi.
+      en: Predicting accident severity on UK road accident data (1.5 million rows). Project for the Akbank and Global AI Hub Machine Learning Bootcamp; the class-imbalance problem and its limits are documented.
+  - depo_adi: Python202-Bootcamp
+    ad: Python 202 Bootcamp
+    alan: web
+    aciklama:
+      tr: Terminalde çalışan bir kitaplık uygulamasından FastAPI servisine üç aşamada büyüyen proje. Global AI Hub Python 202 Bootcamp.
+      en: A project that grows in three stages from a terminal library app into a FastAPI service. Global AI Hub Python 202 Bootcamp.
+
+# Canlı listede gösterilmeyecek depolar (açıklaması boş olanlar ve yukarıdakiler).
+gizli_depolar:
+  [AliYilmaz16, AliYilmaz16.github.io, staj-defteri, Kitaplik-Uygulamasi, Todos,
+   Balon-Takip, isg-guard, Pardus-Muzik-Calar, SEC-DED-Kodlay-c-,
+   C-Syntax-Highlighter-with-Python, hayvanat-bahcesi-php-mysql]
+
+# ─── DENEYİM ─────────────────────────────────────────────────────────────────
+# En yeni en üstte. "maddeler" en çok üç satır; boşsa satır açıklamasız görünür.
+# tur: staj | takim
+deneyim:
+  - kurum: BİRSAV Bilişim ve Savunma Sanayi
+    gorev: { tr: Yazılım Stajyeri, en: Software Intern }
+    tur: staj
+    baslangic: 2026-10
+    # EKSIK: Bu stajda ne yaptın? En çok üç madde. Kurumun iç işlerine dair ayrıntı yazma.
+    maddeler: []
+
+  - kurum:
+      tr: Makine Teknolojileri Robot ve Otomasyon Topluluğu
+      en: Machine Technologies, Robotics and Automation Society
+    gorev: { tr: "Takım Kaptanı, Matris", en: "Team Leader, Matris" }
+    tur: takim
+    baslangic: 2026-10
+    # EKSIK: Kaptanlıkta ne yapıyorsun? (isteğe bağlı)
+    maddeler: []
+
+  - kurum: Derin Teknoloji
+    gorev: { tr: Yazılım Stajyeri, en: Software Intern }
+    tur: staj
+    baslangic: 2026-09
+    bitis: 2026-10
+    # EKSIK: staj açıklaması
+    maddeler: []
+
+  - kurum: Spikedge
+    gorev: { tr: Yazılım Stajyeri, en: Software Intern }
+    tur: staj
+    baslangic: 2026-07
+    bitis: 2026-09
+    # EKSIK: staj açıklaması
+    maddeler: []
+
+  - kurum:
+      tr: Makine Teknolojileri Robot ve Otomasyon Topluluğu
+      en: Machine Technologies, Robotics and Automation Society
+    gorev: { tr: "Takım Üyesi, Matris", en: "Team Member, Matris" }
+    tur: takim
+    baslangic: 2025-08
+    bitis: 2026-10
+    # EKSIK: (isteğe bağlı)
+    maddeler: []
+
+  - kurum:
+      tr: Huawei Student Developers, Bursa Teknik Üniversitesi
+      en: Huawei Student Developers, Bursa Technical University
+    gorev: { tr: Çekirdek Ekip Üyesi, en: Core Team Member }
+    tur: takim
+    baslangic: 2025-10
+    bitis: 2026-06
+    # EKSIK: (isteğe bağlı)
+    maddeler: []
+
+  - kurum: Crowtec Software
+    gorev: { tr: Görüntü İşleme Stajyeri, en: Computer Vision Intern }
+    tur: staj
+    baslangic: 2025-09
+    bitis: 2026-01
+    # EKSIK: staj açıklaması
+    maddeler: []
+
+  - kurum:
+      tr: Makine Teknolojileri Robot ve Otomasyon Topluluğu
+      en: Machine Technologies, Robotics and Automation Society
+    gorev: { tr: "Takım Üyesi, Sefir-i Gök", en: "Team Member, Sefir-i Gök" }
+    tur: takim
+    baslangic: 2024-09
+    bitis: 2025-08
+    maddeler:
+      - tr: Teknofest Hava Savunma Sistemleri Yarışması için YOLO mimarisiyle hedef tespiti ve takibi.
+        en: Target detection and tracking with the YOLO architecture for the Teknofest Air Defence Systems Competition.
+    proje: balon-takip
+
+# ─── EĞİTİM ──────────────────────────────────────────────────────────────────
+egitim:
+  - kurum:
+      tr: Bursa Teknik Üniversitesi
+      en: Bursa Technical University
+    bolum:
+      tr: Bilgisayar Mühendisliği, lisans
+      en: Computer Engineering, BSc
+    baslangic: 2022
+    bitis: 2027
+
+# Katıldığı eğitim programları.
+programlar:
+  - ad:
+      tr: Akbank ve Global AI Hub Makine Öğrenmesi Bootcamp
+      en: Akbank and Global AI Hub Machine Learning Bootcamp
+    tarih: 2025-05
+    baglanti: https://github.com/AliYilmaz16/Akbank-Makine-Ogrenmesi-Bootcamp
+  - ad:
+      tr: Global AI Hub Python 202 Bootcamp
+      en: Global AI Hub Python 202 Bootcamp
+    baglanti: https://github.com/AliYilmaz16/Python202-Bootcamp
+  # EKSIK: Sertifikalar ve başka programlar varsa buraya ekle.
+
+# ─── YETENEKLER ──────────────────────────────────────────────────────────────
+# Alanlara göre gruplu. Yüzde ya da çubuk yoktur; yalnızca adlar yazılır.
+yetenekler:
+  - grup: { tr: Programlama dilleri, en: Programming languages }
+    ogeler: [C++, Python, Java]
+  - grup: { tr: Görüntü işleme, en: Computer vision }
+    ogeler: [OpenCV, YOLO, NumPy]
+  - grup: { tr: Arayüz ve gömülü, en: Interfaces and embedded }
+    ogeler: [PyQt5, tkinter, Arduino]
+  - grup: { tr: Projelerde kullandıkları, en: Used in projects }
+    ogeler: [Node.js, React, PHP, MySQL, PostgreSQL, Bash, scikit-learn, FastAPI]
+  - grup: { tr: Şu an öğreniyor, en: Currently learning }
+    ogeler: [Spring Boot]
+
+# EKSIK: Konuşulan diller. Örnek: - { ad: { tr: İngilizce, en: English }, duzey: { tr: B2, en: B2 } }
+diller: []

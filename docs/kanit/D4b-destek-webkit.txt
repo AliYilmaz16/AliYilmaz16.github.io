@@ -1,0 +1,1 @@
+webkit 27.2: animation-timeline scroll() desteği = true; betik yedeği = false; yarı yolda ilerleme çubuğu = 0.56

@@ -1,0 +1,3 @@
+tarayıcı: firefox
+benzetilen durum: animation-timeline ve IntersectionObserver yok
+sonuç: {"anim":false,"gizli":0,"bolum":7,"kart":6}

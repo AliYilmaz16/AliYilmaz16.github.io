@@ -1,0 +1,133 @@
+---
+import { Image, getImage } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import { icerik, c, projeGorseli, type Dil, type Proje } from '../lib/icerik';
+import { t, anaYol, digerDil, bolumler, projeYolu } from '../lib/i18n';
+
+interface Props { dil: Dil; proje: Proje }
+const { dil, proje } = Astro.props;
+const diger = digerDil(dil);
+const ad = c(proje.ad, dil);
+const liste = icerik.projeler;
+const sira = liste.findIndex((p) => p.kimlik === proje.kimlik);
+const onceki = liste[(sira - 1 + liste.length) % liste.length];
+const sonraki = liste[(sira + 1) % liste.length];
+const geri = `${anaYol(dil)}#kart-${proje.kimlik}`;
+const [kapak, ...kalan] = proje.gorseller;
+const anlatim = (
+  [
+    ['sorun', c(proje.sorun, dil)],
+    ['rol', c(proje.rol, dil)],
+    ['karar', c(proje.karar, dil)],
+    ['sonuc', c(proje.sonuc, dil)],
+  ] as const
+).filter(([, m]) => m);
+const afis = proje.video && kapak ? await getImage({ src: projeGorseli(proje.kimlik, kapak.dosya), format: 'webp', quality: 80 }) : undefined;
+const dikey = (g: { dosya: string }) => {
+  const m = projeGorseli(proje.kimlik, g.dosya);
+  return m.height > m.width;
+};
+---
+
+<Base dil={dil} baslik={`${ad} · ${icerik.kisi.ad}`} aciklama={c(proje.ozet, dil)} karsiYol={projeYolu(diger, proje.kimlik)} sayfa="proje">
+  <article class="proje kap" data-proje-sayfasi data-geri={geri} data-onceki={projeYolu(dil, onceki.kimlik)} data-sonraki={projeYolu(dil, sonraki.kimlik)} data-kimlik={proje.kimlik}>
+    <p class="geri"><a href={geri} data-geri-bag>← {t('tumProjeler', dil)}</a></p>
+
+    <header class="proje-bas">
+      <p class="kart-ust">
+        <span>{c(icerik.alanlar[proje.alan], dil)}</span>
+        {c(proje.baglam, dil) && <span class="soluk">{c(proje.baglam, dil)}</span>}
+      </p>
+      <h1>{ad}</h1>
+      <p class="tanitim">{c(proje.ozet, dil)}</p>
+    </header>
+
+    {kapak && (
+      <div class:list={['proje-kapak', { dikey: dikey(kapak) && !proje.video }]} style={`view-transition-name: g-${proje.kimlik}`}>
+        {proje.video && afis ? (
+          <video controls muted loop playsinline preload="none" poster={afis.src} width={afis.attributes.width} height={afis.attributes.height} aria-label={c(kapak.alt, dil)}>
+            <source src={proje.video} type="video/mp4" />
+          </video>
+        ) : (
+          <Image
+            src={projeGorseli(proje.kimlik, kapak.dosya)}
+            alt={c(kapak.alt, dil)}
+            widths={[640, 1000, 1600]}
+            sizes="(min-width: 1180px) 1100px, 94vw"
+            format="webp"
+            quality={78}
+            loading="eager"
+          />
+        )}
+      </div>
+    )}
+
+    <div class="proje-govde">
+      <div class="anlatim">
+        {anlatim.map(([anahtar, m]) => (
+          <section>
+            <h2>{t(anahtar, dil)}</h2>
+            <p>{m}</p>
+          </section>
+        ))}
+      </div>
+
+      <aside class="kunye" aria-label={ad}>
+        <dl>
+          <div>
+            <dt>{t('alan', dil)}</dt>
+            <dd>{c(icerik.alanlar[proje.alan], dil)}</dd>
+          </div>
+          {proje.araclar.length > 0 && (
+            <div>
+              <dt>{t('araclar', dil)}</dt>
+              <dd><ul class="etiketler">{proje.araclar.map((a) => <li>{a}</li>)}</ul></dd>
+            </div>
+          )}
+          {proje.depo && (
+            <div>
+              <dt>{t('depo', dil)}</dt>
+              <dd><a href={proje.depo}>{t('depoyuAc', dil)} ↗</a></dd>
+            </div>
+          )}
+          {proje.video_baglanti && (
+            <div>
+              <dt>{t('video', dil)}</dt>
+              <dd><a href={proje.video_baglanti}>{t('videoyuIzle', dil)} ↗</a></dd>
+            </div>
+          )}
+        </dl>
+      </aside>
+    </div>
+
+    {kalan.length > 0 && (
+      <section class="galeri" aria-labelledby="b-galeri">
+        <h2 id="b-galeri">{t('goruntuler', dil)}</h2>
+        <ul>
+          {kalan.map((g) => (
+            <li class:list={[{ dikey: dikey(g) }]}>
+              <figure>
+                <Image
+                  src={projeGorseli(proje.kimlik, g.dosya)}
+                  alt={c(g.alt, dil)}
+                  widths={[480, 800, 1200]}
+                  sizes="(min-width: 900px) 540px, 94vw"
+                  format="webp"
+                  quality={76}
+                  loading="lazy"
+                />
+                {c(g.alt, dil) && <figcaption>{c(g.alt, dil)}</figcaption>}
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <nav class="gecis" aria-label={t('projeler', dil)}>
+      <a href={projeYolu(dil, onceki.kimlik)} rel="prev"><span class="soluk">← {t('onceki', dil)}</span>{c(onceki.ad, dil)}</a>
+      <a href={projeYolu(dil, sonraki.kimlik)} rel="next"><span class="soluk">{t('sonraki', dil)} →</span>{c(sonraki.ad, dil)}</a>
+    </nav>
+    <p class="ipucu js-only">{t('klavyeIpucu', dil)}</p>
+  </article>
+</Base>
