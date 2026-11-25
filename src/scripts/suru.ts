@@ -26,13 +26,22 @@ if (tuval) {
     if (bicim === 1) { const a = (i / N) * Math.PI * 2 + t / 2600; return [Math.cos(a) * 2.6, Math.sin(a) * 2.6]; } // halka: ağır ağır döner
     if (bicim === 2) return [-Math.abs(k) * 0.12, yan * k * 1.05]; // çizgi: hafif yay
     if (bicim === 3) return ELMAS[i] ?? [0, 0];
-    return [-i * 0.95, Math.sin(i * 0.9 + t / 500) * 0.35]; // kol: tek sıra, hafif dalgalı
+    if (bicim === 4) return [-i * 0.95, Math.sin(i * 0.9 + t / 500) * 0.35]; // kol: tek sıra, hafif dalgalı
+    if (bicim === 5) return i <= 6 ? [-k * 0.9, yan * k * 0.85] : [-(i - 6) * 0.95, 0]; // ok başı: önde V uç, ortada gövde
+    if (bicim === 6) { // ikili: sürü iki küçük V'ye ayrılır, açılır, sonra yeniden birleşir
+      const g = Math.floor(i / 2), gk = Math.ceil(g / 2), gy = g % 2 ? 1 : -1;
+      const aralik = 0.7 + Math.sin(Math.PI * Math.min(1, (t - sonDegisim) / SURE)) * 5.5;
+      return [-gk * 1.05, (i % 2 ? 1 : -1) * aralik + (g ? gy * gk * 0.8 : 0)];
+    }
+    return [-k, yan * k * 0.9]; // dağıl: toplanırken V
   };
 
-  const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, i, yelken: 0.35 + Math.random() * 0.5 }));
+  const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, sx: 0, sy: 0, i, yelken: 0.35 + Math.random() * 0.5 }));
   const hedef = { x: 0, y: 0 };
   const nokta = { x: 0, y: 0, son: 0 };
   let bicim = 0, yon = 0, hiz = 120, basladi = false, sonDegisim = 0, sonKayma = scrollY;
+  const SURE = 7000;
+  const dagiliyor = (t: number) => bicim === 7 && t - sonDegisim < SURE * 0.5;
 
   function adim(t: number, dt: number) {
     // Lider ekranda rastgele seçilen noktalara doğru uçar. Dönüş hızı sınırlı olduğu için rota yumuşak kavisler çizer.
@@ -62,14 +71,22 @@ if (tuval) {
       for (const u of ihalar) { u.y -= kayma * u.yelken; u.vx += (Math.random() - 0.5) * Math.abs(kayma) * 9; u.vy -= kayma * 3 * u.yelken; }
     }
     hedef.x = Math.max(30, Math.min(en - 30, hedef.x)); hedef.y = Math.max(70, Math.min(boy - 30, hedef.y));
-    if (t - sonDegisim > 7000) { bicim = (bicim + 1) % adlar.length; sonDegisim = t; }
+    if (t - sonDegisim > SURE) {
+      // Sıradaki formasyon rastgele seçilir, aynısı üst üste gelmez.
+      bicim = (bicim + 1 + Math.floor(Math.random() * (adlar.length - 1))) % adlar.length; sonDegisim = t;
+      tuval!.dataset.bicim = String(bicim);
+      // Dağıl: her İHA ekranda kendine ayrı bir nokta seçer, yarı sürede oraya gider, sonra sürüye döner.
+      if (bicim === 7) for (const u of ihalar) { u.sx = en * (0.06 + Math.random() * 0.88); u.sy = boy * (0.12 + Math.random() * 0.8); }
+    }
+    const dagil = dagiliyor(t);
     const birim = Math.max(24, Math.min(38, en / 28));
     const c = Math.cos(yon), s = Math.sin(yon);
     for (const u of ihalar) {
       const [ileri, yan] = yuva(bicim, u.i, t);
-      const hx = hedef.x + (ileri * c - yan * s) * birim, hy = hedef.y + (ileri * s + yan * c) * birim;
+      const hx = dagil ? u.sx : hedef.x + (ileri * c - yan * s) * birim, hy = dagil ? u.sy : hedef.y + (ileri * s + yan * c) * birim;
       // Arkadakiler biraz daha gevşek izler: dönüşlerde sürü kamçı gibi açılır, sonra toplanır.
-      const sertlik = 15 - Math.min(6, u.i * 0.5);
+      // Dağılırken ve yeni toplanırken yay yumuşaktır, yoksa ekranın öbür ucuna ışınlanır gibi giderler.
+      const sertlik = bicim === 7 ? (dagil ? 3.2 : 4.5) : 15 - Math.min(6, u.i * 0.5);
       let ax = (hx - u.x) * sertlik, ay = (hy - u.y) * sertlik;
       for (const o of ihalar) { // ayrılma: birbirine fazla yaklaşan itilir
         if (o === u) continue;
@@ -87,7 +104,7 @@ if (tuval) {
     ctx.clearRect(0, 0, en, boy);
     ctx.lineWidth = 1; ctx.strokeStyle = vurgu; ctx.globalAlpha = 0.16;
     ctx.beginPath(); // haberleşme bağları: her İHA bir öndekine bağlı
-    for (const u of ihalar) { const o = ihalar[bicim === 1 || bicim === 4 ? (u.i + N - 1) % N : Math.max(0, u.i - 2)]; if (o === u || (bicim === 4 && !u.i)) continue; ctx.moveTo(u.x, u.y); ctx.lineTo(o.x, o.y); }
+    if (!dagiliyor(performance.now())) for (const u of ihalar) { const o = ihalar[bicim === 1 || bicim === 4 ? (u.i + N - 1) % N : Math.max(0, u.i - 2)]; if (o === u || (bicim === 4 && !u.i) || (bicim === 6 && u.i === 1)) continue; ctx.moveTo(u.x, u.y); ctx.lineTo(o.x, o.y); }
     ctx.stroke();
     for (const u of ihalar) {
       const hiz = Math.hypot(u.vx, u.vy);
