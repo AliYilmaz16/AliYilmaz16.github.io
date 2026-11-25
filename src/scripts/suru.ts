@@ -37,7 +37,7 @@ if (tuval) {
     return [-k, yan * k * 0.9]; // dağıl: toplanırken V
   };
 
-  const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, sx: 0, sy: 0, i, yelken: 0.35 + Math.random() * 0.5 }));
+  const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, sx: 0, sy: 0, st: 0, i, yelken: 0.35 + Math.random() * 0.5 }));
   const hedef = { x: 0, y: 0 };
   const nokta = { x: 0, y: 0, son: 0 };
   const imlec = { x: -999, y: -999, var: false }; // drone'lar imleçten kaçar
@@ -52,9 +52,11 @@ if (tuval) {
   const patlamalar: { x: number; y: number; t: number }[] = [];
   const FARK = 2400; // yabancılar ekrana girdikten bu kadar sonra fark edilir
   let onleme = false, onlemeBas = 0, sonrakiBaskin = performance.now() + 18000;
+  // Dağılmışken her İHA kendi noktasına gider, varınca ya da bir süre sonra yenisini seçer: tek başına dolaşır.
+  const yeniNokta = (u: (typeof ihalar)[number], t: number) => { u.sx = en * (0.06 + Math.random() * 0.88); u.sy = boy * (0.12 + Math.random() * 0.8); u.st = t + 2200 + Math.random() * 2200; };
   const dagit = (t: number) => {
     bicim = 7; sonDegisim = t; tuval!.dataset.bicim = '7';
-    for (const u of ihalar) { u.sx = en * (0.06 + Math.random() * 0.88); u.sy = boy * (0.12 + Math.random() * 0.8); }
+    for (const u of ihalar) yeniNokta(u, t);
   };
   function baskin(t: number) {
     // Rastgele bir kenardan girer, karşı tarafa doğru V düzeninde uçar.
@@ -90,7 +92,8 @@ if (tuval) {
     if (t - onlemeBas > 16000) yabancilar.length = 0; // emniyet: takılırsa bırak
     if (!yabancilar.length) { onleme = false; tuval!.dataset.onleme = '0'; sonDegisim = t - SURE * 0.6; sonrakiBaskin = t + 40000 + Math.random() * 30000; }
   }
-  const dagiliyor = (t: number) => bicim === 7 && t - sonDegisim < SURE * 0.5;
+  const DAGIL = 9000; // tek tek dolaşma süresi, ardından toplanma gelir
+  const dagiliyor = (t: number) => bicim === 7 && t - sonDegisim < DAGIL;
 
   function adim(t: number, dt: number) {
     // Lider ekranda rastgele seçilen noktalara doğru uçar. Dönüş hızı sınırlı olduğu için rota yumuşak kavisler çizer.
@@ -121,10 +124,10 @@ if (tuval) {
     }
     hedef.x = Math.max(30, Math.min(en - 30, hedef.x)); hedef.y = Math.max(70, Math.min(boy - 30, hedef.y));
     if (!onleme && t > sonrakiBaskin && !dagiliyor(t) && !document.hidden) baskin(t);
-    if (onleme) { onlemeAdimi(t, dt); if (onleme) sonDegisim = Math.max(sonDegisim, t - SURE + 1); }
+    if (onleme) { onlemeAdimi(t, dt); if (onleme && bicim !== 7) sonDegisim = Math.max(sonDegisim, t - SURE + 1); }
     rahatsiz = Math.max(0, rahatsiz - dt * 0.35);
     if (rahatsiz > 4 && !onleme && !dagiliyor(t)) { rahatsiz = 0; dagit(t); }
-    if (t - sonDegisim > SURE) {
+    if (t - sonDegisim > (bicim === 7 ? DAGIL + 3500 : SURE)) {
       // Sıradaki formasyon rastgele seçilir, aynısı üst üste gelmez.
       // Ağırlıklı seçim: tek tek dağılma en sık, ikiye bölünme ondan sonra gelir.
       const agirlik = adlar.map((_, k) => (k === bicim ? 0 : k === 7 ? 5 : k === 6 ? 3 : 1));
@@ -138,11 +141,12 @@ if (tuval) {
     const birim = Math.max(24, Math.min(38, en / 28));
     const c = Math.cos(yon), s = Math.sin(yon);
     for (const u of ihalar) {
+      if (dagil && (t > u.st || Math.hypot(u.sx - u.x, u.sy - u.y) < 40)) yeniNokta(u, t);
       const [ileri, yan] = yuva(bicim, u.i, t);
       const hx = dagil ? u.sx : hedef.x + (ileri * c - yan * s) * birim, hy = dagil ? u.sy : hedef.y + (ileri * s + yan * c) * birim;
       // Arkadakiler biraz daha gevşek izler: dönüşlerde sürü kamçı gibi açılır, sonra toplanır.
       // Dağılırken ve yeni toplanırken yay yumuşaktır, yoksa ekranın öbür ucuna ışınlanır gibi giderler.
-      const sertlik = bicim === 7 ? (dagil ? 3.2 : 4.5) : 15 - Math.min(6, u.i * 0.5);
+      const sertlik = bicim === 7 ? (dagil ? 2.4 : 4.5) : 15 - Math.min(6, u.i * 0.5);
       let ax = (hx - u.x) * sertlik, ay = (hy - u.y) * sertlik;
       if (onleme && yabancilar.length && t - onlemeBas > FARK) { // önleme: her İHA bir yabancıyı kovalar, yaklaştıkça da hız kesmez
         const y = yabancilar[u.i % yabancilar.length], ex = y.x - u.x, ey = y.y - u.y, m = Math.hypot(ex, ey) || 1;
