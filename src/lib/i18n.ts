@@ -45,10 +45,6 @@ const metin = {
   takip: { tr: 'takip', en: 'track' },
   tahmin: { tr: 'tahmin', en: 'predicted' },
   oneCikan: { tr: 'Öne çıkan projeler', en: 'Featured projects' },
-  projelerGiris: {
-    tr: 'Her kart bir projenin kısa özetidir; açınca sorunu, verilen kararı ve sonucu okursun.',
-    en: 'Each card is a short summary; open one to read the problem, the decision made and the outcome.',
-  },
   suz: { tr: 'Alana göre süz', en: 'Filter by area' },
   hepsi: { tr: 'Hepsi', en: 'All' },
   ayrinti: { tr: 'Ayrıntıyı aç', en: 'Open details' },
