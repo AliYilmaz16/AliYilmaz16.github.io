@@ -144,7 +144,7 @@ test('D4 kaydırma hareketi desteği olmayan tarayıcı: içerik eksiksiz ve dü
     bolum: document.querySelectorAll('main > section').length,
     kart: document.querySelectorAll('.kart').length,
   }));
-  expect(d).toEqual({ anim: false, gizli: 0, bolum: 7, kart: 6 });
+  expect(d).toEqual({ anim: false, gizli: 0, bolum: 7, kart: 8 });
   const gercek = await page.evaluate(() => ({ scroll: (CSS as any).supports('animation-timeline', 'scroll()') }));
   fs.mkdirSync(KANIT, { recursive: true });
   fs.writeFileSync(path.join(KANIT, `D4-${browserName}.txt`), `tarayıcı: ${browserName}\nbenzetilen durum: animation-timeline ve IntersectionObserver yok\nsonuç: ${JSON.stringify(d)}\n`);
@@ -220,7 +220,7 @@ test('D5 fare kullanmadan gezinme', async ({ page, browserName }) => {
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/isg-guard/);
   await page.keyboard.press('ArrowRight');
-  await expect(page).toHaveURL(/pardus-muzik-calar/);
+  await expect(page).toHaveURL(/stackout/);
   await page.keyboard.press('ArrowLeft');
   await expect(page).toHaveURL(/isg-guard/);
   // Komut paleti klavyeyle
@@ -403,11 +403,11 @@ test.describe('D12 betikler kapalı', () => {
     await page.goto('/');
     await expect(page.locator('h1')).toBeVisible();
     for (const id of ['hakkimda', 'projeler', 'deneyim', 'egitim', 'yetenekler', 'iletisim']) await expect(page.locator(`#${id} > h2`)).toBeVisible();
-    await expect(page.locator('.kart h3')).toHaveCount(6);
+    await expect(page.locator('.kart h3')).toHaveCount(8);
     for (const k of await page.locator('.kart h3').all()) await expect(k).toBeVisible();
     await expect(page.locator('.durak')).toHaveCount(9);
     await expect(page.locator('#deneyim')).toContainText('Crowtec Software');
-    await expect(page.locator('.diger-liste li')).toHaveCount(5);
+    await expect(page.locator('.diger-liste li')).toHaveCount(6);
     await cek(page, 'D12-betiksiz', true);
     // Bağlantılar betiksiz de çalışıyor
     await page.locator('#kart-balon-takip a[data-proje]').click();

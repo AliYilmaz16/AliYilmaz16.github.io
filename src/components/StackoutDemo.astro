@@ -1,0 +1,49 @@
+---
+// Stackout'un iki modu birbirine bağlayan kuralının küçük, oynanabilir benzetimi.
+import type { Dil } from '../lib/icerik';
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+---
+
+<div
+  class="demo demo-stackout js-only"
+  data-demo-stackout
+  data-m-sec={T('Bir parça seç, tahtada yerini ayarla ve bırak.', 'Pick a piece, position it on the board and drop it.')}
+  data-m-satir={T('Satır doldu: silinmedi, beyaza döndü ve bir top kazandın. Şimdi kırabilirsin.', 'Row complete: it was not cleared, it turned white and earned you a ball. You can break it now.')}
+  data-m-kir={T('Platformu hareket ettir, topu fırlat. Beyaz bloklar puan verir.', 'Move the paddle and launch the ball. White blocks give points.')}
+  data-m-top-bitti={T('Toplar bitti; yığma moduna dönüldü.', 'Out of balls; back to stacking.')}
+  data-m-doldu={T('Tahta doldu; baştan başladı.', 'The board filled up; it has been reset.')}
+  data-e-kir={T('Kır →', 'Break →')}
+  data-e-yig={T('← Yığ', '← Stack')}
+  data-e-parca={T('Parça', 'Piece')}
+>
+  <div class="so-tahta">
+    <canvas tabindex="0" aria-label={T('Stackout benzetimi. Ok tuşları hareket ettirir, yukarı ok döndürür, boşluk bırakır ya da fırlatır.', 'Stackout simulation. Arrow keys move, up arrow rotates, space drops or launches.')}></canvas>
+  </div>
+  <div class="so-yan">
+    <dl class="demo-olcum">
+      <div><dt>{T('Mod', 'Mode')}</dt><dd data-mod>{T('Yığ', 'Stack')}</dd></div>
+      <div><dt>{T('Puan', 'Score')}</dt><dd data-puan>0</dd></div>
+      <div><dt>{T('Top', 'Balls')}</dt><dd data-top>0</dd></div>
+    </dl>
+    <div class="demo-satir" data-yig-denetim>
+      <p class="demo-etiket">{T('Parçalar', 'Pieces')}</p>
+      <div class="so-parcalar" data-parcalar role="group" aria-label={T('Parça seçimi', 'Piece selection')}></div>
+      <p class="so-dugmeler">
+        <button type="button" class="dugme" data-don>{T('Döndür', 'Rotate')}</button>
+        <button type="button" class="dugme" data-birak>{T('Bırak', 'Drop')}</button>
+      </p>
+    </div>
+    <p class="so-dugmeler">
+      <button type="button" class="dugme birincil" data-mod-degis disabled>{T('Kır →', 'Break →')}</button>
+      <button type="button" class="dugme" data-yeniden>{T('Baştan', 'Reset')}</button>
+    </p>
+    <p class="demo-durum" data-durum role="status" aria-live="polite"></p>
+    <p class="demo-aciklama">{T('Klavye: ← → hareket, ↑ döndür, boşluk bırak ya da fırlat, 1-3 parça seç.', 'Keyboard: ← → move, ↑ rotate, space to drop or launch, 1-3 to pick a piece.')}</p>
+  </div>
+</div>
+
+<script>
+  import '../scripts/demo-stackout.ts';
+</script>

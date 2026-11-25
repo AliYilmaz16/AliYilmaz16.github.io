@@ -49,6 +49,20 @@ const metin = {
   hepsi: { tr: 'Hepsi', en: 'All' },
   ayrinti: { tr: 'Ayrıntıyı aç', en: 'Open details' },
   digerProjeler: { tr: 'Öteki projeler', en: 'Other projects' },
+  dene: { tr: 'Dene', en: 'Try it' },
+  ozelDepo: { tr: 'Özel depo', en: 'Private repository' },
+  demoNot_stackout: {
+    tr: 'Oyunun kendisi değil; iki modu birbirine bağlayan kuralın tarayıcıda çalışan küçük bir benzetimi. Parçalar ve fizik sadeleştirildi.',
+    en: 'Not the game itself, but a small in-browser simulation of the rule that ties its two modes together. Pieces and physics are simplified.',
+  },
+  demoNot_randevu: {
+    tr: 'Projedeki müsaitlik hesabının aynı kuralla çalışan küçük bir örneği. Randevular örnek veridir ve hiçbir yere gönderilmez.',
+    en: "A small example that follows the same rule as the project's availability calculation. The appointments are sample data and are not sent anywhere.",
+  },
+  demoNot_hamming: {
+    tr: 'Simülatörün yaptığı işin tarayıcıda çalışan küçük bir örneği: 8 bit veri, 4 eşlik biti ve bir genel eşlik biti.',
+    en: 'A small in-browser example of what the simulator does: 8 data bits, 4 parity bits and one overall parity bit.',
+  },
   sonGuncelleme: { tr: 'son güncelleme', en: 'last updated' },
   suzgecBos: { tr: 'Bu alanda gösterilecek proje yok.', en: 'No projects in this area.' },
   deneyimGiris: { tr: 'Stajlar ve takım görevleri, yeniden eskiye.', en: 'Internships and team roles, newest first.' },

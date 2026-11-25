@@ -1,0 +1,55 @@
+---
+// Berber randevu sisteminin müsaitlik motorunun etkileşimli gösterimi. Veriler örnektir.
+import type { Dil } from '../lib/icerik';
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+const hizmetler = [
+  { ad: T('Saç kesimi', 'Haircut'), sure: 30 },
+  { ad: T('Sakal tıraşı', 'Beard trim'), sure: 15 },
+  { ad: T('Saç + sakal', 'Hair + beard'), sure: 45 },
+  { ad: T('Çocuk kesimi', "Child's cut"), sure: 20 },
+];
+---
+
+<div
+  class="demo demo-randevu js-only"
+  data-demo-randevu
+  data-dk={T('dk', 'min')}
+  data-m-ozet={T('{t} başlangıç saatinden {m} tanesi müsait. Elenenler: {d} dolu, {o} mola, {k} kapanışı taşıyor.', '{m} of {t} start times are free. Ruled out: {d} taken, {o} break, {k} past closing.')}
+  data-m-alindi={T('{s} için randevu alındı; onay bekliyor ama o saat artık başkasına verilmez.', 'Booked for {s}; it awaits approval, but that time is no longer offered to anyone else.')}
+  data-e-dolu={T('dolu', 'taken')}
+  data-e-mola={T('mola', 'break')}
+  data-e-kapanis={T('kapanışı taşıyor', 'past closing')}
+  data-e-bekleyen={T('onay bekliyor', 'awaiting approval')}
+>
+  <div class="demo-satir">
+    <p class="demo-etiket">{T('1. Hizmet seç', '1. Pick a service')}</p>
+    <div class="secenekler" role="group" aria-label={T('Hizmet', 'Service')}>
+      {hizmetler.map((h, i) => (
+        <button type="button" class="secenek" data-sure={h.sure} aria-pressed={i === 0 ? 'true' : 'false'}>
+          {h.ad} <span class="soluk">{h.sure} {T('dk', 'min')}</span>
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="demo-satir">
+    <p class="demo-etiket">{T('Günün takvimi (09.00 - 20.00, örnek veri)', "The day's calendar (09:00 - 20:00, sample data)")}</p>
+    <div class="gun-seridi" data-serit aria-hidden="true"></div>
+    <p class="demo-aciklama">
+      <span class="ornek dolu"></span>{T('randevu', 'appointment')}
+      <span class="ornek bekleyen"></span>{T('senin aldığın, onay bekliyor', 'yours, awaiting approval')}
+      <span class="ornek mola"></span>{T('öğle arası', 'lunch break')}
+    </p>
+  </div>
+  <div class="demo-satir">
+    <p class="demo-etiket">{T('2. Müsait bir saate tıkla', '2. Click a free time')}</p>
+    <div class="saatler" data-saatler role="group" aria-label={T('Başlangıç saatleri', 'Start times')}></div>
+  </div>
+  <p class="demo-durum" data-durum role="status" aria-live="polite"></p>
+  <p><button type="button" class="dugme" data-sifirla>{T('Baştan başla', 'Start over')}</button></p>
+</div>
+
+<script>
+  import '../scripts/demo-randevu.ts';
+</script>

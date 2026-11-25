@@ -12,6 +12,8 @@ Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından 
 | --- | --- |
 | [Balon Takip](https://aliyilmaz16.github.io/proje/balon-takip/) | YOLOv8n ile balon tespiti ve kaçan karelerde kilidi koruyan, projeye özel bir takip sınıfı |
 | [İSG Guard](https://aliyilmaz16.github.io/proje/isg-guard/) | Saha çalışanının telefonunu algılayıcı olarak kullanan iş güvenliği sistemi |
+| [Stackout](https://aliyilmaz16.github.io/proje/stackout/) | Blok yığma ve blok kırma oyunlarını tek tahtada birleştiren mobil oyun |
+| [Berber Randevu Sistemi](https://aliyilmaz16.github.io/proje/berber-randevu/) | Müşterinin telefondan randevu aldığı, berberin gününü yönettiği web uygulaması |
 | [Pardus Müzik Çalar](https://aliyilmaz16.github.io/proje/pardus-muzik-calar/) | Grafik ve terminal arayüzlü müzik çalar; tamamı tek bir Bash betiği |
 | [Hamming SEC-DED Simülatörü](https://aliyilmaz16.github.io/proje/sec-ded/) | Tek hata düzeltmeyi ve çift hata tespitini bit bit gösteren PyQt5 simülatörü |
 | [C Sözdizimi Vurgulayıcı](https://aliyilmaz16.github.io/proje/c-syntax-highlighter/) | C kodunu yazarken renklendiren, belirteç listesini ve ayrıştırma ağacını gösteren araç |
@@ -19,7 +21,7 @@ Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından 
 
 ## Kullandıklarım
 
-Python, C++, Java · OpenCV, YOLO, NumPy · PyQt5, PySide6 · Git, Linux
+Python, C++, Java, TypeScript · OpenCV, YOLO, NumPy · PyQt5, PySide6 · Git, Linux
 
 ## İletişim
 

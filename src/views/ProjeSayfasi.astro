@@ -3,6 +3,9 @@ import { Image, getImage } from 'astro:assets';
 import Base from '../layouts/Base.astro';
 import { icerik, c, projeGorseli, type Dil, type Proje } from '../lib/icerik';
 import { t, anaYol, digerDil, bolumler, projeYolu } from '../lib/i18n';
+import StackoutDemo from '../components/StackoutDemo.astro';
+import RandevuDemo from '../components/RandevuDemo.astro';
+import HammingDemo from '../components/HammingDemo.astro';
 
 interface Props { dil: Dil; proje: Proje }
 const { dil, proje } = Astro.props;
@@ -13,7 +16,9 @@ const sira = liste.findIndex((p) => p.kimlik === proje.kimlik);
 const onceki = liste[(sira - 1 + liste.length) % liste.length];
 const sonraki = liste[(sira + 1) % liste.length];
 const geri = `${anaYol(dil)}#kart-${proje.kimlik}`;
-const [kapak, ...kalan] = proje.gorseller;
+// Etkileşimli örneği olan ve tek görseli (ör. uygulama simgesi) bulunan projede kapak yerine örnek gösterilir.
+const kapaksiz = !!proje.etkilesim && proje.gorseller.length <= 1;
+const [kapak, ...kalan] = kapaksiz ? [] : proje.gorseller;
 const anlatim = (
   [
     ['sorun', c(proje.sorun, dil)],
@@ -62,6 +67,16 @@ const dikey = (g: { dosya: string }) => {
       </div>
     )}
 
+    {proje.etkilesim && (
+      <section class="dene js-only" aria-labelledby="b-dene" style={kapaksiz ? `view-transition-name: g-${proje.kimlik}` : undefined}>
+        <h2 id="b-dene">{t('dene', dil)}</h2>
+        <p class="dene-not">{t(`demoNot_${proje.etkilesim}`, dil)}</p>
+        {proje.etkilesim === 'stackout' && <StackoutDemo dil={dil} />}
+        {proje.etkilesim === 'randevu' && <RandevuDemo dil={dil} />}
+        {proje.etkilesim === 'hamming' && <HammingDemo dil={dil} />}
+      </section>
+    )}
+
     <div class="proje-govde">
       <div class="anlatim">
         {anlatim.map(([anahtar, m]) => (
@@ -84,12 +99,10 @@ const dikey = (g: { dosya: string }) => {
               <dd><ul class="etiketler">{proje.araclar.map((a) => <li>{a}</li>)}</ul></dd>
             </div>
           )}
-          {proje.depo && (
-            <div>
-              <dt>{t('depo', dil)}</dt>
-              <dd><a href={proje.depo}>{t('depoyuAc', dil)} ↗</a></dd>
-            </div>
-          )}
+          <div>
+            <dt>{t('depo', dil)}</dt>
+            <dd>{proje.depo ? <a href={proje.depo}>{t('depoyuAc', dil)} ↗</a> : t('ozelDepo', dil)}</dd>
+          </div>
           {proje.video_baglanti && (
             <div>
               <dt>{t('video', dil)}</dt>

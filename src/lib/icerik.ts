@@ -28,6 +28,7 @@ const proje = z.object({
   video: z.string().optional().default(''),
   video_baglanti: z.string().optional().default(''),
   depo: z.string().optional().default(''),
+  etkilesim: z.enum(['stackout', 'randevu', 'hamming']).optional(),
 });
 
 const sema = z.object({
@@ -49,7 +50,7 @@ const sema = z.object({
   alanlar: z.record(z.string(), ikiDil),
   projeler: z.array(proje),
   diger_projeler: z
-    .array(z.object({ depo_adi: z.string(), ad: ikiDil, alan: z.string(), aciklama: ikiDilBos }))
+    .array(z.object({ depo_adi: z.string().optional().default(''), ozel: z.boolean().optional().default(false), ad: ikiDil, alan: z.string(), aciklama: ikiDilBos }))
     .nullish()
     .transform((v) => v ?? []),
   gizli_depolar: z.array(z.string()).nullish().transform((v) => v ?? []),

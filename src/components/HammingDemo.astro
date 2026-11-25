@@ -1,0 +1,45 @@
+---
+// SEC-DED projesinin etkileşimli gösterimi: 8 veri biti, 12 bitlik Hamming kodu ve genel eşlik biti.
+import type { Dil } from '../lib/icerik';
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+---
+
+<div
+  class="demo demo-hamming js-only"
+  data-demo-hamming
+  data-m-yok={T('Hata yok. Sendrom 0000, genel eşlik tutuyor.', 'No error. Syndrome 0000, overall parity holds.')}
+  data-m-tek={T('Tek hata: {k}. konumdaki bit bozuk. Düzeltildi, veri: {v}', 'Single error: the bit at position {k} is wrong. Corrected, data: {v}')}
+  data-m-cift={T('Çift hata tespit edildi. Sendrom {s} ama genel eşlik tutuyor: düzeltilemez, yalnızca bildirilir.', 'Double error detected. Syndrome is {s} but overall parity holds: it cannot be corrected, only reported.')}
+  data-m-sinir={T('SEC-DED en çok iki hatayı ayırt eder; üçüncüsü eklenmedi.', 'SEC-DED can tell apart at most two errors; the third was not added.')}
+  data-e-veri={T('Veri biti', 'Data bit')}
+  data-e-kod={T('Konum', 'Position')}
+  data-e-eslik={T('eşlik', 'parity')}
+  data-e-veri-kisa={T('veri', 'data')}
+  data-e-genel={T('genel eşlik', 'overall parity')}
+>
+  <div class="demo-satir">
+    <p class="demo-etiket">{T('Veri (8 bit): değiştirmek için tıkla', 'Data (8 bits): click to change')}</p>
+    <div class="bitler" data-veri role="group" aria-label={T('Veri bitleri', 'Data bits')}></div>
+  </div>
+  <div class="demo-satir">
+    <p class="demo-etiket">{T('Kod sözcüğü (13 bit): hata eklemek için bir bite tıkla', 'Codeword (13 bits): click a bit to inject an error')}</p>
+    <div class="bitler" data-kod role="group" aria-label={T('Kod sözcüğü', 'Codeword')}></div>
+    <p class="demo-aciklama">
+      <span class="ornek eslik"></span>{T('eşlik biti', 'parity bit')}
+      <span class="ornek veri"></span>{T('veri biti', 'data bit')}
+      <span class="ornek hatali"></span>{T('bozulmuş bit', 'flipped bit')}
+    </p>
+  </div>
+  <dl class="demo-olcum">
+    <div><dt>{T('Sendrom', 'Syndrome')}</dt><dd data-sendrom>0000</dd></div>
+    <div><dt>{T('Genel eşlik', 'Overall parity')}</dt><dd data-genel>0</dd></div>
+  </dl>
+  <p class="demo-durum" data-durum role="status" aria-live="polite"></p>
+  <p><button type="button" class="dugme" data-temizle>{T('Hataları temizle', 'Clear errors')}</button></p>
+</div>
+
+<script>
+  import '../scripts/demo-hamming.ts';
+</script>

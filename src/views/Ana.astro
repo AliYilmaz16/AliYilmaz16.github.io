@@ -98,17 +98,26 @@ const ilkProje = icerik.projeler[0];
         <ul
           class="diger-liste"
           data-github={k.github_kullanici}
-          data-gizli={[...icerik.gizli_depolar, ...icerik.diger_projeler.map((d) => d.depo_adi)].join(',')}
+          data-gizli={[...icerik.gizli_depolar, ...icerik.diger_projeler.map((d) => d.depo_adi)].filter(Boolean).join(',')}
           data-etiket-guncelleme={t('sonGuncelleme', dil)}
         >
           {icerik.diger_projeler.map((d, i) => (
             <li data-alan={d.alan} data-depo={d.depo_adi} data-belir style={`--i:${i % 3}`}>
-              <a href={`${k.github}/${d.depo_adi}`}>
-                <span class="diger-ad">{c(d.ad, dil)}</span>
-                <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}</span>
-                <span class="diger-aciklama">{c(d.aciklama, dil)}</span>
-                <span class="diger-tarih" data-tarih></span>
-              </a>
+              {d.ozel || !d.depo_adi ? (
+                <div class="diger-satir">
+                  <span class="diger-ad">{c(d.ad, dil)}</span>
+                  <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}</span>
+                  <span class="diger-aciklama">{c(d.aciklama, dil)}</span>
+                  <span class="diger-tarih">{t('ozelDepo', dil)}</span>
+                </div>
+              ) : (
+                <a href={`${k.github}/${d.depo_adi}`}>
+                  <span class="diger-ad">{c(d.ad, dil)}</span>
+                  <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}</span>
+                  <span class="diger-aciklama">{c(d.aciklama, dil)}</span>
+                  <span class="diger-tarih" data-tarih></span>
+                </a>
+              )}
             </li>
           ))}
         </ul>

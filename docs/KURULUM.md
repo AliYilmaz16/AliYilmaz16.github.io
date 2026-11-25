@@ -60,8 +60,12 @@ Eski site (2025) `eski-site-2025` dalında durur.
         alt: { tr: Ana ekran, en: Main screen }
     video: /video/yeni-proje.mp4  # isteğe bağlı; dosya public/video/ altında, H.264
     video_baglanti: https://www.youtube.com/watch?v=...   # isteğe bağlı
-    depo: https://github.com/AliYilmaz16/yeni-proje
+    depo: https://github.com/AliYilmaz16/yeni-proje   # boş bırakılırsa "özel depo" yazar
 ```
+
+Boş bırakılan alan sitede gösterilmez. Özel bir depoyu kısa listeye eklemek için `depo_adi` yerine `ozel: true` yaz; bağlantı verilmez.
+
+Üç projenin sayfasında etkileşimli bir örnek var (`etkilesim: stackout | randevu | hamming`). Kodları `src/components/*Demo.astro` ve `src/scripts/demo-*.ts` dosyalarındadır; yeni bir örnek eklemek kod yazmayı gerektirir.
 
 Boş bırakılan alan sitede gösterilmez. Görsel verilmezse kart, adın ilk harfleriyle çizilir. Kısa listeye (öteki projeler) eklemek için `diger_projeler:` altına `depo_adi`, `ad`, `alan`, `aciklama` yazman yeter.
 
