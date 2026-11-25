@@ -48,6 +48,7 @@ Eski site (2025) `eski-site-2025` dalında durur.
   - kimlik: yeni-proje            # adres olur: /proje/yeni-proje/
     ad: { tr: Yeni Proje, en: New Project }
     alan: web                     # "alanlar" listesindeki anahtarlardan biri
+    yil: 2027                     # ya da "2026 - 2027"; boşsa gösterilmez
     baglam: { tr: Ders projesi, en: Course project }
     ozet: { tr: Tek cümlelik özet., en: One-sentence summary. }
     sorun: { tr: "...", en: "..." }

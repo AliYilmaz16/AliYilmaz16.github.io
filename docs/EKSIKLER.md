@@ -28,7 +28,8 @@ Ali'nin doldurması ya da onaylaması gereken alanlar. Hepsi `icerik.yaml` dosya
 | İngilizce metinlerin tamamı | Depo açıklamaları Türkçeydi, çeviriyi ajan yaptı. Okuyup düzelt. |
 | Proje metinleri (sorun, karar, sonuç) | README dosyalarından özetlendi; README'de olmayan başarı ya da ölçüm eklenmedi. Yanlış anlaşılmış bir yer varsa düzelt. |
 | Balon Takip'teki rol cümlesi | Özgeçmişteki tek satırdan yazıldı; takımdaki payını sen bilirsin. |
-| Öne çıkan altı proje ve sırası | Belgedeki varsayılan: Balon Takip ve isg-guard üstte. |
+| Proje yılları | Balon Takip 2025 (senin dediğin gibi); ötekiler depoların commit tarihlerinden: Stackout 2025 - 2026, İSG Guard, Berber Randevu, Pardus Müzik Çalar ve MatDrone 2026, SEC-DED, C Sözdizimi Vurgulayıcı ve Hayvanat Bahçesi 2025. Depoya geç yüklenmiş bir proje varsa yılı yanlış olabilir; `yil` alanından düzelt. |
+| Öne çıkan sekiz proje ve sırası | Belgedeki varsayılan: Balon Takip ve isg-guard üstte. |
 | Görev adlarının Türkçesi | Kaynaklarda İngilizce yazıyordu. Türkçeleri: Yazılım Stajyeri, Görüntü İşleme Stajyeri, Çekirdek Ekip Üyesi, Takım Kaptanı, Yazılım Takım Lideri. |
 | Topluluk adının İngilizcesi | "Machine Technologies, Robotics and Automation Society" olarak çevrildi; resmî bir İngilizce adı varsa değiştir. |
 | Bölüm adı | "Bilgisayar Mühendisliği" (LinkedIn tanıtım satırı "Computer Science" diyor). |

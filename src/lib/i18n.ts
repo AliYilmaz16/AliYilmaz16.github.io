@@ -50,6 +50,7 @@ const metin = {
   ayrinti: { tr: 'Ayrıntıyı aç', en: 'Open details' },
   digerProjeler: { tr: 'Öteki projeler', en: 'Other projects' },
   dene: { tr: 'Dene', en: 'Try it' },
+  yil: { tr: 'Yıl', en: 'Year' },
   ozelDepo: { tr: 'Özel depo', en: 'Private repository' },
   demoNot_stackout: {
     tr: 'Oyunun kendisi değil; iki modu birbirine bağlayan kuralın tarayıcıda çalışan küçük bir benzetimi. Parçalar ve fizik sadeleştirildi.',

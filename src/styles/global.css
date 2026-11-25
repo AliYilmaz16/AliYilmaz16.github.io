@@ -476,3 +476,5 @@ html.anim [data-belir].gorundu { opacity: 1; transform: none; }
 .so-dugmeler { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
 @media (max-width: 620px) { .demo-stackout { grid-template-columns: 1fr; } .so-tahta { max-width: 280px; } }
 @media print { .dene { display: none; } }
+
+.kart-ust .yil { color: var(--metin); }

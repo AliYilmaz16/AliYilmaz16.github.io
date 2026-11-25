@@ -106,14 +106,14 @@ const ilkProje = icerik.projeler[0];
               {d.ozel || !d.depo_adi ? (
                 <div class="diger-satir">
                   <span class="diger-ad">{c(d.ad, dil)}</span>
-                  <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}</span>
+                  <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}{d.yil && ` · ${d.yil}`}</span>
                   <span class="diger-aciklama">{c(d.aciklama, dil)}</span>
                   <span class="diger-tarih">{t('ozelDepo', dil)}</span>
                 </div>
               ) : (
                 <a href={`${k.github}/${d.depo_adi}`}>
                   <span class="diger-ad">{c(d.ad, dil)}</span>
-                  <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}</span>
+                  <span class="diger-alan">{c(icerik.alanlar[d.alan], dil)}{d.yil && ` · ${d.yil}`}</span>
                   <span class="diger-aciklama">{c(d.aciklama, dil)}</span>
                   <span class="diger-tarih" data-tarih></span>
                 </a>

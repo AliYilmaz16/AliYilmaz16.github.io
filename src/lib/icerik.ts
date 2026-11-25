@@ -13,6 +13,9 @@ const ay = z.union([z.string(), z.number()]).transform(String);
 
 const gorsel = z.object({ dosya: z.string(), alt: ikiDilBos });
 
+// Yıl: 2025 ya da "2025 - 2026"; boşsa gösterilmez.
+const yil = z.union([z.string(), z.number()]).optional().transform((v) => (v == null ? '' : String(v)));
+
 const proje = z.object({
   kimlik: z.string().regex(/^[a-z0-9-]+$/, 'kimlik yalnızca küçük harf, rakam ve tire içerebilir'),
   ad: ikiDil,
@@ -29,6 +32,7 @@ const proje = z.object({
   video_baglanti: z.string().optional().default(''),
   depo: z.string().optional().default(''),
   etkilesim: z.enum(['stackout', 'randevu', 'hamming']).optional(),
+  yil: yil,
 });
 
 const sema = z.object({
@@ -50,7 +54,7 @@ const sema = z.object({
   alanlar: z.record(z.string(), ikiDil),
   projeler: z.array(proje),
   diger_projeler: z
-    .array(z.object({ depo_adi: z.string().optional().default(''), ozel: z.boolean().optional().default(false), ad: ikiDil, alan: z.string(), aciklama: ikiDilBos }))
+    .array(z.object({ depo_adi: z.string().optional().default(''), ozel: z.boolean().optional().default(false), yil: yil, ad: ikiDil, alan: z.string(), aciklama: ikiDilBos }))
     .nullish()
     .transform((v) => v ?? []),
   gizli_depolar: z.array(z.string()).nullish().transform((v) => v ?? []),

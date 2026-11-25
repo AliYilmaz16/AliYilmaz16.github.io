@@ -41,6 +41,7 @@ const dikey = (g: { dosya: string }) => {
     <header class="proje-bas">
       <p class="kart-ust">
         <span>{c(icerik.alanlar[proje.alan], dil)}</span>
+        {proje.yil && <span class="yil">{proje.yil}</span>}
         {c(proje.baglam, dil) && <span class="soluk">{c(proje.baglam, dil)}</span>}
       </p>
       <h1>{ad}</h1>
@@ -93,6 +94,12 @@ const dikey = (g: { dosya: string }) => {
             <dt>{t('alan', dil)}</dt>
             <dd>{c(icerik.alanlar[proje.alan], dil)}</dd>
           </div>
+          {proje.yil && (
+            <div>
+              <dt>{t('yil', dil)}</dt>
+              <dd>{proje.yil}</dd>
+            </div>
+          )}
           {proje.araclar.length > 0 && (
             <div>
               <dt>{t('araclar', dil)}</dt>

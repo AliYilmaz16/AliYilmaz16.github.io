@@ -33,6 +33,7 @@ const ad = c(proje.ad, dil);
     <div class="kart-govde">
       <p class="kart-ust">
         <span>{c(icerik.alanlar[proje.alan], dil)}</span>
+        {proje.yil && <span class="yil">{proje.yil}</span>}
         {c(proje.baglam, dil) && <span class="soluk">{c(proje.baglam, dil)}</span>}
       </p>
       <h3>

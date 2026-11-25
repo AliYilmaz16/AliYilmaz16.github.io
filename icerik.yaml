@@ -40,12 +40,9 @@ kisi:
     en:
       - I am a fourth-year Computer Engineering student at Bursa Technical University. Beyond coursework I have taken on roles in the university's technology societies and competition teams, where I focused on embedded systems, computer vision and communication protocols.
       - On Teknofest teams I worked on target detection and tracking with YOLO, real-time object detection from UAV cameras and UWB communication. I currently captain Matris, a team preparing for the Swarm UAV Competition. In coursework and in my own time I have also built desktop interfaces, small web applications and machine learning models.
-  # Şu an üzerinde çalıştığı konular (GitHub profil yazısından).
-  simdi:
-    - tr: Python ile nesne tespiti
-      en: Object detection with Python
-    - tr: Spring Boot ile arka uç geliştirme
-      en: Backend development with Spring Boot
+  # Hakkımda bölümünün yanındaki "şu an üzerinde çalıştığım konular" kutusu. Boşken görünmez.
+  # Örnek: - { tr: Python ile nesne tespiti, en: Object detection with Python }
+  simdi: []
   # Fotoğraf: src/assets/ klasöründeki dosyanın adı.
   fotograf: ali.jpg
   # EKSIK: E-posta. Ali onaylarsa yazılır; boşken sitede görünmez.
@@ -67,12 +64,13 @@ alanlar:
 
 # ─── ÖNE ÇIKAN PROJELER ──────────────────────────────────────────────────────
 # Sıra, sitedeki sıradır. "kimlik" adres olur: /proje/<kimlik>/
-# Alanlar: ad, ozet (tek cümle), sorun, rol, araclar, karar, sonuc,
+# Alanlar: ad, yil (2025 ya da "2025 - 2026"), ozet (tek cümle), sorun, rol, araclar, karar, sonuc,
 #          gorseller (ilki kartta görünür), video / video_baglanti, depo.
 #          depo boşsa "özel depo" yazar. etkilesim: sayfadaki etkileşimli örnek
 #          (stackout | randevu | hamming).
 projeler:
   - kimlik: balon-takip
+    yil: 2025
     ad: { tr: Balon Takip, en: Balloon Tracker }
     alan: goruntu-isleme
     baglam:
@@ -104,6 +102,7 @@ projeler:
     depo: https://github.com/AliYilmaz16/Balon-Takip
 
   - kimlik: isg-guard
+    yil: 2026
     ad: { tr: İSG Guard, en: ISG Guard }
     alan: web
     baglam:
@@ -140,6 +139,7 @@ projeler:
     depo: https://github.com/AliYilmaz16/isg-guard
 
   - kimlik: stackout
+    yil: "2025 - 2026"
     ad: Stackout
     alan: mobil
     baglam:
@@ -166,6 +166,7 @@ projeler:
     etkilesim: stackout
 
   - kimlik: berber-randevu
+    yil: 2026
     ad: { tr: Berber Randevu Sistemi, en: Barber Booking System }
     alan: web
     baglam:
@@ -189,6 +190,7 @@ projeler:
     etkilesim: randevu
 
   - kimlik: pardus-muzik-calar
+    yil: 2026
     ad: { tr: Pardus Müzik Çalar, en: Pardus Music Player }
     alan: masaustu
     baglam:
@@ -221,6 +223,7 @@ projeler:
     depo: https://github.com/AliYilmaz16/Pardus-Muzik-Calar
 
   - kimlik: sec-ded
+    yil: 2025
     ad: { tr: Hamming SEC-DED Simülatörü, en: Hamming SEC-DED Simulator }
     alan: masaustu
     baglam:
@@ -252,6 +255,7 @@ projeler:
     depo: https://github.com/AliYilmaz16/SEC-DED-Kodlay-c-
 
   - kimlik: c-syntax-highlighter
+    yil: 2025
     ad: { tr: C Sözdizimi Vurgulayıcı, en: C Syntax Highlighter }
     alan: masaustu
     baglam:
@@ -282,6 +286,7 @@ projeler:
     depo: https://github.com/AliYilmaz16/C-Syntax-Highlighter-with-Python
 
   - kimlik: hayvanat-bahcesi
+    yil: 2025
     ad: { tr: Hayvanat Bahçesi Yönetim Sistemi, en: Zoo Management System }
     alan: web
     baglam:
@@ -318,30 +323,35 @@ projeler:
 # GitHub'a ulaşılamazsa bu liste olduğu gibi gösterilir.
 diger_projeler:
   - depo_adi: mucars-random-forest-classification
+    yil: 2026
     ad: MUCars Random Forest
     alan: makine-ogrenmesi
     aciklama:
       tr: Fas ikinci el araç verisinde (MUCars-2024) Random Forest ile dört fiyat sınıfı tahmini. Veri Madenciliğine Giriş dersi projesi; test doğruluğu 0,8519.
       en: Predicting four price classes on Moroccan used-car data (MUCars-2024) with Random Forest. Course project for Introduction to Data Mining; test accuracy 0.8519.
   - depo_adi: SmartHome-Energy-Classifier
+    yil: 2026
     ad: SmartHome Energy Classifier
     alan: makine-ogrenmesi
     aciklama:
       tr: Yalnızca hava durumu ve zaman bilgisiyle bir evin enerji tüketimini yüksek ya da düşük diye sınıflandırma. Üç model karşılaştırıldı; en iyisi KNN, %81,38.
       en: Classifying a home's energy use as high or low from weather and time data alone. Three models compared; KNN was best at 81.38%.
   - depo_adi: Hava-Kalitesi-Tahmin-Modeli
+    yil: 2025
     ad: { tr: Hava Kalitesi Tahmin Modeli, en: Air Quality Prediction Model }
     alan: makine-ogrenmesi
     aciklama:
       tr: CO, ozon, NO₂ ve PM2.5 değerlerinden hava kalitesi sınıfı tahmini. Makine Öğrenmesine Giriş dersi projesi.
       en: Predicting the air-quality class from CO, ozone, NO₂ and PM2.5 values. Course project for Introduction to Machine Learning.
   - depo_adi: Akbank-Makine-Ogrenmesi-Bootcamp
+    yil: 2025
     ad: { tr: Trafik Kazası Şiddeti Tahmini, en: Traffic Accident Severity Prediction }
     alan: makine-ogrenmesi
     aciklama:
       tr: Birleşik Krallık trafik kazası verisinde (1,5 milyon satır) kaza şiddeti tahmini. Akbank ve Global AI Hub Makine Öğrenmesi Bootcamp projesi; sınıf dengesizliği sorunu ve sınırları belgelendi.
       en: Predicting accident severity on UK road accident data (1.5 million rows). Project for the Akbank and Global AI Hub Machine Learning Bootcamp; the class-imbalance problem and its limits are documented.
   - depo_adi: Python202-Bootcamp
+    yil: 2025
     ad: Python 202 Bootcamp
     alan: web
     aciklama:
@@ -351,6 +361,7 @@ diger_projeler:
   # Özel depo: bağlantı verilmez, "özel depo" yazar.
   - ad: MatDrone
     ozel: true
+    yil: 2026
     alan: masaustu
     aciklama:
       tr: İHA fotoğraflarından koordinatlı ortofoto üreten masaüstü uygulaması. Geliştirme sürüyor.

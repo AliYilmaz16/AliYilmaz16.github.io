@@ -35,6 +35,13 @@ if (kok) {
   let sira: (Parca | null)[] = [];
   let secili = -1;
   let px = 0; // seçili parçanın sütunu
+  let py = 0; // seçili parçanın satırı
+  let kes = 0; // bir sonraki satıra doğru düşüş payı (0-1)
+  let bosta = 0; // kimse dokunmadan yere inen parça sayısı
+  let bekle = false;
+  let nesil = 0;
+  let gorunur = true;
+  const azalt = matchMedia('(prefers-reduced-motion: reduce)').matches;
   let mod: 'yig' | 'kir' = 'yig';
   let puan = 0;
   let toplar = 0;
@@ -51,9 +58,9 @@ if (kok) {
   const dondur = (s: number[][]) => s[0].map((_, x) => s.map((satir) => satir[x]).reverse());
   const sigar = (s: number[][], x: number, y: number) =>
     s.every((satir, dy) => satir.every((v, dx) => !v || (x + dx >= 0 && x + dx < S && y + dy < R && y + dy >= 0 && !izgara[y + dy][x + dx])));
-  const inis = (s: number[][], x: number) => {
-    if (!sigar(s, x, 0)) return -1;
-    let y = 0;
+  const inis = (s: number[][], x: number, bas = 0) => {
+    if (!sigar(s, x, bas)) return -1;
+    let y = bas;
     while (sigar(s, x, y + 1)) y++;
     return y;
   };
@@ -69,6 +76,8 @@ if (kok) {
     secili = i;
     const p = sira[i];
     if (p) px = Math.max(0, Math.min(S - p.s[0].length, px));
+    py = 0;
+    kes = 0;
     parcalariCiz();
   }
   function parcalariCiz() {
@@ -91,6 +100,7 @@ if (kok) {
         b.append(g);
       }
       b.addEventListener('click', () => {
+        etkilesim();
         sec(i);
         ciz();
         tuval.focus({ preventScroll: true });
@@ -102,7 +112,7 @@ if (kok) {
   function birak() {
     const p = sira[secili];
     if (mod !== 'yig' || !p) return;
-    const y = inis(p.s, px);
+    const y = inis(p.s, px, py);
     if (y < 0) {
       baslat();
       de(m.mDoldu);
@@ -153,6 +163,7 @@ if (kok) {
     cancelAnimationFrame(kare);
     de(ileti ?? m.mSec);
     guncelle();
+    dongu();
   }
   const platformGen = () => W * 0.26;
   const platformY = () => H - hc * 0.55;
@@ -232,17 +243,51 @@ if (kok) {
     }
   }
 
+  // Yığma modunda parça kendiliğinden düşer. Kimse dokunmadan iki parça yere inerse beklemeye geçer.
+  function dusur(k: number) {
+    const p = sira[secili];
+    if (!p) return;
+    kes += 0.035 * k;
+    while (kes >= 1) {
+      if (sigar(p.s, px, py + 1)) {
+        py++;
+        kes -= 1;
+      } else {
+        kes = 0;
+        bosta++;
+        birak();
+        if (bosta >= 2 && mod === 'yig') {
+          bekle = true;
+          de(m.mBekle);
+        }
+        return;
+      }
+    }
+  }
+  const calisir = () => !document.hidden && gorunur && (mod === 'kir' || (!azalt && !bekle));
   function dongu() {
     cancelAnimationFrame(kare);
+    const no = ++nesil; // iç içe yeniden başlatmalarda eski döngü kendini sürdürmesin
+    if (!calisir()) return;
     let once = 0;
     const tur = (t: number) => {
-      if (mod !== 'kir') return;
-      adim(once ? Math.min(2.5, (t - once) / 16.7) : 1);
+      if (no !== nesil) return;
+      const k = once ? Math.min(2.5, (t - once) / 16.7) : 1;
       once = t;
+      if (mod === 'kir') adim(k);
+      else dusur(k);
       ciz();
-      if (mod === 'kir') kare = requestAnimationFrame(tur);
+      if (no === nesil && calisir()) kare = requestAnimationFrame(tur);
     };
     kare = requestAnimationFrame(tur);
+  }
+  function etkilesim() {
+    bosta = 0;
+    if (bekle) {
+      bekle = false;
+      de(m.mSec);
+      dongu();
+    }
   }
 
   function guncelle() {
@@ -308,11 +353,12 @@ if (kok) {
     if (!kir) {
       const p = sira[secili];
       if (p) {
-        const y = inis(p.s, px);
+        const y = inis(p.s, px, py);
+        const pay = sigar(p.s, px, py + 1) ? kes : 0;
         p.s.forEach((satir, dy) => satir.forEach((v, dx) => {
           if (!v) return;
-          hucre(px + dx, dy, RENK[p.renk]);
-          if (y > 0) hucre(px + dx, y + dy, RENK[p.renk], 0.28);
+          if (y > py) hucre(px + dx, y + dy, RENK[p.renk], 0.28);
+          hucre(px + dx, py + dy + pay, RENK[p.renk]);
         }));
       }
     } else {
@@ -343,7 +389,10 @@ if (kok) {
     sira = [{ s: SEKIL[3], renk: 3 }, rastgele(), rastgele()];
     sec(0);
     de(m.mSec);
+    bosta = 0;
+    bekle = false;
     guncelle();
+    dongu();
   }
 
   // ── Girdi ──
@@ -353,7 +402,7 @@ if (kok) {
       const p = sira[secili];
       if (!p) return;
       const yeni = Math.max(0, Math.min(S - p.s[0].length, Math.round(sutun(e) - p.s[0].length / 2)));
-      if (yeni !== px) {
+      if (yeni !== px && sigar(p.s, yeni, py)) {
         px = yeni;
         ciz();
       }
@@ -363,9 +412,13 @@ if (kok) {
     }
   });
   tuval.addEventListener('pointerup', (e) => {
+    etkilesim();
     if (mod === 'yig') {
       const p = sira[secili];
-      if (p) px = Math.max(0, Math.min(S - p.s[0].length, Math.round(sutun(e) - p.s[0].length / 2)));
+      if (p) {
+        const yeni = Math.max(0, Math.min(S - p.s[0].length, Math.round(sutun(e) - p.s[0].length / 2)));
+        if (sigar(p.s, yeni, py)) px = yeni;
+      }
       birak();
     } else firlat();
   });
@@ -374,10 +427,11 @@ if (kok) {
     if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', ' ', 'Enter', '1', '2', '3'].includes(k)) return;
     e.preventDefault();
     e.stopPropagation();
+    etkilesim();
     if (mod === 'yig') {
       const p = sira[secili];
-      if (k === 'ArrowLeft' && p) px = Math.max(0, px - 1);
-      else if (k === 'ArrowRight' && p) px = Math.min(S - p.s[0].length, px + 1);
+      if (k === 'ArrowLeft' && p) px = sigar(p.s, px - 1, py) ? px - 1 : px;
+      else if (k === 'ArrowRight' && p) px = sigar(p.s, px + 1, py) ? px + 1 : px;
       else if (k === 'ArrowUp') cevir();
       else if (k === ' ' || k === 'Enter') return birak();
       else if ('123'.includes(k)) sec(Number(k) - 1);
@@ -396,21 +450,27 @@ if (kok) {
     const p = sira[secili];
     if (mod !== 'yig' || !p) return;
     const yeni = dondur(p.s);
+    const x = Math.max(0, Math.min(S - yeni[0].length, px));
+    if (!sigar(yeni, x, py)) return;
     p.s = yeni;
-    px = Math.max(0, Math.min(S - yeni[0].length, px));
+    px = x;
     parcalariCiz();
     ciz();
   }
-  el('[data-don]').addEventListener('click', cevir);
-  el('[data-birak]').addEventListener('click', birak);
+  el('[data-don]').addEventListener('click', () => (etkilesim(), cevir()));
+  el('[data-birak]').addEventListener('click', () => (etkilesim(), birak()));
+  tuval.addEventListener('pointerenter', etkilesim);
+  new IntersectionObserver(([g]) => {
+    gorunur = g.isIntersecting;
+    dongu();
+  }, { threshold: 0.4 }).observe(tuval);
   el('[data-yeniden]').addEventListener('click', baslat);
   modDugme.addEventListener('click', modDegis);
   new ResizeObserver(boyut).observe(tuval);
   new MutationObserver(ciz).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   // Sayfa görünmüyorken döngü durur; dönünce sürer.
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) cancelAnimationFrame(kare);
-    else if (mod === 'kir') dongu();
+    dongu();
   });
   baslat();
   boyut();
