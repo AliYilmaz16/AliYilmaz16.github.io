@@ -7,9 +7,9 @@ kart-hayvanat-bahcesi
 durak:Yazılım Stajyeri
 durak:Takım Kaptanı, Matris
 durak:Yazılım Stajyeri
-durak:Yazılım Stajyeri
+durak:Görüntü İşleme Stajyeri
 durak:Takım Üyesi, Matris
 durak:Çekirdek Ekip Üyesi
 durak:Görüntü İşleme Stajyeri
-durak:Takım Üyesi, Sefir-i Gök
+durak:Yazılım Takım Lideri, Sefir-i Gök
 durak:Bursa Teknik Üniversitesi

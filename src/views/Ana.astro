@@ -61,7 +61,7 @@ const ilkProje = icerik.projeler[0];
     <h2 id="b-hakkimda" data-belir>{t('hakkimda', dil)}</h2>
     <div class:list={['hakkimda', { fotolu: !!foto }]}>
       {foto && (
-        <Image class="foto" src={foto} alt={k.ad} width={360} height={360} fit="cover" format="webp" data-belir />
+        <Image class="foto" src={foto} alt={dil === 'tr' ? `${k.ad}, yarışma sahasında dizüstü bilgisayarın başında` : `${k.ad} at a laptop on the competition field`} width={360} height={360} fit="cover" format="webp" data-belir />
       )}
       <div class="yazi" data-belir>
         {k.hakkimda[dil].map((p) => <p>{p}</p>)}

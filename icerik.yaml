@@ -32,25 +32,26 @@ kisi:
   konum:
     tr: Bursa, Türkiye
     en: Bursa, Türkiye
-  # TASLAK: Bu yazıyı ajan eldeki bilgilerden yazdı. Ali okuyup kendi sözleriyle düzeltmeli.
+  # Özgeçmişindeki profil özetinden derlendi. Ali okuyup kendi sözleriyle düzeltebilir.
   hakkimda:
     tr:
-      - Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği öğrencisiyim. En çok görüntü işleme ile uğraşıyorum; Teknofest takımlarında YOLO ile hedef tespiti ve takibi üzerine çalıştım.
-      - Derslerde ve boş zamanımda masaüstü arayüzleri, küçük web uygulamaları ve makine öğrenmesi modelleri geliştirdim. Şu sıralar Spring Boot ile arka uç geliştirmeyi öğreniyorum.
+      - Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Okul projelerinin ötesine geçip üniversitedeki teknoloji topluluklarında ve yarışma takımlarında görev aldım; bu süreçte gömülü sistemler, görüntü işleme ve haberleşme protokolleri üzerine yoğunlaştım.
+      - Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından gerçek zamanlı nesne tespiti ve UWB haberleşmesi üzerinde çalıştım. Şu an Sürü İHA Yarışması'na hazırlanan Matris takımının kaptanıyım. Derslerde ve boş zamanımda masaüstü arayüzleri, küçük web uygulamaları ve makine öğrenmesi modelleri de geliştirdim.
     en:
-      - I am a Computer Engineering student at Bursa Technical University. Most of my work is in computer vision; on Teknofest teams I worked on target detection and tracking with YOLO.
-      - In coursework and in my own time I have built desktop interfaces, small web applications and machine learning models. I am currently learning backend development with Spring Boot.
+      - I am a fourth-year Computer Engineering student at Bursa Technical University. Beyond coursework I have taken on roles in the university's technology societies and competition teams, where I focused on embedded systems, computer vision and communication protocols.
+      - On Teknofest teams I worked on target detection and tracking with YOLO, real-time object detection from UAV cameras and UWB communication. I currently captain Matris, a team preparing for the Swarm UAV Competition. In coursework and in my own time I have also built desktop interfaces, small web applications and machine learning models.
   # Şu an üzerinde çalıştığı konular (GitHub profil yazısından).
   simdi:
     - tr: Python ile nesne tespiti
       en: Object detection with Python
     - tr: Spring Boot ile arka uç geliştirme
       en: Backend development with Spring Boot
-  # EKSIK: Fotoğraf. Dosyayı src/assets/ali.jpg olarak koy ve aşağıya "ali.jpg" yaz.
-  fotograf: ""
+  # Fotoğraf: src/assets/ klasöründeki dosyanın adı.
+  fotograf: ali.jpg
   # EKSIK: E-posta. Ali onaylarsa yazılır; boşken sitede görünmez.
   eposta: ""
   # EKSIK: Özgeçmiş dosyası. public/ klasörüne koy (ör. Ali_Yilmaz_CV.pdf) ve adını yaz.
+  # Dikkat: yayımlanacak dosyada telefon numarası ve ilçe bilgisi olmamalı.
   ozgecmis: ""
   linkedin: https://www.linkedin.com/in/ali-yılmaz-7a67b2343/
   github: https://github.com/AliYilmaz16
@@ -80,10 +81,10 @@ projeler:
     sorun:
       tr: Yarışma kuralları ve donanım sınırları yüksek kare hızı istiyordu. En hafif model olan YOLOv8n hızlıydı ama uzak mesafede ve ani hareketlerde hedefi kaçırıyor, ham tespitler titriyordu; bu da atış mekanizmasını bozuyordu.
       en: Competition rules and hardware limits demanded a high frame rate. YOLOv8n, the lightest model, was fast but lost the target at long range and during sudden movement, and the raw detections jittered, which upset the firing mechanism.
-    # EKSIK: Takımdaki payın LinkedIn satırından alındı; istersen ayrıntılandır.
+    # Özgeçmişteki satırdan alındı; istersen ayrıntılandır.
     rol:
-      tr: Sefir-i Gök takımının üyesi olarak YOLO mimarisiyle hedef tespiti ve takibi üzerinde çalıştım.
-      en: As a member of the Sefir-i Gök team I worked on target detection and tracking with the YOLO architecture.
+      tr: Sefir-i Gök takımının yazılım takım lideri olarak YOLO mimarisiyle gerçek zamanlı hedef tespiti ve takip sisteminin geliştirilmesinde yer aldım.
+      en: As software team lead of the Sefir-i Gök team I took part in developing the real-time target detection and tracking system built on the YOLO architecture.
     araclar: [Python, YOLOv8n, OpenCV, NumPy]
     karar:
       tr: DeepSORT gibi hazır bir takipçi yerine sisteme özel bir takip sınıfı yazıldı. Sınıf, hedefin son 8 konumundan hız vektörünü hesaplıyor, kamera hedefi kaçırdığında bir sonraki konumu tahmin ediyor ve koordinatları üstel hareketli ortalamayla yumuşatıyor.
@@ -316,9 +317,12 @@ deneyim:
       en: Machine Technologies, Robotics and Automation Society
     gorev: { tr: "Takım Kaptanı, Matris", en: "Team Leader, Matris" }
     tur: takim
-    baslangic: 2026-10
-    # EKSIK: Kaptanlıkta ne yapıyorsun? (isteğe bağlı)
-    maddeler: []
+    baslangic: 2026-09
+    maddeler:
+      - tr: Teknofest Sürü İHA Yarışması'nda finalist olan takımın bu yılki kaptanlığı.
+        en: Captain this year of a team that reached the finals of the Teknofest Swarm UAV Competition.
+      - tr: 20 kişilik ekibin sistem mimarisi, sprint planlaması ve yarışma hazırlıklarının koordinasyonu.
+        en: Coordinating system architecture, sprint planning and competition preparation for a team of 20.
 
   - kurum: Derin Teknoloji
     gorev: { tr: Yazılım Stajyeri, en: Software Intern }
@@ -329,12 +333,15 @@ deneyim:
     maddeler: []
 
   - kurum: Spikedge
-    gorev: { tr: Yazılım Stajyeri, en: Software Intern }
+    gorev: { tr: Görüntü İşleme Stajyeri, en: Computer Vision Intern }
     tur: staj
     baslangic: 2026-07
     bitis: 2026-09
-    # EKSIK: staj açıklaması
-    maddeler: []
+    maddeler:
+      - tr: Kamera görüntüsünden gerçek zamanlı panoramik görüntü oluşturan modülün geliştirilmesi.
+        en: Developed a module that builds a real-time panoramic image from camera footage.
+      - tr: Görüntülerin doğru birleştirilmesi için gereken işlem hattının kurulması.
+        en: Set up the pipeline needed to stitch the images correctly.
 
   - kurum:
       tr: Makine Teknolojileri Robot ve Otomasyon Topluluğu
@@ -342,9 +349,12 @@ deneyim:
     gorev: { tr: "Takım Üyesi, Matris", en: "Team Member, Matris" }
     tur: takim
     baslangic: 2025-08
-    bitis: 2026-10
-    # EKSIK: (isteğe bağlı)
-    maddeler: []
+    bitis: 2026-09
+    maddeler:
+      - tr: Teknofest Sürü İHA Yarışması'nda finalist olan takımda, İHA üzerindeki kameralarla gerçek zamanlı nesne tespiti.
+        en: Real-time object detection from onboard UAV cameras, on a team that reached the finals of the Teknofest Swarm UAV Competition.
+      - tr: Sürüdeki araçların çarpışmasını önlemek için UWB haberleşmesinin donanım entegrasyonu ve yazılımı.
+        en: Hardware integration and software for UWB communication, used to keep the vehicles in the swarm from colliding.
 
   - kurum:
       tr: Huawei Student Developers, Bursa Teknik Üniversitesi
@@ -353,27 +363,29 @@ deneyim:
     tur: takim
     baslangic: 2025-10
     bitis: 2026-06
-    # EKSIK: (isteğe bağlı)
-    maddeler: []
+    maddeler:
+      - tr: Proje ekibinin geliştirdiği mobil uygulamanın arka uç servislerinin geliştirilmesi.
+        en: Developed the backend services of the mobile application built by the project team.
 
   - kurum: Crowtec Software
     gorev: { tr: Görüntü İşleme Stajyeri, en: Computer Vision Intern }
     tur: staj
     baslangic: 2025-09
-    bitis: 2026-01
-    # EKSIK: staj açıklaması
-    maddeler: []
+    bitis: 2025-10
+    maddeler:
+      - tr: MR görüntülerinde diş ve kemik dokusunun bölütlenmesi için PySide6 tabanlı masaüstü yazılımı.
+        en: PySide6 desktop software for segmenting tooth and bone tissue in MR images.
 
   - kurum:
       tr: Makine Teknolojileri Robot ve Otomasyon Topluluğu
       en: Machine Technologies, Robotics and Automation Society
-    gorev: { tr: "Takım Üyesi, Sefir-i Gök", en: "Team Member, Sefir-i Gök" }
+    gorev: { tr: "Yazılım Takım Lideri, Sefir-i Gök", en: "Software Team Lead, Sefir-i Gök" }
     tur: takim
     baslangic: 2024-09
     bitis: 2025-08
     maddeler:
-      - tr: Teknofest Hava Savunma Sistemleri Yarışması için YOLO mimarisiyle hedef tespiti ve takibi.
-        en: Target detection and tracking with the YOLO architecture for the Teknofest Air Defence Systems Competition.
+      - tr: Teknofest Hava Savunma Sistemleri Yarışması için YOLO mimarisiyle gerçek zamanlı hedef tespiti ve takip sistemi.
+        en: Real-time target detection and tracking system built on the YOLO architecture for the Teknofest Air Defence Systems Competition.
     proje: balon-takip
 
 # ─── EĞİTİM ──────────────────────────────────────────────────────────────────
@@ -406,13 +418,16 @@ yetenekler:
   - grup: { tr: Programlama dilleri, en: Programming languages }
     ogeler: [C++, Python, Java]
   - grup: { tr: Görüntü işleme, en: Computer vision }
-    ogeler: [OpenCV, YOLO, NumPy]
+    ogeler: [OpenCV, YOLO, NumPy, Embedded Vision]
   - grup: { tr: Arayüz ve gömülü, en: Interfaces and embedded }
-    ogeler: [PyQt5, tkinter, Arduino]
+    ogeler: [PyQt5, PySide6, tkinter, Arduino]
+  - grup: { tr: Araçlar, en: Tools }
+    ogeler: [Git, Linux]
   - grup: { tr: Projelerde kullandıkları, en: Used in projects }
     ogeler: [Node.js, React, PHP, MySQL, PostgreSQL, Bash, scikit-learn, FastAPI]
   - grup: { tr: Şu an öğreniyor, en: Currently learning }
     ogeler: [Spring Boot]
 
-# EKSIK: Konuşulan diller. Örnek: - { ad: { tr: İngilizce, en: English }, duzey: { tr: B2, en: B2 } }
-diller: []
+# Konuşulan diller.
+diller:
+  - { ad: { tr: İngilizce, en: English }, duzey: { tr: B2, en: B2 } }
