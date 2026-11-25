@@ -1,125 +1,32 @@
-# Ali Yılmaz · kişisel web sitesi
+# Ali Yılmaz
 
-Yayın adresi: <https://aliyilmaz16.github.io/> (İngilizce: <https://aliyilmaz16.github.io/en/>)
+Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Görüntü işleme, nesne tespiti ve takibi üzerine çalışıyorum; gömülü sistemler ve haberleşme protokolleriyle de uğraşıyorum.
 
-Tek sayfalık tanıtım sitesi ve her proje için bir ayrıntı sayfası. Türkçe ve İngilizce, koyu ve açık tema. Sunucu tarafı, veritabanı, çerez ve izleme aracı yok.
+Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından gerçek zamanlı nesne tespiti ve UWB haberleşmesi üzerinde çalıştım. Şu an Sürü İHA Yarışması'na hazırlanan Matris takımının kaptanıyım.
 
-Sitenin bütün içeriği kökteki **`icerik.yaml`** dosyasındadır. Yeni proje ya da staj eklemek için yalnızca o dosya değişir.
+**Projelerim, stajlarım ve eğitimim sitemde: [aliyilmaz16.github.io](https://aliyilmaz16.github.io/)**
 
-## Yerelde çalıştırma
+## Öne çıkan projeler
 
-Node 22.23 ya da üstü gerekir.
-
-```bash
-npm install
-npm run dev        # http://localhost:4321 adresinde açılır, dosya değişince yenilenir
-```
-
-Yayındaki hâlin aynısını görmek için:
-
-```bash
-npm run build      # dist/ klasörüne derler
-npm run preview    # derlenmiş siteyi http://localhost:4321 adresinde sunar
-npx astro preview stop   # önizlemeyi kapatır
-```
-
-## Yayına alma
-
-`main` dalına gönderilen her değişiklik, `.github/workflows/yayin.yml` ile kendiliğinden derlenir ve GitHub Pages'e konur. Ayrıca bir şey yapmak gerekmez:
-
-```bash
-git add -A
-git commit -m "Yeni staj açıklaması"
-git push
-```
-
-Derlemenin durumu deponun **Actions** sekmesinde görünür; bir iki dakika sürer.
-
-Kendi alan adını bağlamak için: `public/CNAME` dosyasına alan adını yaz (tek satır), `icerik.yaml` ve `astro.config.mjs` içindeki `https://aliyilmaz16.github.io` adresini değiştir, alan adı sağlayıcısında GitHub Pages kayıtlarını gir.
-
-Eski site (2025) `eski-site-2025` dalında durur.
-
-## Yeni proje ekleme
-
-1. Görselleri `src/assets/projeler/<kimlik>/` klasörüne koy. Boyutlarını küçültmen gerekmez; derleme küçültür.
-2. `icerik.yaml` içinde `projeler:` listesine bir kayıt ekle. Listedeki sıra, sitedeki sıradır.
-
-```yaml
-  - kimlik: yeni-proje            # adres olur: /proje/yeni-proje/
-    ad: { tr: Yeni Proje, en: New Project }
-    alan: web                     # "alanlar" listesindeki anahtarlardan biri
-    baglam: { tr: Ders projesi, en: Course project }
-    ozet: { tr: Tek cümlelik özet., en: One-sentence summary. }
-    sorun: { tr: "...", en: "..." }
-    rol: { tr: "...", en: "..." }
-    araclar: [Python, OpenCV]
-    karar: { tr: "...", en: "..." }
-    sonuc: { tr: "...", en: "..." }
-    gorseller:                    # ilki kartta görünür
-      - dosya: ekran.png
-        alt: { tr: Ana ekran, en: Main screen }
-    video: /video/yeni-proje.mp4  # isteğe bağlı; dosya public/video/ altında, H.264
-    video_baglanti: https://www.youtube.com/watch?v=...   # isteğe bağlı
-    depo: https://github.com/AliYilmaz16/yeni-proje
-```
-
-Boş bırakılan alan sitede gösterilmez. Görsel verilmezse kart, adın ilk harfleriyle çizilir. Kısa listeye (öteki projeler) eklemek için `diger_projeler:` altına `depo_adi`, `ad`, `alan`, `aciklama` yazman yeter.
-
-GitHub'da açıklaması yazılmış yeni bir depo açarsan, öteki projeler listesinin sonunda kendiliğinden görünür. Görünmesini istemediğin depoyu `gizli_depolar:` listesine ekle.
-
-## Yeni staj ya da görev ekleme
-
-`icerik.yaml` içinde `deneyim:` listesinin başına ekle (en yeni en üstte):
-
-```yaml
-  - kurum: Kurum Adı
-    gorev: { tr: Yazılım Stajyeri, en: Software Intern }
-    tur: staj                     # staj | takim
-    baslangic: 2027-01
-    bitis: 2027-03                # yazılmazsa "sürüyor" görünür ve girişteki "şu an" satırına çıkar
-    maddeler:                     # en çok üç madde; boş bırakılabilir
-      - { tr: Ne yaptığın., en: What you did. }
-```
-
-Bir staj bittiğinde yalnızca `bitis` satırını eklemen yeter; "sürüyor" bilgisi ve girişteki "şu an" satırı buradan türetilir.
-
-## Öteki sık işler
-
-| İş | Yapılacak |
+| Proje | Ne yapıyor |
 | --- | --- |
-| Fotoğraf eklemek | Dosyayı `src/assets/ali.jpg` olarak koy, `kisi.fotograf: ali.jpg` yaz |
-| E-posta göstermek | `kisi.eposta` alanına yaz |
-| Özgeçmiş indirme düğmesi | PDF'i `public/` altına koy, `kisi.ozgecmis` alanına dosya adını yaz |
-| Hakkımda yazısını değiştirmek | `kisi.hakkimda.tr` ve `kisi.hakkimda.en` |
-| Paylaşım önizleme görselini yenilemek | `node araclar/og.mjs` (ad ya da unvan değişince) |
-| Düğme ve başlık metinleri | `src/lib/i18n.ts` |
-| Renkler ve yazı tipleri | `src/styles/global.css` dosyasının başı |
+| [Balon Takip](https://aliyilmaz16.github.io/proje/balon-takip/) | YOLOv8n ile balon tespiti ve kaçan karelerde kilidi koruyan, projeye özel bir takip sınıfı |
+| [İSG Guard](https://aliyilmaz16.github.io/proje/isg-guard/) | Saha çalışanının telefonunu algılayıcı olarak kullanan iş güvenliği sistemi |
+| [Pardus Müzik Çalar](https://aliyilmaz16.github.io/proje/pardus-muzik-calar/) | Grafik ve terminal arayüzlü müzik çalar; tamamı tek bir Bash betiği |
+| [Hamming SEC-DED Simülatörü](https://aliyilmaz16.github.io/proje/sec-ded/) | Tek hata düzeltmeyi ve çift hata tespitini bit bit gösteren PyQt5 simülatörü |
+| [C Sözdizimi Vurgulayıcı](https://aliyilmaz16.github.io/proje/c-syntax-highlighter/) | C kodunu yazarken renklendiren, belirteç listesini ve ayrıştırma ağacını gösteren araç |
+| [Hayvanat Bahçesi Yönetim Sistemi](https://aliyilmaz16.github.io/proje/hayvanat-bahcesi/) | Hayvanların sağlık, beslenme ve yaşam alanı kayıtlarını tutan PHP ve MySQL uygulaması |
 
-`icerik.yaml` içinde biçim hatası olursa derleme durur ve hangi alanın yanlış olduğunu söyler.
+## Kullandıklarım
 
-## Denemeler
+Python, C++, Java · OpenCV, YOLO, NumPy · PyQt5, PySide6 · Git, Linux
 
-```bash
-npx playwright install chromium firefox webkit   # bir kez
-npm run build && npx astro preview --background --host 127.0.0.1   # derle, önizlemeyi arka planda başlat
-npm test                                         # D1-D9, D12: üç tarayıcıda
-npx astro preview stop                           # önizlemeyi kapat
-node araclar/lighthouse.mjs                      # D10: sayfa denetimi
-node araclar/d11.mjs                             # D11: içerik dosyasına deneme projesi
-```
+## İletişim
 
-Sonuçlar `docs/DENEME.md` dosyasında, kanıtları `docs/kanit/` klasöründedir.
+[LinkedIn](https://www.linkedin.com/in/ali-yılmaz-7a67b2343/) · [GitHub](https://github.com/AliYilmaz16) · [Web sitesi](https://aliyilmaz16.github.io/)
 
-## Klasörler
+---
 
-```
-icerik.yaml            bütün içerik
-src/assets/projeler/   proje görselleri
-src/views/             ana sayfa ve proje sayfası
-src/layouts/Base.astro üst menü, alt bilgi, komut paleti
-src/scripts/           site.ts (etkileşimler), takip.ts (girişteki benzetim)
-src/styles/global.css  bütün stiller
-public/                yazı tipleri, video, paylaşım görselleri
-testler/, araclar/     kabul denemeleri ve yardımcı betikler
-docs/                  karar notu, deneme tablosu, eksikler listesi
-```
+**English.** I am a fourth-year Computer Engineering student at Bursa Technical University, working on computer vision, object detection and tracking. I currently captain Matris, a team preparing for the Teknofest Swarm UAV Competition. Projects, internships and education are on my site: [aliyilmaz16.github.io/en](https://aliyilmaz16.github.io/en/)
+
+<sub>Bu depo sitenin kaynak kodudur. Yerelde çalıştırma, yayın ve içerik ekleme adımları: [docs/KURULUM.md](docs/KURULUM.md)</sub>

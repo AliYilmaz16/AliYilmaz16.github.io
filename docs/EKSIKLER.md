@@ -38,7 +38,7 @@ Ali'nin doldurması ya da onaylaması gereken alanlar. Hepsi `icerik.yaml` dosya
 
 | Konu | Uygulanan varsayılan |
 | --- | --- |
-| Yayın yeri | Mevcut `AliYilmaz16.github.io` deposu. Kendi alan adını alırsan README'deki adımlarla bağlanır. |
+| Yayın yeri | Mevcut `AliYilmaz16.github.io` deposu. Kendi alan adını alırsan docs/KURULUM.md içindeki adımlarla bağlanır. |
 | Eski site | `eski-site-2025` dalında saklandı. Gerekmiyorsa dalı silebilirsin. |
 | Tasarım yönü | Koyu teknik; açık tema da var. |
 | Ek özellikler | Belgedeki ilk üçü (süzgeç, yazdırma görünümü, "şu an" satırı) ve ayrıca komut paleti, GitHub'dan canlı liste, projeler arası geçiş, girişte takip benzetimi. Katkı grafiği ve mini terminal yapılmadı. |

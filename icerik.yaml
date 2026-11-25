@@ -8,7 +8,7 @@
 #  - "EKSIK:" ile başlayan yorumlar Ali'nin doldurması gereken yerlerdir.
 #  - Tarihler "YYYY-AA" biçimindedir. "bitis" yazılmazsa satır "sürüyor" görünür.
 #  - Görseller src/assets/projeler/<proje-kimligi>/ klasöründen dosya adıyla okunur.
-# Ayrıntılı anlatım: README.md
+# Ayrıntılı anlatım: docs/KURULUM.md
 # ─────────────────────────────────────────────────────────────────────────────
 
 site:
