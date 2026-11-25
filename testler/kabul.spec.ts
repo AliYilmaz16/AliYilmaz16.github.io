@@ -185,7 +185,7 @@ test('D5 fare kullanmadan gezinme', async ({ page, browserName }) => {
   await page.keyboard.press('Tab');
   await expect(page.locator('.atla')).toBeFocused();
   // Her bağlantıya ve karta Tab ile ulaşılıyor, odak görünüyor
-  const hedefler = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('a[href], button')].filter((e) => e.offsetParent !== null && !e.closest('dialog')).length);
+  const hedefler = await page.evaluate(() => [...document.querySelectorAll<HTMLElement>('a[href], button')].filter((e) => e.offsetParent !== null && !e.closest('dialog') && !(e as HTMLButtonElement).disabled && e.tabIndex >= 0).length);
   const gorulen: string[] = [];
   let kartOdak = false;
   for (let i = 0; i < hedefler + 5; i++) {
