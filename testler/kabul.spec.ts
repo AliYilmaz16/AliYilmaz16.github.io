@@ -221,6 +221,7 @@ test('D5 fare kullanmadan gezinme', async ({ page, browserName }) => {
   await expect(page).toHaveURL(/isg-guard/);
   await page.keyboard.press('ArrowRight');
   await expect(page).toHaveURL(/stackout/);
+  await page.waitForLoadState('load'); // ok tuşu dinleyicisi sayfa betiğiyle gelir
   await page.keyboard.press('ArrowLeft');
   await expect(page).toHaveURL(/isg-guard/);
   // Komut paleti klavyeyle
