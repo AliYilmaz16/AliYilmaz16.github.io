@@ -39,6 +39,8 @@ if (tuval) {
   const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, sx: 0, sy: 0, i, yelken: 0.35 + Math.random() * 0.5 }));
   const hedef = { x: 0, y: 0 };
   const nokta = { x: 0, y: 0, son: 0 };
+  const imlec = { x: -999, y: -999, var: false }; // drone'lar imleçten kaçar
+  const cagri = { x: 0, y: 0, t: -9999 };        // boş yere tıklayınca sürü oraya çağrılır
   let bicim = 0, yon = 0, hiz = 120, basladi = false, sonDegisim = 0, sonKayma = scrollY;
   const SURE = 7000;
   const dagiliyor = (t: number) => bicim === 7 && t - sonDegisim < SURE * 0.5;
@@ -88,6 +90,10 @@ if (tuval) {
       // Dağılırken ve yeni toplanırken yay yumuşaktır, yoksa ekranın öbür ucuna ışınlanır gibi giderler.
       const sertlik = bicim === 7 ? (dagil ? 3.2 : 4.5) : 15 - Math.min(6, u.i * 0.5);
       let ax = (hx - u.x) * sertlik, ay = (hy - u.y) * sertlik;
+      if (imlec.var) { // imleç yaklaşınca kaçar: ne kadar yakınsa o kadar sert
+        const ex = u.x - imlec.x, ey = u.y - imlec.y, m = Math.hypot(ex, ey) || 1, alan = 120;
+        if (m < alan) { const g = (1 - m / alan) ** 2 * 5200; ax += (ex / m) * g; ay += (ey / m) * g; }
+      }
       for (const o of ihalar) { // ayrılma: birbirine fazla yaklaşan itilir
         if (o === u) continue;
         const ex = u.x - o.x, ey = u.y - o.y, m = Math.hypot(ex, ey);
@@ -129,6 +135,13 @@ if (tuval) {
       }
       ctx.restore();
     }
+    const gecen = performance.now() - cagri.t;
+    if (gecen < 900) { // çağrı işareti: tıklanan yerde açılan halka
+      const o = gecen / 900;
+      ctx.strokeStyle = vurgu; ctx.lineWidth = 1.5; ctx.globalAlpha = (1 - o) * 0.8;
+      ctx.beginPath(); ctx.arc(cagri.x, cagri.y, 6 + o * 34, 0, Math.PI * 2); ctx.stroke();
+      ctx.globalAlpha = (1 - o) * 0.9; ctx.beginPath(); ctx.moveTo(cagri.x - 5, cagri.y); ctx.lineTo(cagri.x + 5, cagri.y); ctx.moveTo(cagri.x, cagri.y - 5); ctx.lineTo(cagri.x, cagri.y + 5); ctx.stroke();
+    }
     ctx.globalAlpha = 0.9; ctx.fillStyle = soluk; ctx.font = '11px ui-monospace, monospace'; ctx.textAlign = 'right';
     ctx.globalAlpha = 0.7; ctx.fillText(`${(tuval!.dataset.etiket ?? 'sürü').toUpperCase()} · ${N} · ${adlar[bicim].toUpperCase()}`, en - 12, boy - 12);
     ctx.globalAlpha = 1;
@@ -154,6 +167,15 @@ if (tuval) {
   };
   addEventListener('resize', () => basladi && boyutla());
   document.addEventListener('visibilitychange', baslat);
+  addEventListener('pointermove', (e) => { if (e.pointerType !== 'touch') { imlec.x = e.clientX; imlec.y = e.clientY; imlec.var = true; } }, { passive: true });
+  document.documentElement.addEventListener('pointerleave', () => (imlec.var = false));
+  // Boş bir yere tıklamak sürüyü oraya çağırır. Bağlantı, düğme ve örneklerin üstündeki tıklamalara karışmaz.
+  addEventListener('click', (e) => {
+    if (!kare || (e.target as HTMLElement).closest('a, button, input, textarea, select, label, video, canvas, summary, dialog, [role="button"]')) return;
+    if (getSelection()?.toString()) return;
+    nokta.x = cagri.x = e.clientX; nokta.y = cagri.y = e.clientY; nokta.son = performance.now() + 6000; cagri.t = performance.now();
+    if (bicim === 7) sonDegisim = -1e9; // dağılmışlarsa hemen toplanıp gelsinler
+  });
   azalt.addEventListener('change', baslat);
   new MutationObserver(() => basladi && boyutla()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   baslat();
