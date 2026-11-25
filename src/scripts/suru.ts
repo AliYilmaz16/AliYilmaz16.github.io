@@ -51,7 +51,7 @@ if (tuval) {
   const yabancilar: Yabanci[] = [];
   const patlamalar: { x: number; y: number; t: number }[] = [];
   const FARK = 2400; // yabancılar ekrana girdikten bu kadar sonra fark edilir
-  let onleme = false, onlemeBas = 0, sonrakiBaskin = performance.now() + 18000;
+  let onleme = false, onlemeBas = 0, sonrakiBaskin = performance.now() + 15000 + Math.random() * 12000;
   // Dağılmışken her İHA kendi noktasına gider, varınca ya da bir süre sonra yenisini seçer: tek başına dolaşır.
   const yeniNokta = (u: (typeof ihalar)[number], t: number) => {
     // Üçte biri görüş alanının dışına çıkar (çoğu aşağıya doğru), kalanı ekranın kenarlarına yayılır: ortada toplanmazlar.
@@ -71,9 +71,12 @@ if (tuval) {
     for (const u of ihalar) yeniNokta(u, t);
   };
   function baskin(t: number) {
-    // Rastgele bir kenardan girer, karşı tarafa doğru V düzeninde uçar.
-    const soldan = Math.random() < 0.5, by = boy * (0.2 + Math.random() * 0.6);
-    const bx = soldan ? -60 : en + 60, gx = soldan ? en + 200 : -200, gy = boy * (0.2 + Math.random() * 0.6);
+    // Dört kenardan ya da köşelerden herhangi birinden girer, ekranın içinden geçip karşı tarafa doğru V düzeninde uçar.
+    const aci = Math.random() * Math.PI * 2, yari = Math.hypot(en, boy) / 2 + 80;
+    const bx = Math.max(-70, Math.min(en + 70, en / 2 + Math.cos(aci) * yari)), by = Math.max(-70, Math.min(boy + 70, boy / 2 + Math.sin(aci) * yari));
+    // Hedef tam karşısı değil, biraz sapmış: her seferinde başka bir hat izler.
+    const karsi = aci + Math.PI + (Math.random() - 0.5) * 1.2;
+    const gx = en / 2 + Math.cos(karsi) * yari * 1.3, gy = boy / 2 + Math.sin(karsi) * yari * 1.3;
     const a = Math.atan2(gy - by, gx - bx), sayi = 5 + Math.floor(Math.random() * 3);
     for (let i = 0; i < sayi; i++) {
       const k = Math.ceil(i / 2), yan = i % 2 ? 1 : -1;
