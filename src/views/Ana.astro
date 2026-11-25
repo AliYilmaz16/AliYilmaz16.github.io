@@ -68,7 +68,7 @@ const agProjeleri = icerik.projeler.filter((p) => icerik.yetenekler.some((y) => 
     <h2 id="b-hakkimda" data-belir>{t('hakkimda', dil)}</h2>
     <div class:list={['hakkimda', { fotolu: !!foto }]}>
       {foto && (
-        <div class="foto-kutu" data-belir>
+        <div class="foto-kutu" data-belir data-m-tara={T('7×7 ızgara taranıyor', 'scanning 7×7 grid')} data-m-aday={T('{n} aday kutu', '{n} candidate boxes')} data-m-nms={T('NMS: zayıflar eleniyor', 'NMS: dropping weak boxes')} data-m-son={T('1 tespit · ali 0.98', '1 detection · ali 0.98')}>
           <Image class="foto" src={foto} alt={dil === 'tr' ? `${k.ad}, yarışma sahasında dizüstü bilgisayarın başında` : `${k.ad} at a laptop on the competition field`} width={360} height={360} fit="cover" format="webp" />
           <span class="foto-tespit" aria-hidden="true"><b>ali 0.98</b><span class="kose k1"></span><span class="kose k2"></span><span class="kose k3"></span><span class="kose k4"></span></span>
         </div>
@@ -247,5 +247,6 @@ const agProjeleri = icerik.projeler.filter((p) => icerik.yetenekler.some((y) => 
     import '../scripts/takip.ts';
     import '../scripts/suru.ts';
     import '../scripts/ag.ts';
+    import '../scripts/foto.ts';
   </script>
 </Base>

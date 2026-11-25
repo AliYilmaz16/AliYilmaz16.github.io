@@ -607,11 +607,21 @@ html.anim [data-belir].gorundu { opacity: 1; transform: none; }
 .foto-tespit { position: absolute; inset: 9% 12% 14%; border: 1px solid color-mix(in srgb, var(--vurgu) 55%, transparent); opacity: 0; transform: scale(1.12); transition: opacity 0.3s, transform 0.45s var(--yumusak); pointer-events: none; }
 .foto-tespit b { position: absolute; left: -1px; bottom: 100%; font-family: var(--es); font-size: 0.6875rem; font-weight: 500; line-height: 1; padding: 0.2rem 0.35rem; background: var(--vurgu); color: var(--vurgu-ustu); white-space: nowrap; }
 .foto-kutu:hover .foto-tespit { opacity: 1; transform: none; }
-@media (prefers-reduced-motion: no-preference) {
-  html.anim .foto-kutu.gorundu .foto-tespit { animation: tespit 3.2s 0.5s both; }
-  html.anim .foto-kutu.gorundu:hover .foto-tespit { animation: none; }
-  @keyframes tespit { 0% { opacity: 0; transform: scale(1.12); } 14%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
-}
+/* Tespit canlandırması (foto.ts): ızgara taraması, aday kutular, sonra tek kutu */
+.foto-kutu { cursor: crosshair; }
+.foto-kutu.analiz:hover .foto-tespit { opacity: 0; transform: scale(1.12); }
+.foto-kutu.son .foto-tespit, .foto-kutu.son:hover .foto-tespit { opacity: 1; transform: none; }
+.foto-izgara { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr); border-radius: 8px; overflow: hidden; opacity: 0; transition: opacity 0.25s; pointer-events: none; }
+.foto-kutu.tara .foto-izgara { opacity: 1; }
+.foto-izgara i { box-shadow: inset 0 0 0 0.5px color-mix(in srgb, #b8f04a 38%, transparent); transition: background-color 0.3s; }
+.foto-izgara i.yan { background: color-mix(in srgb, #b8f04a 62%, transparent); transition: none; }
+.foto-izgara i.dolu { background: color-mix(in srgb, #b8f04a 20%, transparent); }
+.foto-aday { position: absolute; border: 1px dashed #b8f04a; opacity: 0; transition: opacity 0.18s; pointer-events: none; }
+.foto-aday.gor { opacity: 0.9; }
+.foto-aday b { position: absolute; left: -1px; top: -1px; font-family: var(--es); font-size: 0.5625rem; font-weight: 500; line-height: 1; padding: 0.12rem 0.25rem; background: rgb(11 14 17 / 0.78); color: #b8f04a; white-space: nowrap; }
+.foto-durum { position: absolute; left: 1px; right: 1px; bottom: 1px; padding: 0.3rem 0.4rem; border-radius: 0 0 7px 7px; font-family: var(--es); font-size: 0.5625rem; line-height: 1.2; letter-spacing: 0.02em; color: #e8ecef; background: rgb(11 14 17 / 0.78); opacity: 0; transition: opacity 0.25s; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.foto-kutu.analiz .foto-durum { opacity: 1; }
+@media print { .foto-izgara, .foto-aday, .foto-durum { display: none !important; } }
 
 /* Yetenek ve proje ağı */
 .ag { position: relative; margin-top: 2.25rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; align-items: start; }
