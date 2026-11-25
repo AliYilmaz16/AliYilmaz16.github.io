@@ -73,7 +73,9 @@
 
 /* ─── Temel ───────────────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--ust-boy) + 1rem); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+/* Üst menü payı hedeflere verilir. Sayfaya verilince (scroll-padding) menüdeki bir bağlantıya klavyeyle odaklanmak sayfayı yukarı kaydırıyordu. */
+[id] { scroll-margin-top: calc(var(--ust-boy) + 1rem); }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0;
   background: var(--zemin);

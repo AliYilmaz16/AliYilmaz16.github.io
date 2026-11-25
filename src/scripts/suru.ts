@@ -75,7 +75,10 @@ if (tuval) {
     hedef.x = Math.max(30, Math.min(en - 30, hedef.x)); hedef.y = Math.max(70, Math.min(boy - 30, hedef.y));
     if (t - sonDegisim > SURE) {
       // Sıradaki formasyon rastgele seçilir, aynısı üst üste gelmez.
-      bicim = (bicim + 1 + Math.floor(Math.random() * (adlar.length - 1))) % adlar.length; sonDegisim = t;
+      // Ağırlıklı seçim: tek tek dağılma en sık, ikiye bölünme ondan sonra gelir.
+      const agirlik = adlar.map((_, k) => (k === bicim ? 0 : k === 7 ? 5 : k === 6 ? 3 : 1));
+      let zar = Math.random() * agirlik.reduce((x, y) => x + y, 0);
+      bicim = agirlik.findIndex((g) => (zar -= g) < 0); sonDegisim = t;
       tuval!.dataset.bicim = String(bicim);
       // Dağıl: her İHA ekranda kendine ayrı bir nokta seçer, yarı sürede oraya gider, sonra sürüye döner.
       if (bicim === 7) for (const u of ihalar) { u.sx = en * (0.06 + Math.random() * 0.88); u.sy = boy * (0.12 + Math.random() * 0.8); }
