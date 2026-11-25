@@ -57,8 +57,16 @@ const metin = {
     en: 'Not the game itself, but a small in-browser simulation of the rule that ties its two modes together. Pieces and physics are simplified.',
   },
   demoNot_randevu: {
-    tr: 'Projedeki müsaitlik hesabının aynı kuralla çalışan küçük bir örneği. Randevular örnek veridir ve hiçbir yere gönderilmez.',
-    en: "A small example that follows the same rule as the project's availability calculation. The appointments are sample data and are not sent anywhere.",
+    tr: 'Sistemin iki yüzünü yan yana gösteren küçük bir benzetim: solda müşteri randevu alır, sağda berber onaylar ya da reddeder. Veriler örnektir ve hiçbir yere gönderilmez.',
+    en: 'A small simulation that shows both sides of the system: the customer books on the left, the barber approves or declines on the right. The data is sample data and is not sent anywhere.',
+  },
+  demoNot_vurgu: {
+    tr: 'Aracın yaptığı işin tarayıcıda çalışan küçük bir örneği: kod yazdıkça belirteçlere ayrılır ve türüne göre renklenir. Ayrıştırma ağacı bu örnekte yok.',
+    en: 'A small in-browser example of what the tool does: code is split into tokens and coloured by type as you type. The parse tree is not part of this example.',
+  },
+  demoNot_isg: {
+    tr: 'Sistemin işleyişinin benzetimi. Gerçekte konum ve ivme telefondan gelir, burada çalışanı sen yürütürsün.',
+    en: 'A simulation of how the system works. In reality location and acceleration come from the phone, here you move the worker yourself.',
   },
   demoNot_hamming: {
     tr: 'Simülatörün yaptığı işin tarayıcıda çalışan küçük bir örneği: 8 bit veri, 4 eşlik biti ve bir genel eşlik biti.',

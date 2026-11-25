@@ -6,6 +6,8 @@ import { t, projeYolu } from '../lib/i18n';
 import StackoutDemo from './StackoutDemo.astro';
 import RandevuDemo from './RandevuDemo.astro';
 import HammingDemo from './HammingDemo.astro';
+import VurguDemo from './VurguDemo.astro';
+import IsgDemo from './IsgDemo.astro';
 
 interface Props { proje: Proje; dil: Dil; sira: number }
 const { proje, dil, sira } = Astro.props;
@@ -20,25 +22,29 @@ const ayrintilar = (
   ] as const
 ).filter(([, m]) => m);
 const afis = proje.video && kapak ? await getImage({ src: projeGorseli(proje.kimlik, kapak.dosya), format: 'webp', quality: 78, width: 960 }) : undefined;
-// Videosu olan projede video sağda durur. Soldaki görsel yinelenmesin diye varsa ikinci görsel kullanılır.
-const solGorsel = proje.video ? (proje.gorseller[1] ?? kapak) : kapak;
 ---
 
 <li class="kart" data-belir data-alan={proje.alan} id={`kart-${proje.kimlik}`}>
   <p class="kart-yil">{proje.yil}</p>
   <article>
     <div class="kart-sol">
-      {solGorsel && (
+      {proje.video && afis ? (
+        <div class="kart-gorsel videolu" style={`view-transition-name: g-${proje.kimlik}`}>
+          <video controls muted loop playsinline preload="none" poster={afis.src} width={afis.attributes.width} height={afis.attributes.height} aria-label={c(kapak.alt, dil)}>
+            <source src={proje.video} type="video/mp4" />
+          </video>
+        </div>
+      ) : kapak && (
         <div class="kart-gorsel" style={`view-transition-name: g-${proje.kimlik}`}>
           <Image
-            src={projeGorseli(proje.kimlik, solGorsel.dosya)}
+            src={projeGorseli(proje.kimlik, kapak.dosya)}
             alt=""
             widths={[420, 640, 960]}
             sizes="(min-width: 1180px) 480px, (min-width: 1101px) 40vw, 88vw"
             width={960}
             height={600}
             fit="cover"
-            position={proje.video ? 'center' : 'top'}
+            position="top"
             format="webp"
             quality={72}
             loading={sira < 1 ? 'eager' : 'lazy'}
@@ -72,16 +78,13 @@ const solGorsel = proje.video ? (proje.gorseller[1] ?? kapak) : kapak;
           {proje.etkilesim === 'stackout' && <StackoutDemo dil={dil} />}
           {proje.etkilesim === 'randevu' && <RandevuDemo dil={dil} />}
           {proje.etkilesim === 'hamming' && <HammingDemo dil={dil} />}
+          {proje.etkilesim === 'vurgu' && <VurguDemo dil={dil} />}
+          {proje.etkilesim === 'isg' && <IsgDemo dil={dil} />}
         </div>
-      )}
-      {proje.video && afis && (
-        <video class="kart-video" controls muted loop playsinline preload="none" poster={afis.src} width={afis.attributes.width} height={afis.attributes.height} aria-label={c(kapak.alt, dil)}>
-          <source src={proje.video} type="video/mp4" />
-        </video>
       )}
       {ayrintilar.length > 0 && (
         <dl class:list={['kart-detay', { 'js-yok': !!proje.etkilesim }]}>
-          {(proje.video ? ayrintilar.filter(([a]) => a === 'karar') : ayrintilar).map(([anahtar, m]) => (
+          {ayrintilar.map(([anahtar, m]) => (
             <div>
               <dt>{t(anahtar, dil)}</dt>
               <dd>{m}</dd>

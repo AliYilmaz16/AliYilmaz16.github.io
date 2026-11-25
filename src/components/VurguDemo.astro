@@ -1,0 +1,51 @@
+---
+// C Sözdizimi Vurgulayıcı'nın yaptığı işin tarayıcıdaki örneği: yazdıkça belirteçlere ayırır ve renklendirir.
+import type { Dil } from '../lib/icerik';
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+const adlar = {
+  anahtar: T('anahtar sözcük', 'keyword'),
+  tanimlayici: T('tanımlayıcı', 'identifier'),
+  sayi: T('sayı', 'number'),
+  metin: T('metin', 'string'),
+  islec: T('işleç', 'operator'),
+  ayrac: T('ayraç', 'punctuation'),
+  yorum: T('yorum', 'comment'),
+  onislemci: T('ön işlemci', 'preprocessor'),
+};
+const ornek = `#include <stdio.h>
+
+// ${T('iki sayının büyüğü', 'the larger of two numbers')}
+int buyuk(int a, int b) {
+    return a > b ? a : b;
+}
+
+int main(void) {
+    float oran = 0.75;
+    printf("%d\\n", buyuk(3, 8));
+    return 0;
+}`;
+---
+
+<div class="demo demo-vurgu js-only" data-demo-vurgu data-adlar={JSON.stringify(adlar)} data-m-toplam={T('{n} belirteç', '{n} tokens')}>
+  <div class="vg-iki">
+    <div class="demo-satir">
+      <label class="demo-etiket" for={`vg-kod-${dil}`}>{T('C kodu: değiştir, yazdıkça renklenir', 'C code: edit it, it is highlighted as you type')}</label>
+      <div class="vg-duzenleyici">
+        <pre aria-hidden="true"><code data-cikti></code></pre>
+        <textarea id={`vg-kod-${dil}`} data-kod spellcheck="false" autocapitalize="off" autocomplete="off" rows="13">{ornek}</textarea>
+      </div>
+    </div>
+    <div class="demo-satir">
+      <p class="demo-etiket" data-toplam></p>
+      <ul class="vg-sayim" data-sayim></ul>
+      <p class="demo-etiket vg-ara">{T('Belirteç listesi (ilk 28)', 'Token list (first 28)')}</p>
+      <ol class="vg-liste" data-liste></ol>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/demo-vurgu.ts';
+</script>

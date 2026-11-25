@@ -1,92 +1,147 @@
-// Müsaitlik motoru gösterimi. Zaman, gece yarısından itibaren dakika olarak tutulur;
-// çakışma denetimi tek satırdır: a.bas < b.bit && a.bit > b.bas
+// Randevu gösterimi: müşteri ekranı ile berber paneli aynı takvimi paylaşır.
+// Zaman, gece yarısından itibaren dakikadır. Çakışma denetimi: a.bas < b.bit && a.bit > b.bas
 const kok = document.querySelector<HTMLElement>('[data-demo-randevu]');
 if (kok) {
-  type Aralik = { bas: number; bit: number };
+  type Hizmet = { ad: string; sure: number; ucret: number };
+  type Randevu = { no: number; bas: number; bit: number; ad: string; hizmet: number; durum: 'onayli' | 'bekliyor'; benim?: boolean };
   const ACILIS = 9 * 60;
   const KAPANIS = 20 * 60;
-  const MOLA: Aralik = { bas: 13 * 60, bit: 14 * 60 };
+  const MOLA = { bas: 13 * 60, bit: 14 * 60 };
   const ADIM = 15;
-  const ORNEK: Aralik[] = [
-    { bas: 9 * 60 + 30, bit: 10 * 60 },
-    { bas: 10 * 60 + 45, bit: 11 * 60 + 30 },
-    { bas: 15 * 60, bit: 15 * 60 + 45 },
-    { bas: 17 * 60 + 15, bit: 17 * 60 + 30 },
-  ];
   const m = kok.dataset;
-  const serit = kok.querySelector<HTMLElement>('[data-serit]')!;
-  const saatler = kok.querySelector<HTMLElement>('[data-saatler]')!;
-  const durum = kok.querySelector<HTMLElement>('[data-durum]')!;
+  const hizmetler: Hizmet[] = JSON.parse(m.hizmetler ?? '[]');
+  const el = <T extends HTMLElement>(s: string) => kok.querySelector<T>(s)!;
+  const serit = el('[data-serit]');
+  const saatler = el('[data-saatler]');
+  const musaitEl = el('[data-musait]');
+  const benimEl = el('[data-benim]');
+  const ozetEl = el('[data-ozet]');
+  const listeEl = el('[data-liste]');
+  const durum = el('[data-durum]');
   const secenekler = [...kok.querySelectorAll<HTMLButtonElement>('.secenek')];
-  let sure = Number(secenekler[0].dataset.sure);
-  let benim: Aralik[] = [];
-  let sonIleti = '';
-
-  const cakisir = (a: Aralik, b: Aralik) => a.bas < b.bit && a.bit > b.bas;
+  const lira = (n: number) => `${n.toLocaleString('tr-TR')} ₺`;
   const saat = (dk: number) => `${String(Math.floor(dk / 60)).padStart(2, '0')}.${String(dk % 60).padStart(2, '0')}`;
+  const cakisir = (a: { bas: number; bit: number }, b: { bas: number; bit: number }) => a.bas < b.bit && a.bit > b.bas;
+
+  let sayac = 0;
+  const ornek = (): Randevu[] =>
+    (
+      [
+        [9 * 60 + 30, 0, 'Emre', 'onayli'],
+        [10 * 60 + 45, 2, 'Kerem', 'onayli'],
+        [15 * 60, 2, 'Burak', 'onayli'],
+        [17 * 60 + 15, 1, 'Mert', 'bekliyor'],
+      ] as const
+    ).map(([bas, h, ad, d]) => ({ no: ++sayac, bas, bit: bas + hizmetler[h].sure, ad, hizmet: h, durum: d }));
+  let randevular = ornek();
+  let secili = 0;
+  let ileti = m.mBas ?? '';
+
+  const dugme = (metin: string, sinif: string, tikla: () => void) => {
+    const b = document.createElement('button');
+    b.type = 'button';
+    b.className = sinif;
+    b.textContent = metin;
+    b.addEventListener('click', tikla);
+    return b;
+  };
+  const doldur = (kalip: string | undefined, r: Randevu) =>
+    (kalip ?? '').replace('{s}', `${saat(r.bas)} - ${saat(r.bit)}`).replace('{a}', r.ad);
 
   function ciz() {
-    const dolu = [...ORNEK, ...benim];
+    randevular.sort((a, b) => a.bas - b.bas);
+    // Ortak takvim
     const yuzde = (dk: number) => ((dk - ACILIS) / (KAPANIS - ACILIS)) * 100;
-    const parca = (a: Aralik, sinif: string) =>
-      `<span class="${sinif}" style="left:${yuzde(a.bas)}%;width:${yuzde(a.bit) - yuzde(a.bas)}%"></span>`;
-    const cizgiler = Array.from({ length: (KAPANIS - ACILIS) / 60 + 1 }, (_, i) => {
-      const dk = ACILIS + i * 60;
-      return `<i style="left:${yuzde(dk)}%"><b>${String(dk / 60).padStart(2, '0')}</b></i>`;
-    }).join('');
-    serit.innerHTML = cizgiler + parca(MOLA, 'mola') + ORNEK.map((a) => parca(a, 'dolu')).join('') + benim.map((a) => parca(a, 'bekleyen')).join('');
+    const parca = (a: { bas: number; bit: number }, sinif: string) => `<span class="${sinif}" style="left:${yuzde(a.bas)}%;width:${yuzde(a.bit) - yuzde(a.bas)}%"></span>`;
+    serit.innerHTML =
+      Array.from({ length: (KAPANIS - ACILIS) / 60 + 1 }, (_, i) => `<i style="left:${yuzde(ACILIS + i * 60)}%"><b>${String(9 + i).padStart(2, '0')}</b></i>`).join('') +
+      parca(MOLA, 'mola') +
+      randevular.map((r) => parca(r, r.durum === 'onayli' ? 'dolu' : 'bekleyen')).join('');
 
-    const say = { musait: 0, dolu: 0, mola: 0, kapanis: 0, toplam: 0 };
+    // Müşteri: seçilen hizmet için müsait saatler
+    const sure = hizmetler[secili].sure;
+    const say = { musait: 0, dolu: 0, mola: 0, kapanis: 0 };
     saatler.textContent = '';
     for (let bas = ACILIS; bas < KAPANIS; bas += ADIM) {
       const aday = { bas, bit: bas + sure };
-      let neden = '';
-      if (aday.bit > KAPANIS) neden = 'kapanis';
-      else if (dolu.some((d) => cakisir(aday, d))) neden = 'dolu';
-      else if (cakisir(aday, MOLA)) neden = 'mola';
-      say.toplam++;
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'saat';
-      b.textContent = saat(bas);
-      if (neden) {
-        say[neden as 'dolu' | 'mola' | 'kapanis']++;
-        b.disabled = true;
-        const etiket = neden === 'dolu' ? m.eDolu : neden === 'mola' ? m.eMola : m.eKapanis;
-        b.title = etiket ?? '';
-        b.setAttribute('aria-label', `${saat(bas)}, ${etiket}`);
-        b.dataset.neden = neden;
-      } else {
+      if (aday.bit > KAPANIS) say.kapanis++;
+      else if (randevular.some((r) => cakisir(aday, r))) say.dolu++;
+      else if (cakisir(aday, MOLA)) say.mola++;
+      else {
         say.musait++;
-        b.setAttribute('aria-label', `${saat(bas)} - ${saat(aday.bit)}`);
-        b.addEventListener('click', () => {
-          benim.push(aday);
-          sonIleti = (m.mAlindi ?? '').replace('{s}', `${saat(aday.bas)} - ${saat(aday.bit)}`);
+        const b = dugme(saat(bas), 'saat', () => {
+          const r: Randevu = { no: ++sayac, ...aday, ad: m.sen ?? '', hizmet: secili, durum: 'bekliyor', benim: true };
+          randevular.push(r);
+          ileti = doldur(m.mAlindi, r);
           ciz();
         });
+        b.setAttribute('aria-label', `${saat(bas)} - ${saat(aday.bit)}`);
+        saatler.append(b);
       }
-      saatler.append(b);
     }
-    const ozet = (m.mOzet ?? '')
-      .replace('{t}', String(say.toplam))
-      .replace('{m}', String(say.musait))
-      .replace('{d}', String(say.dolu))
-      .replace('{o}', String(say.mola))
-      .replace('{k}', String(say.kapanis));
-    durum.textContent = sonIleti ? `${sonIleti} ${ozet}` : ozet;
+    musaitEl.textContent = (m.mMusait ?? '').replace('{m}', String(say.musait)).replace('{d}', String(say.dolu)).replace('{o}', String(say.mola)).replace('{k}', String(say.kapanis));
+
+    const benim = randevular.filter((r) => r.benim);
+    benimEl.textContent = '';
+    if (!benim.length) {
+      const li = document.createElement('li');
+      li.className = 'soluk';
+      li.textContent = m.eYok ?? '';
+      benimEl.append(li);
+    }
+    for (const r of benim) {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${saat(r.bas)} · ${hizmetler[r.hizmet].ad}</span><b class="rd-rozet ${r.durum}">${r.durum === 'onayli' ? m.eOnayli : m.eBekliyor}</b>`;
+      benimEl.append(li);
+    }
+
+    // Berber paneli
+    const onayli = randevular.filter((r) => r.durum === 'onayli');
+    const bekleyen = randevular.length - onayli.length;
+    ozetEl.innerHTML = `<div><dt>${m.eBugun}</dt><dd>${randevular.length}</dd></div><div><dt>${m.eBekleyen}</dt><dd>${bekleyen}</dd></div><div><dt>${m.eKazanc}</dt><dd>${lira(onayli.reduce((t, r) => t + hizmetler[r.hizmet].ucret, 0))}</dd></div>`;
+    listeEl.textContent = '';
+    for (const r of randevular) {
+      const li = document.createElement('li');
+      li.className = r.durum + (r.benim ? ' benim' : '');
+      li.innerHTML = `<span class="rd-saat">${saat(r.bas)}</span><span class="rd-kim"><b>${r.ad}</b><small>${hizmetler[r.hizmet].ad} · ${lira(hizmetler[r.hizmet].ucret)}</small></span>`;
+      if (r.durum === 'bekliyor') {
+        const kutu = document.createElement('span');
+        kutu.className = 'rd-islem';
+        const onay = dugme(m.eOnayla ?? '', 'rd-onay', () => {
+          r.durum = 'onayli';
+          ileti = doldur(m.mOnay, r);
+          ciz();
+        });
+        onay.setAttribute('aria-label', `${m.eOnayla}: ${r.ad}, ${saat(r.bas)}`);
+        const red = dugme(m.eReddet ?? '', 'rd-red', () => {
+          randevular = randevular.filter((x) => x !== r);
+          ileti = doldur(m.mRed, r);
+          ciz();
+        });
+        red.setAttribute('aria-label', `${m.eReddet}: ${r.ad}, ${saat(r.bas)}`);
+        kutu.append(onay, red);
+        li.append(kutu);
+      } else {
+        const rozet = document.createElement('b');
+        rozet.className = 'rd-rozet onayli';
+        rozet.textContent = m.eOnayli ?? '';
+        li.append(rozet);
+      }
+      listeEl.append(li);
+    }
+    durum.textContent = ileti;
   }
 
   for (const s of secenekler) {
     s.addEventListener('click', () => {
-      sure = Number(s.dataset.sure);
+      secili = Number(s.dataset.hizmet);
       secenekler.forEach((x) => x.setAttribute('aria-pressed', String(x === s)));
-      sonIleti = '';
       ciz();
     });
   }
-  kok.querySelector('[data-sifirla]')!.addEventListener('click', () => {
-    benim = [];
-    sonIleti = '';
+  el('[data-sifirla]').addEventListener('click', () => {
+    randevular = ornek();
+    ileti = m.mBas ?? '';
     ciz();
   });
   ciz();

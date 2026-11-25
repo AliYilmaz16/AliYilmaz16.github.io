@@ -1,0 +1,46 @@
+---
+// İSG Guard'ın işleyişinin benzetimi: çalışanı sahada gezdir, tehlikeli bölgeye girince yönetici paneline alarm düşer.
+import type { Dil } from '../lib/icerik';
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+---
+
+<div
+  class="demo demo-isg js-only"
+  data-demo-isg
+  data-m-giris={T('Tehlikeli bölgeye giriş: {b}', 'Entered danger zone: {b}')}
+  data-m-cikis={T('Bölgeden çıktı: {b}', 'Left the zone: {b}')}
+  data-m-dusme={T('Düşme şüphesi. İvme eşiği aşıldı, Telegram bildirimi de gitti (benzetim).', 'Suspected fall. Acceleration threshold exceeded, Telegram alert sent too (simulated).')}
+  data-m-gurultu={T('Yüksek gürültü: {d} dB', 'High noise: {d} dB')}
+  data-e-yuksek={T('yüksek', 'high')}
+  data-e-orta={T('orta', 'medium')}
+  data-e-bilgi={T('bilgi', 'info')}
+  data-e-guvenli={T('Güvenli alanda', 'In a safe area')}
+  data-e-tehlike={T('Tehlikeli bölgede', 'Inside a danger zone')}
+  data-e-bos={T('Henüz alarm yok. Çalışanı kırmızı bölgelerden birine sürükle.', 'No alarms yet. Drag the worker into one of the red zones.')}
+>
+  <div class="isg-iki">
+    <div class="demo-satir">
+      <p class="demo-etiket">{T('Saha: çalışanı sürükle ya da ok tuşlarıyla yürüt', 'Site: drag the worker or walk with the arrow keys')}</p>
+      <div class="isg-saha" data-saha>
+        <span class="isg-bolge" data-bolge="A" style="--x:70%;--y:32%;--r:34%"><b>A</b></span>
+        <span class="isg-bolge" data-bolge="B" style="--x:24%;--y:72%;--r:26%"><b>B</b></span>
+        <button type="button" class="isg-isci" data-isci aria-label={T('Çalışan. Ok tuşlarıyla hareket ettir.', 'Worker. Move with the arrow keys.')}></button>
+      </div>
+      <p class="so-dugmeler">
+        <button type="button" class="dugme" data-dusme>{T('Düşme benzet', 'Simulate a fall')}</button>
+        <button type="button" class="dugme" data-gurultu>{T('Gürültü benzet', 'Simulate noise')}</button>
+      </p>
+    </div>
+    <div class="demo-satir">
+      <p class="demo-etiket">{T('Yönetici paneli', 'Admin panel')}</p>
+      <p class="isg-durum" data-konum></p>
+      <ul class="isg-alarmlar" data-alarmlar role="log" aria-live="polite"></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/demo-isg.ts';
+</script>

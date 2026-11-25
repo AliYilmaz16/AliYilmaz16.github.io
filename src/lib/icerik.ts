@@ -31,7 +31,7 @@ const proje = z.object({
   video: z.string().optional().default(''),
   video_baglanti: z.string().optional().default(''),
   depo: z.string().optional().default(''),
-  etkilesim: z.enum(['stackout', 'randevu', 'hamming']).optional(),
+  etkilesim: z.enum(['stackout', 'randevu', 'hamming', 'vurgu', 'isg']).optional(),
   yil: yil,
 });
 

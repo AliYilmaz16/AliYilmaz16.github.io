@@ -67,7 +67,7 @@ alanlar:
 # Alanlar: ad, yil (2025 ya da "2025 - 2026"), ozet (tek cümle), sorun, rol, araclar, karar, sonuc,
 #          gorseller (ilki kartta görünür), video / video_baglanti, depo.
 #          depo boşsa "özel depo" yazar. etkilesim: sayfadaki etkileşimli örnek
-#          (stackout | randevu | hamming).
+#          (stackout | randevu | hamming | vurgu | isg).
 projeler:
   - kimlik: balon-takip
     yil: 2025
@@ -137,6 +137,7 @@ projeler:
       - dosya: mobile-2.png
         alt: { tr: Mobil uygulama, izleme ekranı, en: Mobile app, monitoring screen }
     depo: https://github.com/AliYilmaz16/isg-guard
+    etkilesim: isg
 
   - kimlik: stackout
     yil: "2025 - 2026"
@@ -284,6 +285,7 @@ projeler:
         alt: { tr: Ayrıştırma ağacı, en: Parse tree }
     video_baglanti: https://www.youtube.com/watch?v=BTF3QeLcvoc
     depo: https://github.com/AliYilmaz16/C-Syntax-Highlighter-with-Python
+    etkilesim: vurgu
 
   - kimlik: hayvanat-bahcesi
     yil: 2025

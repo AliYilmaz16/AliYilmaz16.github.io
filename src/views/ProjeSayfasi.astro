@@ -6,6 +6,8 @@ import { t, anaYol, digerDil, bolumler, projeYolu } from '../lib/i18n';
 import StackoutDemo from '../components/StackoutDemo.astro';
 import RandevuDemo from '../components/RandevuDemo.astro';
 import HammingDemo from '../components/HammingDemo.astro';
+import VurguDemo from '../components/VurguDemo.astro';
+import IsgDemo from '../components/IsgDemo.astro';
 
 interface Props { dil: Dil; proje: Proje }
 const { dil, proje } = Astro.props;
@@ -75,6 +77,8 @@ const dikey = (g: { dosya: string }) => {
         {proje.etkilesim === 'stackout' && <StackoutDemo dil={dil} />}
         {proje.etkilesim === 'randevu' && <RandevuDemo dil={dil} />}
         {proje.etkilesim === 'hamming' && <HammingDemo dil={dil} />}
+          {proje.etkilesim === 'vurgu' && <VurguDemo dil={dil} />}
+          {proje.etkilesim === 'isg' && <IsgDemo dil={dil} />}
       </section>
     )}
 
