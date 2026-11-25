@@ -53,7 +53,19 @@ if (tuval) {
   const FARK = 2400; // yabancılar ekrana girdikten bu kadar sonra fark edilir
   let onleme = false, onlemeBas = 0, sonrakiBaskin = performance.now() + 18000;
   // Dağılmışken her İHA kendi noktasına gider, varınca ya da bir süre sonra yenisini seçer: tek başına dolaşır.
-  const yeniNokta = (u: (typeof ihalar)[number], t: number) => { u.sx = en * (0.06 + Math.random() * 0.88); u.sy = boy * (0.12 + Math.random() * 0.8); u.st = t + 2200 + Math.random() * 2200; };
+  const yeniNokta = (u: (typeof ihalar)[number], t: number) => {
+    // Üçte biri görüş alanının dışına çıkar (çoğu aşağıya doğru), kalanı ekranın kenarlarına yayılır: ortada toplanmazlar.
+    if (Math.random() < 0.34) {
+      const z = Math.random();
+      if (z < 0.5) { u.sx = en * Math.random(); u.sy = boy * (1.08 + Math.random() * 0.25); }
+      else if (z < 0.75) { u.sx = -en * (0.05 + Math.random() * 0.12); u.sy = boy * Math.random(); }
+      else { u.sx = en * (1.05 + Math.random() * 0.12); u.sy = boy * Math.random(); }
+    } else {
+      do { u.sx = en * (0.03 + Math.random() * 0.94); u.sy = boy * (0.1 + Math.random() * 0.86); }
+      while (Math.abs(u.sx / en - 0.5) < 0.27 && Math.abs(u.sy / boy - 0.5) < 0.27);
+    }
+    u.st = t + 2600 + Math.random() * 2400;
+  };
   const dagit = (t: number) => {
     bicim = 7; sonDegisim = t; tuval!.dataset.bicim = '7';
     for (const u of ihalar) yeniNokta(u, t);
@@ -146,7 +158,7 @@ if (tuval) {
       const hx = dagil ? u.sx : hedef.x + (ileri * c - yan * s) * birim, hy = dagil ? u.sy : hedef.y + (ileri * s + yan * c) * birim;
       // Arkadakiler biraz daha gevşek izler: dönüşlerde sürü kamçı gibi açılır, sonra toplanır.
       // Dağılırken ve yeni toplanırken yay yumuşaktır, yoksa ekranın öbür ucuna ışınlanır gibi giderler.
-      const sertlik = bicim === 7 ? (dagil ? 2.4 : 4.5) : 15 - Math.min(6, u.i * 0.5);
+      const sertlik = bicim === 7 ? (dagil ? 2.8 : 4.5) : 15 - Math.min(6, u.i * 0.5);
       let ax = (hx - u.x) * sertlik, ay = (hy - u.y) * sertlik;
       if (onleme && yabancilar.length && t - onlemeBas > FARK) { // önleme: her İHA bir yabancıyı kovalar, yaklaştıkça da hız kesmez
         const y = yabancilar[u.i % yabancilar.length], ex = y.x - u.x, ey = y.y - u.y, m = Math.hypot(ex, ey) || 1;
