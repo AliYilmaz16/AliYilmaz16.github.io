@@ -29,21 +29,39 @@ if (tuval) {
     return [-i * 0.95, Math.sin(i * 0.9 + t / 500) * 0.35]; // kol: tek sıra, hafif dalgalı
   };
 
-  const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, i }));
+  const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, i, yelken: 0.35 + Math.random() * 0.5 }));
   const hedef = { x: 0, y: 0 };
   const nokta = { x: 0, y: 0, son: 0 };
-  let bicim = 0, yon = 0, hiz = 120, basladi = false, sonDegisim = 0;
+  let bicim = 0, yon = 0, hiz = 120, basladi = false, sonDegisim = 0, sonKayma = scrollY;
 
   function adim(t: number, dt: number) {
     // Lider ekranda rastgele seçilen noktalara doğru uçar. Dönüş hızı sınırlı olduğu için rota yumuşak kavisler çizer.
-    if (Math.hypot(nokta.x - hedef.x, nokta.y - hedef.y) < 90 || t > nokta.son) {
-      nokta.x = en * (0.1 + Math.random() * 0.8); nokta.y = boy * (0.14 + Math.random() * 0.74); nokta.son = t + 9000;
-      hiz = 90 + Math.random() * 80;
+    const uzaklik = Math.hypot(nokta.x - hedef.x, nokta.y - hedef.y);
+    if (uzaklik < 70 || t > nokta.son) {
+      // Çoğu zaman yakına süzülür, arada bir ekranın öbür ucuna atılır.
+      const atilis = Math.random() < 0.35;
+      let x = 0, y = 0;
+      for (let k = 0; k < 6; k++) {
+        x = en * (0.08 + Math.random() * 0.84); y = boy * (0.14 + Math.random() * 0.74);
+        const m = Math.hypot(x - hedef.x, y - hedef.y);
+        if (atilis ? m > Math.min(en, boy) * 0.55 : m > 160 && m < 520) break;
+      }
+      nokta.x = x; nokta.y = y; nokta.son = t + 8000;
     }
     let fark = Math.atan2(nokta.y - hedef.y, nokta.x - hedef.x) - yon;
     while (fark > Math.PI) fark -= 2 * Math.PI; while (fark < -Math.PI) fark += 2 * Math.PI;
-    yon += Math.max(-1.1 * dt, Math.min(1.1 * dt, fark));
+    yon += Math.max(-1.7 * dt, Math.min(1.7 * dt, fark));
+    // Gidecek yol uzunsa hızlanır, hedefe yaklaşırken ve keskin dönerken yavaşlar.
+    const istenen = Math.max(60, Math.min(340, uzaklik * 0.75)) * (Math.abs(fark) > 0.7 ? 0.5 : 1);
+    hiz += (istenen - hiz) * Math.min(1, dt * (istenen > hiz ? 1.4 : 2.6));
     hedef.x += Math.cos(yon) * hiz * dt; hedef.y += Math.sin(yon) * hiz * dt;
+    // Sayfa kayınca rüzgâr: sürü kaydırmanın tersine savrulur, her İHA başka kadar. Sonra yerine toplanır.
+    const kayma = Math.max(-140, Math.min(140, scrollY - sonKayma)); sonKayma = scrollY;
+    if (kayma) {
+      hedef.y -= kayma * 0.3;
+      for (const u of ihalar) { u.y -= kayma * u.yelken; u.vx += (Math.random() - 0.5) * Math.abs(kayma) * 9; u.vy -= kayma * 3 * u.yelken; }
+    }
+    hedef.x = Math.max(30, Math.min(en - 30, hedef.x)); hedef.y = Math.max(70, Math.min(boy - 30, hedef.y));
     if (t - sonDegisim > 7000) { bicim = (bicim + 1) % adlar.length; sonDegisim = t; }
     const birim = Math.max(20, Math.min(34, en / 30));
     const c = Math.cos(yon), s = Math.sin(yon);
