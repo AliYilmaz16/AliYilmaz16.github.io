@@ -1,4 +1,4 @@
-// Sayfanın üstünde süzülen sürü: küçük İHA'lar imleci izler, imleç durunca ya da bir süre geçince sıradaki formasyona geçer.
+// Sayfanın üstünde süzülen sürü: küçük İHA'lar ekranda rastgele dolaşır, birkaç saniyede bir sıradaki formasyona geçer.
 // Süs amaçlıdır: tuval aria-hidden, tıklamaları yutmaz, hareket azaltma açıksa tek kare çizilir.
 const tuval = document.querySelector<HTMLCanvasElement>('canvas[data-suru]');
 if (tuval) {
@@ -23,7 +23,7 @@ if (tuval) {
   const yuva = (bicim: number, i: number, t: number): [number, number] => {
     const k = Math.ceil(i / 2), yan = i % 2 ? 1 : -1;
     if (bicim === 0) return [-k, yan * k * 0.9]; // V
-    if (bicim === 1) { const a = (i / N) * Math.PI * 2 + t / 2600; return [Math.cos(a) * 2.6, Math.sin(a) * 2.6]; } // halka: imlecin çevresinde ağır ağır döner
+    if (bicim === 1) { const a = (i / N) * Math.PI * 2 + t / 2600; return [Math.cos(a) * 2.6, Math.sin(a) * 2.6]; } // halka: ağır ağır döner
     if (bicim === 2) return [-Math.abs(k) * 0.12, yan * k * 1.05]; // çizgi: hafif yay
     if (bicim === 3) return ELMAS[i] ?? [0, 0];
     return [-i * 0.95, Math.sin(i * 0.9 + t / 500) * 0.35]; // kol: tek sıra, hafif dalgalı
@@ -31,25 +31,20 @@ if (tuval) {
 
   const ihalar = Array.from({ length: N }, (_, i) => ({ x: 0, y: 0, vx: 0, vy: 0, aci: 0, i }));
   const hedef = { x: 0, y: 0 };
-  const imlec = { x: 0, y: 0, var: false, son: 0 };
-  let bicim = 0, yon = 0, bekledi = false, basladi = false, sonDegisim = 0;
+  const nokta = { x: 0, y: 0, son: 0 };
+  let bicim = 0, yon = 0, hiz = 120, basladi = false, sonDegisim = 0;
 
   function adim(t: number, dt: number) {
-    let gx: number, gy: number;
-    if (imlec.var) { gx = imlec.x; gy = imlec.y; }
-    else { const s = t / 1000; gx = en * (0.5 + 0.38 * Math.sin(s * 0.33)); gy = boy * (0.5 + 0.3 * Math.sin(s * 0.57 + 1)); }
-    const dx = gx - hedef.x, dy = gy - hedef.y;
-    hedef.x += dx * Math.min(1, dt * 4); hedef.y += dy * Math.min(1, dt * 4);
-    if (Math.hypot(dx, dy) > 6) {
-      // Yön yumuşak döner, yoksa formasyon her titremede savrulur.
-      const a = Math.atan2(dy, dx); let fark = a - yon;
-      while (fark > Math.PI) fark -= 2 * Math.PI; while (fark < -Math.PI) fark += 2 * Math.PI;
-      yon += fark * Math.min(1, dt * 3);
+    // Lider ekranda rastgele seçilen noktalara doğru uçar. Dönüş hızı sınırlı olduğu için rota yumuşak kavisler çizer.
+    if (Math.hypot(nokta.x - hedef.x, nokta.y - hedef.y) < 90 || t > nokta.son) {
+      nokta.x = en * (0.1 + Math.random() * 0.8); nokta.y = boy * (0.14 + Math.random() * 0.74); nokta.son = t + 9000;
+      hiz = 90 + Math.random() * 80;
     }
-    // İmleç bir süre durursa sıradaki formasyon
-    // İmleç durunca ya da aynı formasyonda yedi saniye geçince sıradaki formasyon
-    if (imlec.var && t - imlec.son > 900 && !bekledi) { bekledi = true; bicim = (bicim + 1) % adlar.length; sonDegisim = t; }
-    else if (t - sonDegisim > 7000) { bicim = (bicim + 1) % adlar.length; sonDegisim = t; }
+    let fark = Math.atan2(nokta.y - hedef.y, nokta.x - hedef.x) - yon;
+    while (fark > Math.PI) fark -= 2 * Math.PI; while (fark < -Math.PI) fark += 2 * Math.PI;
+    yon += Math.max(-1.1 * dt, Math.min(1.1 * dt, fark));
+    hedef.x += Math.cos(yon) * hiz * dt; hedef.y += Math.sin(yon) * hiz * dt;
+    if (t - sonDegisim > 7000) { bicim = (bicim + 1) % adlar.length; sonDegisim = t; }
     const birim = Math.max(20, Math.min(34, en / 30));
     const c = Math.cos(yon), s = Math.sin(yon);
     for (const u of ihalar) {
@@ -93,7 +88,7 @@ if (tuval) {
   }
 
   function yerlestir() { // ilk kare: sürü hedefin çevresinde hazır dursun
-    hedef.x = en * 0.8; hedef.y = boy * 0.75; yon = Math.PI;
+    hedef.x = en * 0.8; hedef.y = boy * 0.75; yon = Math.PI; nokta.x = en * 0.3; nokta.y = boy * 0.4; nokta.son = 9000;
     const birim = Math.max(20, Math.min(34, en / 30));
     for (const u of ihalar) { const [ileri, yan] = yuva(bicim, u.i, 0); u.x = hedef.x - ileri * birim; u.y = hedef.y + yan * birim; u.aci = Math.PI; u.vx = u.vy = 0; }
   }
@@ -112,12 +107,6 @@ if (tuval) {
   };
   addEventListener('resize', () => basladi && boyutla());
   document.addEventListener('visibilitychange', baslat);
-  addEventListener('pointermove', (e) => {
-    if (e.pointerType === 'touch') return;
-    if (Math.hypot(e.clientX - imlec.x, e.clientY - imlec.y) < 2 && imlec.var) return;
-    imlec.x = e.clientX; imlec.y = e.clientY; imlec.var = true; imlec.son = performance.now(); bekledi = false;
-  }, { passive: true });
-  document.documentElement.addEventListener('pointerleave', () => { imlec.var = false; bekledi = false; });
   azalt.addEventListener('change', baslat);
   new MutationObserver(() => basladi && boyutla()).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
   baslat();
