@@ -63,7 +63,7 @@ if (tuval) {
     }
     hedef.x = Math.max(30, Math.min(en - 30, hedef.x)); hedef.y = Math.max(70, Math.min(boy - 30, hedef.y));
     if (t - sonDegisim > 7000) { bicim = (bicim + 1) % adlar.length; sonDegisim = t; }
-    const birim = Math.max(20, Math.min(34, en / 30));
+    const birim = Math.max(24, Math.min(38, en / 28));
     const c = Math.cos(yon), s = Math.sin(yon);
     for (const u of ihalar) {
       const [ileri, yan] = yuva(bicim, u.i, t);
@@ -83,6 +83,7 @@ if (tuval) {
   }
 
   function ciz() {
+    const faz = performance.now() / 45;
     ctx.clearRect(0, 0, en, boy);
     ctx.lineWidth = 1; ctx.strokeStyle = vurgu; ctx.globalAlpha = 0.16;
     ctx.beginPath(); // haberleşme bağları: her İHA bir öndekine bağlı
@@ -92,12 +93,23 @@ if (tuval) {
       const hiz = Math.hypot(u.vx, u.vy);
       ctx.save(); ctx.translate(u.x, u.y); ctx.rotate(u.aci);
       if (hiz > 30) { // hız izi
-        const iz = ctx.createLinearGradient(-4 - Math.min(26, hiz * 0.07), 0, -4, 0);
+        const iz = ctx.createLinearGradient(-8 - Math.min(26, hiz * 0.07), 0, -8, 0);
         iz.addColorStop(0, 'transparent'); iz.addColorStop(1, vurgu);
-        ctx.globalAlpha = 0.35; ctx.strokeStyle = iz; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(-4 - Math.min(26, hiz * 0.07), 0); ctx.lineTo(-4, 0); ctx.stroke();
+        ctx.globalAlpha = 0.35; ctx.strokeStyle = iz; ctx.lineWidth = 1.5; ctx.beginPath(); ctx.moveTo(-8 - Math.min(26, hiz * 0.07), 0); ctx.lineTo(-8, 0); ctx.stroke();
       }
-      ctx.globalAlpha = u.i ? 0.6 : 0.95; ctx.fillStyle = vurgu;
-      ctx.beginPath(); ctx.moveTo(7, 0); ctx.lineTo(-5, 4.5); ctx.lineTo(-2.5, 0); ctx.lineTo(-5, -4.5); ctx.closePath(); ctx.fill();
+      // Dört pervaneli gövde, üstten görünüş: çapraz kollar, uçlarda dönen pervaneler, önde burun işareti.
+      const a = u.i ? 0.62 : 0.95, kol = 5.2, pr = 3;
+      ctx.globalAlpha = a; ctx.strokeStyle = vurgu; ctx.fillStyle = vurgu; ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.moveTo(-kol, -kol); ctx.lineTo(kol, kol); ctx.moveTo(-kol, kol); ctx.lineTo(kol, -kol); ctx.stroke();
+      ctx.beginPath(); ctx.roundRect(-2.6, -2, 5.2, 4, 1.2); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(2.6, -1.4); ctx.lineTo(5, 0); ctx.lineTo(2.6, 1.4); ctx.closePath(); ctx.fill();
+      for (let k = 0; k < 4; k++) {
+        const px = k < 2 ? kol : -kol, py = k % 2 ? kol : -kol;
+        ctx.globalAlpha = a * 0.45; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(px, py, pr, 0, Math.PI * 2); ctx.stroke();
+        // Pervane kanadı: komşu pervaneler ters yöne döner
+        const d = (k === 0 || k === 3 ? 1 : -1) * faz + u.i;
+        ctx.globalAlpha = a; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.moveTo(px - Math.cos(d) * pr, py - Math.sin(d) * pr); ctx.lineTo(px + Math.cos(d) * pr, py + Math.sin(d) * pr); ctx.stroke();
+      }
       ctx.restore();
     }
     ctx.globalAlpha = 0.9; ctx.fillStyle = soluk; ctx.font = '11px ui-monospace, monospace'; ctx.textAlign = 'right';
