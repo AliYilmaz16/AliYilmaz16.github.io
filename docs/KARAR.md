@@ -32,7 +32,7 @@ Belge panel ya da ayrı sayfa seçimini ajana bıraktı. Ayrı sayfa seçildi:
 
 | İş | Yöntem | Destek yoksa |
 | --- | --- | --- |
-| Kartların, zaman çizgisi duraklarının belirmesi | IntersectionObserver; öğe bir kez belirir, sınıf eklenir, izleme bırakılır | İçerik baştan görünür |
+| Proje satırlarının, zaman çizgisi duraklarının belirmesi | IntersectionObserver; öğe bir kez belirir, sınıf eklenir, izleme bırakılır | İçerik baştan görünür |
 | İlerleme çubuğu | CSS `animation-timeline: scroll()` | Küçük bir kaydırma dinleyicisi |
 | Zaman çizgisinin dolması | CSS `animation-timeline: view()` | Aynı dinleyici |
 | Karttan ayrıntıya geçiş | CSS `@view-transition` | Düz sayfa geçişi |

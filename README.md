@@ -1,6 +1,6 @@
 # Ali Yılmaz
 
-Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Görüntü işleme, nesne tespiti ve takibi üzerine çalışıyorum; gömülü sistemler ve haberleşme protokolleriyle de uğraşıyorum.
+Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Görüntü işleme, yapay zekâ ve chatbotlar öncelikli olmak üzere gömülü sistemler ve full stack geliştirme gibi mühendisliğin birçok alanını deneyimlemeye çalışıyorum.
 
 Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından gerçek zamanlı nesne tespiti ve UWB haberleşmesi üzerinde çalıştım. Şu an Sürü İHA Yarışması'na hazırlanan Matris takımının kaptanıyım.
 
@@ -14,7 +14,7 @@ Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından 
 | [İSG Guard](https://aliyilmaz16.github.io/proje/isg-guard/) | Saha çalışanının telefonunu algılayıcı olarak kullanan iş güvenliği sistemi |
 | [Stackout](https://aliyilmaz16.github.io/proje/stackout/) | Blok yığma ve blok kırma oyunlarını tek tahtada birleştiren mobil oyun |
 | [Berber Randevu Sistemi](https://aliyilmaz16.github.io/proje/berber-randevu/) | Müşterinin telefondan randevu aldığı, berberin gününü yönettiği web uygulaması |
-| [Pardus Müzik Çalar](https://aliyilmaz16.github.io/proje/pardus-muzik-calar/) | Grafik ve terminal arayüzlü müzik çalar; tamamı tek bir Bash betiği |
+| [Pardus Müzik Çalar](https://aliyilmaz16.github.io/proje/pardus-muzik-calar/) | Grafik ve terminal arayüzlü müzik çalar. Tamamı tek bir Bash betiği |
 | [Hamming SEC-DED Simülatörü](https://aliyilmaz16.github.io/proje/sec-ded/) | Tek hata düzeltmeyi ve çift hata tespitini bit bit gösteren PyQt5 simülatörü |
 | [C Sözdizimi Vurgulayıcı](https://aliyilmaz16.github.io/proje/c-syntax-highlighter/) | C kodunu yazarken renklendiren, belirteç listesini ve ayrıştırma ağacını gösteren araç |
 | [Hayvanat Bahçesi Yönetim Sistemi](https://aliyilmaz16.github.io/proje/hayvanat-bahcesi/) | Hayvanların sağlık, beslenme ve yaşam alanı kayıtlarını tutan PHP ve MySQL uygulaması |

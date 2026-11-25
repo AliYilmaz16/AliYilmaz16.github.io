@@ -9,7 +9,8 @@ const kapak = proje.gorseller[0];
 const ad = c(proje.ad, dil);
 ---
 
-<li class="kart" data-belir style={`--i:${sira % 2}`} data-alan={proje.alan} id={`kart-${proje.kimlik}`}>
+<li class="kart" data-belir data-alan={proje.alan} id={`kart-${proje.kimlik}`}>
+  <p class="kart-yil">{proje.yil}</p>
   <article>
     <div class="kart-gorsel" style={`view-transition-name: g-${proje.kimlik}`}>
       {kapak ? (
@@ -17,14 +18,14 @@ const ad = c(proje.ad, dil);
           src={projeGorseli(proje.kimlik, kapak.dosya)}
           alt=""
           widths={[420, 640, 960]}
-          sizes="(min-width: 900px) 540px, 92vw"
+          sizes="(min-width: 1180px) 480px, (min-width: 761px) 42vw, 88vw"
           width={960}
           height={600}
           fit="cover"
           position="top"
           format="webp"
           quality={72}
-          loading={sira < 2 ? 'eager' : 'lazy'}
+          loading={sira < 1 ? 'eager' : 'lazy'}
         />
       ) : (
         <div class="kart-yer" aria-hidden="true"><span>{ad.slice(0, 2)}</span></div>
@@ -33,7 +34,6 @@ const ad = c(proje.ad, dil);
     <div class="kart-govde">
       <p class="kart-ust">
         <span>{c(icerik.alanlar[proje.alan], dil)}</span>
-        {proje.yil && <span class="yil">{proje.yil}</span>}
         {c(proje.baglam, dil) && <span class="soluk">{c(proje.baglam, dil)}</span>}
       </p>
       <h3>

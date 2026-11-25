@@ -53,7 +53,7 @@ const metin = {
   yil: { tr: 'Yıl', en: 'Year' },
   ozelDepo: { tr: 'Özel depo', en: 'Private repository' },
   demoNot_stackout: {
-    tr: 'Oyunun kendisi değil; iki modu birbirine bağlayan kuralın tarayıcıda çalışan küçük bir benzetimi. Parçalar ve fizik sadeleştirildi.',
+    tr: 'Oyunun kendisi değil, iki modu birbirine bağlayan kuralın tarayıcıda çalışan küçük bir benzetimi. Parçalar ve fizik sadeleştirildi.',
     en: 'Not the game itself, but a small in-browser simulation of the rule that ties its two modes together. Pieces and physics are simplified.',
   },
   demoNot_randevu: {

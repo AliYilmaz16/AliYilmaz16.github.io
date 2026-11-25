@@ -27,15 +27,15 @@ kisi:
     en: Computer Engineering Student
   # Giriş ekranındaki tek cümlelik tanıtım.
   tanitim:
-    tr: Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği okuyorum; görüntü işleme, nesne tespiti ve takibi üzerine çalışıyorum.
-    en: I study Computer Engineering at Bursa Technical University and work on computer vision, object detection and tracking.
+    tr: Görüntü işleme, yapay zekâ ve chatbotlar öncelikli olmak üzere gömülü sistemler ve full stack geliştirme gibi mühendisliğin birçok alanını deneyimlemeye çalışıyorum.
+    en: With computer vision, AI and chatbots as my priorities, I try to get hands-on experience across many areas of engineering, including embedded systems and full-stack development.
   konum:
     tr: Bursa, Türkiye
     en: Bursa, Türkiye
   # Özgeçmişindeki profil özetinden derlendi. Ali okuyup kendi sözleriyle düzeltebilir.
   hakkimda:
     tr:
-      - Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Okul projelerinin ötesine geçip üniversitedeki teknoloji topluluklarında ve yarışma takımlarında görev aldım; bu süreçte gömülü sistemler, görüntü işleme ve haberleşme protokolleri üzerine yoğunlaştım.
+      - Bursa Teknik Üniversitesi'nde Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Okul projelerinin ötesine geçip üniversitedeki teknoloji topluluklarında ve yarışma takımlarında görev aldım. Bu süreçte gömülü sistemler, görüntü işleme ve haberleşme protokolleri üzerine yoğunlaştım.
       - Teknofest takımlarında YOLO ile hedef tespiti ve takibi, İHA kameralarından gerçek zamanlı nesne tespiti ve UWB haberleşmesi üzerinde çalıştım. Şu an Sürü İHA Yarışması'na hazırlanan Matris takımının kaptanıyım. Derslerde ve boş zamanımda masaüstü arayüzleri, küçük web uygulamaları ve makine öğrenmesi modelleri de geliştirdim.
     en:
       - I am a fourth-year Computer Engineering student at Bursa Technical University. Beyond coursework I have taken on roles in the university's technology societies and competition teams, where I focused on embedded systems, computer vision and communication protocols.
@@ -80,7 +80,7 @@ projeler:
       tr: YOLOv8n ile balon tespiti ve kaçan karelerde kilidi koruyan, projeye özel bir takip sınıfı.
       en: Balloon detection with YOLOv8n and a purpose-built tracker that holds its lock through missed frames.
     sorun:
-      tr: Yarışma kuralları ve donanım sınırları yüksek kare hızı istiyordu. En hafif model olan YOLOv8n hızlıydı ama uzak mesafede ve ani hareketlerde hedefi kaçırıyor, ham tespitler titriyordu; bu da atış mekanizmasını bozuyordu.
+      tr: Yarışma kuralları ve donanım sınırları yüksek kare hızı istiyordu. En hafif model olan YOLOv8n hızlıydı ama uzak mesafede ve ani hareketlerde hedefi kaçırıyor, ham tespitler titriyordu. Bu da atış mekanizmasını bozuyordu.
       en: Competition rules and hardware limits demanded a high frame rate. YOLOv8n, the lightest model, was fast but lost the target at long range and during sudden movement, and the raw detections jittered, which upset the firing mechanism.
     # Özgeçmişteki satırdan alındı; istersen ayrıntılandır.
     rol:
@@ -109,8 +109,8 @@ projeler:
       tr: Node.js ile Web Programlama dersi projesi
       en: Course project, Web Programming with Node.js
     ozet:
-      tr: Saha çalışanının telefonunu algılayıcı olarak kullanan iş güvenliği sistemi; düşme, tehlikeli bölge ve gürültü alarmları yönetici paneline canlı düşer.
-      en: A workplace safety system that uses the worker's phone as the sensor; fall, danger-zone and noise alarms reach the admin panel live.
+      tr: Saha çalışanının telefonunu algılayıcı olarak kullanan iş güvenliği sistemi. Düşme, tehlikeli bölge ve gürültü alarmları yönetici paneline canlı düşer.
+      en: A workplace safety system that uses the worker's phone as the sensor. Fall, danger-zone and noise alarms reach the admin panel live.
     sorun:
       tr: Sahada çalışan birinin düşmesi, sert bir darbe alması ya da tehlikeli bir bölgeye girmesi çoğu zaman geç fark edilir. Amaç, ek donanım gerektirmeden bu durumları anında yöneticiye bildirmekti.
       en: When a field worker falls, takes a hard impact or walks into a hazardous area, it is often noticed late. The goal was to report these events to a supervisor immediately, without extra hardware.
@@ -118,10 +118,10 @@ projeler:
     rol: { tr: "", en: "" }
     araclar: [Node.js, Express, Socket.io, PostgreSQL, Prisma, React, Leaflet, Flutter, Telegram Bot API]
     karar:
-      tr: Özel bir cihaz yerine telefonun ivmeölçeri, GPS'i ve mikrofonu kullanıldı. İvme verisi eşik değeri ve z-skoru ile çözümleniyor; konum, tanımlı tehlikeli bölgelerle karşılaştırılıyor.
+      tr: Özel bir cihaz yerine telefonun ivmeölçeri, GPS'i ve mikrofonu kullanıldı. İvme verisi eşik değeri ve z-skoru ile çözümleniyor. Konum, tanımlı tehlikeli bölgelerle karşılaştırılıyor.
       en: Rather than a dedicated device, the phone's accelerometer, GPS and microphone are used. Acceleration data is analysed with thresholds and z-scores, and location is checked against defined danger zones.
     sonuc:
-      tr: Sert darbe, düşme şüphesi, tehlikeli bölgeye giriş, hareketsizlik ve yüksek gürültü alarm üretiyor. Yönetici çalışanları haritada canlı izliyor; yüksek riskli alarmlar Telegram'dan da gidiyor.
+      tr: Sert darbe, düşme şüphesi, tehlikeli bölgeye giriş, hareketsizlik ve yüksek gürültü alarm üretiyor. Yönetici çalışanları haritada canlı izliyor. Yüksek riskli alarmlar Telegram'dan da gidiyor.
       en: Hard impacts, suspected falls, danger-zone entry, inactivity and high noise raise alarms. The supervisor follows workers live on a map, and high-risk alarms are also sent over Telegram.
     gorseller:
       - dosya: web-1.png
@@ -146,11 +146,11 @@ projeler:
       tr: Expo ve React Native ile mobil oyun
       en: Mobile game built with Expo and React Native
     ozet:
-      tr: Blok yığma ve blok kırma oyunlarını tek tahtada birleştiren mobil oyun; dolan satırlar silinmez, kırılacak beyaz bloklara döner.
-      en: A mobile game that joins block stacking and brick breaking on one board; completed rows are not cleared, they turn into white blocks to break.
+      tr: Blok yığma ve blok kırma oyunlarını tek tahtada birleştiren mobil oyun. Dolan satırlar silinmez, kırılacak beyaz bloklara döner.
+      en: A mobile game that joins block stacking and brick breaking on one board. Completed rows are not cleared, they turn into white blocks to break.
     sorun:
-      tr: İki mod aynı tahtayı ve aynı skoru paylaşıyor. İkisini yan yana koymak yetmezdi; birinde yapılan hamlenin ötekinde karşılığı olması gerekiyordu.
-      en: The two modes share one board and one score. Putting them side by side was not enough; a move in one had to matter in the other.
+      tr: İki mod aynı tahtayı ve aynı skoru paylaşıyor. İkisini yan yana koymak yetmezdi. Birinde yapılan hamlenin ötekinde karşılığı olması gerekiyordu.
+      en: The two modes share one board and one score. Putting them side by side was not enough. A move in one had to matter in the other.
     # EKSIK: Bu projedeki rolün.
     rol: { tr: "", en: "" }
     araclar: [TypeScript, React Native, Expo, Jest]
@@ -158,8 +158,8 @@ projeler:
       tr: Oyun durumu React state'inde değil, tek bir değişebilir nesnede tutuluyor ve her karede güncelleniyor. Oyun mantığı arayüzden ayrı, durumu alan serbest fonksiyonlar olarak yazıldığı için React olmadan birim testleriyle deneniyor.
       en: Game state lives in a single mutable object updated every frame rather than in React state. The game logic is written as free functions that take the state, separate from the interface, so it is unit-tested without React.
     sonuc:
-      tr: Yığma modunda üç parçadan biri seçiliyor; dolan satırlar beyaz bloğa dönüşüp top kazandırıyor. Kırma modunda bu toplarla beyaz bloklar kırılıyor, art arda kırılan bloklar artan puan veriyor. Dokunmatik hareketler, ses ve skor arttıkça hızlanan zorluk var; oyun çevrimdışı çalışıyor ve veri toplamıyor.
-      en: In stacking mode you pick one of three pieces; completed rows turn into white blocks and earn balls. In breaking mode those balls break the white blocks, with rising points for consecutive hits. It has touch gestures, sound and difficulty that speeds up with the score; the game runs offline and collects no data.
+      tr: Yığma modunda üç parçadan biri seçiliyor. Dolan satırlar beyaz bloğa dönüşüp top kazandırıyor. Kırma modunda bu toplarla beyaz bloklar kırılıyor, art arda kırılan bloklar artan puan veriyor. Dokunmatik hareketler, ses ve skor arttıkça hızlanan zorluk var. Oyun çevrimdışı çalışıyor ve veri toplamıyor.
+      en: In stacking mode you pick one of three pieces. Completed rows turn into white blocks and earn balls. In breaking mode those balls break the white blocks, with rising points for consecutive hits. It has touch gestures, sound and difficulty that speeds up with the score. The game runs offline and collects no data.
     gorseller:
       - dosya: simge.png
         alt: { tr: Stackout uygulama simgesi, en: Stackout app icon }
@@ -182,7 +182,7 @@ projeler:
     rol: { tr: "", en: "" }
     araclar: [TypeScript, Next.js, Prisma, PostgreSQL]
     karar:
-      tr: Randevular tarih ve gece yarısından itibaren dakika olarak saklanıyor; müsaitlik hesabı tam sayı aritmetiği, çakışma denetimi tek satır. Müsaitlik motoru veritabanına ve saate dokunmayan saf bir fonksiyon olduğu için veritabanı olmadan test ediliyor.
+      tr: Randevular tarih ve gece yarısından itibaren dakika olarak saklanıyor. Müsaitlik hesabı tam sayı aritmetiği, çakışma denetimi tek satır. Müsaitlik motoru veritabanına ve saate dokunmayan saf bir fonksiyon olduğu için veritabanı olmadan test ediliyor.
       en: Appointments are stored as a date plus minutes since midnight, so availability is integer arithmetic and the overlap check is one line. The availability engine is a pure function that touches neither the database nor the clock, so it is tested without a database.
     sonuc:
       tr: Müşteri hizmet, gün ve saat seçip randevu alıyor, durumunu izliyor, iptal edebiliyor ve randevuyu telefon takvimine ekleyebiliyor. Onay bekleyen randevu da takvimde yer kapladığı için aynı saat iki kişiye verilmiyor. Berber panelinde günlük ve haftalık görünüm, müşteri defteri, hizmet süreleri ve ücretleri, kazanç özeti var.
@@ -197,7 +197,7 @@ projeler:
       tr: Pardus Linux için
       en: For Pardus Linux
     ozet:
-      tr: Pardus için grafik ve terminal arayüzlü müzik çalar; tamamı tek bir Bash betiği.
+      tr: Pardus için grafik ve terminal arayüzlü müzik çalar. Tamamı tek bir Bash betiği.
       en: A music player for Pardus with both a graphical and a terminal interface, all in a single Bash script.
     sorun:
       tr: Aynı çalarının hem masaüstünde hem de yalnızca terminal bulunan ortamda kullanılabilmesi isteniyordu.
@@ -205,8 +205,8 @@ projeler:
     rol: { tr: "", en: "" }
     araclar: [Bash, YAD, Whiptail, mpg123]
     karar:
-      tr: Bütün özellikler tek betikte toplandı; grafik arayüz YAD ile, terminal arayüzü Whiptail ile çiziliyor, sesi mpg123 çalıyor. Duraklatma ve sürdürme süreç sinyalleriyle yapılıyor.
-      en: Everything lives in one script; the graphical interface is drawn with YAD, the terminal interface with Whiptail, and mpg123 plays the audio. Pause and resume are done with process signals.
+      tr: Bütün özellikler tek betikte toplandı. Grafik arayüz YAD ile, terminal arayüzü Whiptail ile çiziliyor, sesi mpg123 çalıyor. Duraklatma ve sürdürme süreç sinyalleriyle yapılıyor.
+      en: Everything lives in one script. The graphical interface is drawn with YAD, the terminal interface with Whiptail, and mpg123 plays the audio. Pause and resume are done with process signals.
     sonuc:
       tr: Çalma listesi, oynatma denetimleri, anlık süre gösterimi ve şarkı bitince sonrakine geçiş çalışıyor. Bağımlılıkların hepsi Pardus'un kendi paket deposundan kuruluyor.
       en: Playlist management, playback controls, a live time display and automatic advance to the next track all work. Every dependency installs from Pardus's own package repository.
@@ -239,8 +239,8 @@ projeler:
     araclar: [Python, PyQt5]
     karar: { tr: "", en: "" }
     sonuc:
-      tr: 8, 16 ve 32 bitlik veri kodlanıyor; veri, eşlik ve hatalı bitler ayrı renklerle gösteriliyor. Seçilen bite hata eklenebiliyor, sendrom hesaplanıyor, tek hata düzeltiliyor, çift hata bildiriliyor. Kodlar belleğe yazılıp geri okunabiliyor.
-      en: 8-, 16- and 32-bit data can be encoded; data, parity and faulty bits are shown in different colours. An error can be injected at a chosen bit, the syndrome is computed, single errors are corrected and double errors are reported. Codes can be written to memory and read back.
+      tr: 8, 16 ve 32 bitlik veri kodlanıyor. Veri, eşlik ve hatalı bitler ayrı renklerle gösteriliyor. Seçilen bite hata eklenebiliyor, sendrom hesaplanıyor, tek hata düzeltiliyor, çift hata bildiriliyor. Kodlar belleğe yazılıp geri okunabiliyor.
+      en: 8-, 16- and 32-bit data can be encoded. Data, parity and faulty bits are shown in different colours. An error can be injected at a chosen bit, the syndrome is computed, single errors are corrected and double errors are reported. Codes can be written to memory and read back.
     gorseller:
       - dosya: ana_ekran.png
         alt: { tr: Simülatör ana ekranı, en: Simulator main screen }
@@ -301,8 +301,8 @@ projeler:
     rol: { tr: "", en: "" }
     araclar: [PHP, MySQL, Bootstrap, JavaScript]
     karar:
-      tr: Çatı kullanılmadan düz PHP ile yazıldı; parolalar özetlenerek saklanıyor, oturumlar PHP oturumlarıyla yönetiliyor.
-      en: Written in plain PHP without a framework; passwords are stored hashed and sessions are handled with PHP sessions.
+      tr: Çatı kullanılmadan düz PHP ile yazıldı. Parolalar özetlenerek saklanıyor, oturumlar PHP oturumlarıyla yönetiliyor.
+      en: Written in plain PHP without a framework. Passwords are stored hashed and sessions are handled with PHP sessions.
     sonuc:
       tr: Kayıt ve giriş, hayvan ekleme, düzenleme ve silme, toplam hayvan sayısını ve sağlık durumu dağılımını gösteren bir panel çalışıyor.
       en: Sign-up and login, adding, editing and deleting animals, and a dashboard showing the animal count and health distribution all work.
@@ -327,15 +327,15 @@ diger_projeler:
     ad: MUCars Random Forest
     alan: makine-ogrenmesi
     aciklama:
-      tr: Fas ikinci el araç verisinde (MUCars-2024) Random Forest ile dört fiyat sınıfı tahmini. Veri Madenciliğine Giriş dersi projesi; test doğruluğu 0,8519.
-      en: Predicting four price classes on Moroccan used-car data (MUCars-2024) with Random Forest. Course project for Introduction to Data Mining; test accuracy 0.8519.
+      tr: Fas ikinci el araç verisinde (MUCars-2024) Random Forest ile dört fiyat sınıfı tahmini. Veri Madenciliğine Giriş dersi projesi. Test doğruluğu 0,8519.
+      en: Predicting four price classes on Moroccan used-car data (MUCars-2024) with Random Forest. Course project for Introduction to Data Mining. Test accuracy 0.8519.
   - depo_adi: SmartHome-Energy-Classifier
     yil: 2026
     ad: SmartHome Energy Classifier
     alan: makine-ogrenmesi
     aciklama:
-      tr: Yalnızca hava durumu ve zaman bilgisiyle bir evin enerji tüketimini yüksek ya da düşük diye sınıflandırma. Üç model karşılaştırıldı; en iyisi KNN, %81,38.
-      en: Classifying a home's energy use as high or low from weather and time data alone. Three models compared; KNN was best at 81.38%.
+      tr: Yalnızca hava durumu ve zaman bilgisiyle bir evin enerji tüketimini yüksek ya da düşük diye sınıflandırma. Üç model karşılaştırıldı. En iyisi KNN, %81,38.
+      en: Classifying a home's energy use as high or low from weather and time data alone. Three models compared. KNN was best at 81.38%.
   - depo_adi: Hava-Kalitesi-Tahmin-Modeli
     yil: 2025
     ad: { tr: Hava Kalitesi Tahmin Modeli, en: Air Quality Prediction Model }
@@ -348,8 +348,8 @@ diger_projeler:
     ad: { tr: Trafik Kazası Şiddeti Tahmini, en: Traffic Accident Severity Prediction }
     alan: makine-ogrenmesi
     aciklama:
-      tr: Birleşik Krallık trafik kazası verisinde (1,5 milyon satır) kaza şiddeti tahmini. Akbank ve Global AI Hub Makine Öğrenmesi Bootcamp projesi; sınıf dengesizliği sorunu ve sınırları belgelendi.
-      en: Predicting accident severity on UK road accident data (1.5 million rows). Project for the Akbank and Global AI Hub Machine Learning Bootcamp; the class-imbalance problem and its limits are documented.
+      tr: Birleşik Krallık trafik kazası verisinde (1,5 milyon satır) kaza şiddeti tahmini. Akbank ve Global AI Hub Makine Öğrenmesi Bootcamp projesi. Sınıf dengesizliği sorunu ve sınırları belgelendi.
+      en: Predicting accident severity on UK road accident data (1.5 million rows). Project for the Akbank and Global AI Hub Machine Learning Bootcamp. The class-imbalance problem and its limits are documented.
   - depo_adi: Python202-Bootcamp
     yil: 2025
     ad: Python 202 Bootcamp
