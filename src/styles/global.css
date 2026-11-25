@@ -598,3 +598,39 @@ html.anim [data-belir].gorundu { opacity: 1; transform: none; }
 .kart-dene .rd-pano .saatler { max-height: 5.6rem; }
 .kart-dene .demo-randevu { gap: 0.9rem; }
 .kart-dene .gun-seridi { height: 1.75rem; }
+
+/* Fotoğrafta tespit kutusu */
+.foto-kutu { position: relative; width: clamp(120px, 18vw, 200px); }
+.foto-kutu .foto { width: 100%; display: block; }
+.foto-tespit { position: absolute; inset: 9% 12% 14%; border: 1px solid color-mix(in srgb, var(--vurgu) 55%, transparent); opacity: 0; transform: scale(1.12); transition: opacity 0.3s, transform 0.45s var(--yumusak); pointer-events: none; }
+.foto-tespit b { position: absolute; left: -1px; bottom: 100%; font-family: var(--es); font-size: 0.6875rem; font-weight: 500; line-height: 1; padding: 0.2rem 0.35rem; background: var(--vurgu); color: var(--vurgu-ustu); white-space: nowrap; }
+.foto-kutu:hover .foto-tespit { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  html.anim .foto-kutu.gorundu .foto-tespit { animation: tespit 3.2s 0.5s both; }
+  html.anim .foto-kutu.gorundu:hover .foto-tespit { animation: none; }
+  @keyframes tespit { 0% { opacity: 0; transform: scale(1.12); } 14%, 80% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+}
+
+/* Yetenek ve proje ağı */
+.ag { position: relative; margin-top: 2.25rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: 2.5rem; align-items: start; }
+.ag .yetenekler { margin-top: 0; }
+@media (min-width: 900px) { .ag:has(.ag-projeler) { grid-template-columns: minmax(0, 1.7fr) minmax(0, 0.8fr); gap: clamp(3rem, 9vw, 8rem); } }
+.ag > svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.ag > svg path { fill: none; stroke: var(--vurgu); stroke-width: 1.5; stroke-dasharray: 1; stroke-dashoffset: 0; }
+@media (prefers-reduced-motion: no-preference) { .ag > svg path { animation: ag-ciz 0.4s var(--yumusak) both; } @keyframes ag-ciz { from { stroke-dashoffset: 1; } } }
+.yetenekler .etiketler li.ag-oge { padding: 0; border: 0; background: none; }
+.ag-oge button { font: inherit; line-height: 1; padding: 0.5rem 0.7rem; border: 1px solid color-mix(in srgb, var(--vurgu) 45%, var(--cizgi)); border-radius: 4px; background: var(--yuzey); color: var(--metin); cursor: pointer; transition: opacity 0.2s, border-color 0.2s, background-color 0.2s, color 0.2s; }
+.ag-projeler p { font-family: var(--es); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--soluk); margin-bottom: 0.7rem; }
+.ag-projeler ul { display: grid; gap: 0.4rem; }
+.ag-projeler a { display: flex; justify-content: space-between; gap: 1rem; padding: 0.6rem 0.8rem; border: 1px solid var(--cizgi); border-radius: 4px; background: var(--yuzey); text-decoration: none; font-weight: 550; transition: opacity 0.2s, border-color 0.2s; }
+.ag-projeler a .soluk { font-family: var(--es); font-size: 0.75rem; font-weight: 400; white-space: nowrap; }
+.ag.secili .etiketler li, .ag.secili .ag-oge button, .ag.secili .ag-projeler a { opacity: 0.35; }
+.ag.secili .etiketler li.ag-oge { opacity: 1; }
+.ag.secili .ag-oge button.yanik, .ag.secili .ag-projeler a.yanik { opacity: 1; border-color: var(--vurgu); }
+.ag-oge button[aria-pressed='true'], .ag.secili .ag-oge button.yanik { background: var(--vurgu); color: var(--vurgu-ustu); border-color: var(--vurgu); }
+html:not(.js) .ag-oge button { pointer-events: none; }
+
+/* Sayfanın üstünde süzülen sürü: içeriğin üstünde ama üst menünün altında, tıklamayı yutmaz */
+.suru { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; pointer-events: none; z-index: 5; }
+@media (prefers-reduced-motion: reduce) { .suru { display: none; } }
+@media print { .suru, .ag > svg, .ag-projeler, .foto-tespit { display: none !important; } .ag { display: block; margin-top: 2mm; } .ag-oge button { border: 0; padding: 0; background: none; color: #000; font-size: 8.5pt; } }

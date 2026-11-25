@@ -17,6 +17,13 @@ const alanlar = Object.entries(icerik.alanlar).filter(
   ([anahtar]) => icerik.projeler.some((p) => p.alan === anahtar) || icerik.diger_projeler.some((p) => p.alan === anahtar),
 );
 const ilkProje = icerik.projeler[0];
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+// Yetenek hangi projelerde geçiyor? "YOLO" ile "YOLOv8n" eşleşir ama "Java" ile "JavaScript" eşleşmez.
+const kullanildigi = (yetenek: string) => {
+  const kalip = new RegExp(`^${yetenek.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(v?\\d.*)?$`, 'i');
+  return icerik.projeler.filter((p) => p.araclar.some((a) => kalip.test(a))).map((p) => p.kimlik);
+};
+const agProjeleri = icerik.projeler.filter((p) => icerik.yetenekler.some((y) => y.ogeler.some((o) => kullanildigi(o).includes(p.kimlik))));
 ---
 
 <Base dil={dil} baslik={c(icerik.site.baslik, dil)} aciklama={c(icerik.site.aciklama, dil)} karsiYol={anaYol(diger)} sayfa="ana">
@@ -61,7 +68,10 @@ const ilkProje = icerik.projeler[0];
     <h2 id="b-hakkimda" data-belir>{t('hakkimda', dil)}</h2>
     <div class:list={['hakkimda', { fotolu: !!foto }]}>
       {foto && (
-        <Image class="foto" src={foto} alt={dil === 'tr' ? `${k.ad}, yarışma sahasında dizüstü bilgisayarın başında` : `${k.ad} at a laptop on the competition field`} width={360} height={360} fit="cover" format="webp" data-belir />
+        <div class="foto-kutu" data-belir>
+          <Image class="foto" src={foto} alt={dil === 'tr' ? `${k.ad}, yarışma sahasında dizüstü bilgisayarın başında` : `${k.ad} at a laptop on the competition field`} width={360} height={360} fit="cover" format="webp" />
+          <span class="foto-tespit" aria-hidden="true"><b>ali 0.98</b><span class="kose k1"></span><span class="kose k2"></span><span class="kose k3"></span><span class="kose k4"></span></span>
+        </div>
       )}
       <div class="yazi" data-belir>
         {k.hakkimda[dil].map((p) => <p>{p}</p>)}
@@ -185,20 +195,35 @@ const ilkProje = icerik.projeler[0];
   <!-- YETENEKLER -->
   <section class="bolum kap" id={id('yetenekler')} data-karsi={karsi('yetenekler')} aria-labelledby="b-yetenekler">
     <h2 id="b-yetenekler" data-belir>{t('yetenekler', dil)}</h2>
-    <dl class="yetenekler">
-      {icerik.yetenekler.map((y, i) => (
-        <div data-belir style={`--i:${i % 3}`}>
-          <dt>{c(y.grup, dil)}</dt>
-          <dd><ul class="etiketler">{y.ogeler.map((o) => <li>{o}</li>)}</ul></dd>
-        </div>
-      ))}
-      {icerik.diller.length > 0 && (
-        <div data-belir>
-          <dt>{t('konusulanDiller', dil)}</dt>
-          <dd><ul class="etiketler">{icerik.diller.map((d) => <li>{c(d.ad, dil)}{c(d.duzey, dil) && ` · ${c(d.duzey, dil)}`}</li>)}</ul></dd>
-        </div>
+    {agProjeleri.length > 0 && <p class="bolum-giris js-only" data-belir>{T('Bir yeteneğin üstüne gel ya da dokun: kullandığım projeler yanar.', 'Hover or tap a skill: the projects where I used it light up.')}</p>}
+    <div class="ag" data-ag>
+      <dl class="yetenekler">
+        {icerik.yetenekler.map((y, i) => (
+          <div data-belir style={`--i:${i % 3}`}>
+            <dt>{c(y.grup, dil)}</dt>
+            <dd><ul class="etiketler">{y.ogeler.map((o) => {
+              const pr = kullanildigi(o);
+              return pr.length ? <li class="ag-oge"><button type="button" data-yp={pr.join(',')} aria-pressed="false">{o}</button></li> : <li>{o}</li>;
+            })}</ul></dd>
+          </div>
+        ))}
+        {icerik.diller.length > 0 && (
+          <div data-belir>
+            <dt>{t('konusulanDiller', dil)}</dt>
+            <dd><ul class="etiketler">{icerik.diller.map((d) => <li>{c(d.ad, dil)}{c(d.duzey, dil) && ` · ${c(d.duzey, dil)}`}</li>)}</ul></dd>
+          </div>
+        )}
+      </dl>
+      {agProjeleri.length > 0 && (
+        <nav class="ag-projeler js-only" data-belir aria-label={T('Yeteneklerin kullanıldığı projeler', 'Projects where the skills are used')}>
+          <p>{t('projeler', dil)}</p>
+          <ul>
+            {agProjeleri.map((p) => <li><a href={`#kart-${p.kimlik}`} data-ag-proje={p.kimlik}>{c(p.ad, dil)}<span class="soluk">{p.yil}</span></a></li>)}
+          </ul>
+        </nav>
       )}
-    </dl>
+      <svg aria-hidden="true"></svg>
+    </div>
   </section>
 
   <!-- İLETİŞİM -->
@@ -216,7 +241,11 @@ const ilkProje = icerik.projeler[0];
     </div>
   </section>
 
+  <canvas class="suru js-only" data-suru data-etiket={T('sürü', 'swarm')} data-formasyonlar={T('V,halka,çizgi,elmas,kol', 'V,ring,line,diamond,column')} aria-hidden="true"></canvas>
+
   <script>
     import '../scripts/takip.ts';
+    import '../scripts/suru.ts';
+    import '../scripts/ag.ts';
   </script>
 </Base>
