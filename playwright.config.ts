@@ -8,6 +8,8 @@ export default defineConfig({
   testDir: './testler',
   outputDir: './test-results',
   fullyParallel: true,
+  // Her sayfada sürü canlandırması çalıştığı için çok sayıda tarayıcı aynı anda açılınca zamanlamaya duyarlı denemeler düşüyor.
+  workers: 2,
   retries: 0,
   reporter: [['list'], ['json', { outputFile: 'test-results/sonuc.json' }]],
   use: { baseURL: taban },

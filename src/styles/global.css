@@ -649,3 +649,44 @@ html:not(.js) .ag-oge button { pointer-events: none; }
 .suru { position: fixed; inset: 0; width: 100vw; height: 100vh; height: 100dvh; pointer-events: none; z-index: 5; }
 @media (prefers-reduced-motion: reduce) { .suru { display: none; } }
 @media print { .suru, .ag > svg, .ag-projeler, .foto-tespit { display: none !important; } .ag { display: block; margin-top: 2mm; } .ag-oge button { border: 0; padding: 0; background: none; color: #000; font-size: 8.5pt; } }
+
+/* Sürü düğmesi */
+html[data-suru='kapali'] .suru { display: none; }
+.suru-dugme[aria-pressed='true'] { color: var(--vurgu); }
+.suru-dugme[aria-pressed='false'] { opacity: 0.55; }
+@media (prefers-reduced-motion: reduce) { .suru-dugme { display: none !important; } }
+/* En dar telefonlarda dört düğme sığmaz: arama düğmesi gizlenir, gezinme için menü düğmesi yeter. */
+@media (max-width: 359px) { .araclar [data-palet-ac] { display: none !important; } }
+
+/* 404: boş alanda hedef arayan nişangâh */
+.dort { min-height: 62vh; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); gap: clamp(2rem, 5vw, 4rem); align-items: center; }
+.dort h1 { font-size: clamp(2.25rem, 6vw, 4rem); line-height: 1.05; letter-spacing: -0.03em; margin-block: 0.8rem 1rem; }
+.dort .dugmeler { margin-top: 1.75rem; }
+.dort-alan { overflow: hidden; }
+.dort-nisan { position: absolute; left: 50%; top: 50%; width: 4.5rem; height: 4.5rem; margin: -2.25rem; border: 1.5px dashed var(--vurgu); border-radius: 50%; background: linear-gradient(var(--vurgu), var(--vurgu)) center / 100% 1px no-repeat, linear-gradient(var(--vurgu), var(--vurgu)) center / 1px 100% no-repeat; }
+.dort-nisan b { position: absolute; left: 50%; top: calc(100% + 0.5rem); transform: translateX(-50%); font-family: var(--es); font-size: 0.6875rem; font-weight: 400; color: var(--vurgu); white-space: nowrap; }
+.dort-sayac { position: absolute; left: 0.7rem; top: 0.6rem; font-family: var(--es); font-size: 0.6875rem; color: var(--soluk); }
+@media (prefers-reduced-motion: no-preference) {
+  .dort-nisan { animation: dort-ara 16s cubic-bezier(0.6, 0, 0.3, 1) infinite; }
+  @keyframes dort-ara { 0%, 100% { transform: translate(0, 0); } 10%, 16% { transform: translate(-130%, -80%); } 26%, 32% { transform: translate(120%, -95%); } 42%, 50% { transform: translate(150%, 70%); } 60%, 66% { transform: translate(-40%, 95%); } 76%, 84% { transform: translate(-160%, 30%); } 92% { transform: translate(0, 0); } }
+}
+
+/* Müzik çalar örneği */
+.demo-calar { gap: 1rem; }
+.cl-ust { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.6rem 1rem; }
+.cl-gui { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: 1rem; align-items: stretch; }
+.cl-liste { display: grid; gap: 0.35rem; align-content: start; }
+.cl-liste button { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 0.7rem; align-items: baseline; width: 100%; min-height: 2.75rem; padding: 0.5rem 0.7rem; text-align: left; font: inherit; font-size: 0.9375rem; color: var(--metin); background: var(--zemin); border: 1px solid var(--cizgi); border-radius: 4px; cursor: pointer; }
+.cl-liste button:hover { border-color: var(--vurgu); }
+.cl-liste button[aria-current='true'] { border-color: var(--vurgu); box-shadow: inset 3px 0 0 var(--vurgu); }
+.cl-no, .cl-liste .soluk { font-family: var(--es); font-size: 0.75rem; color: var(--soluk); }
+.cl-cubuklar { display: flex; align-items: flex-end; gap: 3px; min-height: 8.5rem; padding: 0.6rem; background: var(--zemin); border: 1px solid var(--cizgi); border-radius: 4px; }
+.cl-cubuklar i { flex: 1; height: 100%; background: var(--vurgu); transform-origin: bottom; transform: scaleY(0.04); border-radius: 1px; }
+.cl-tui { margin: 0; padding: 0.9rem; font-family: var(--es); font-size: clamp(0.5625rem, 2.3vw, 0.8125rem); line-height: 1.45; color: #d7e0d0; background: #0a0d10; border: 1px solid var(--cizgi); border-radius: 4px; overflow-x: auto; }
+.cl-ilerleme { height: 4px; background: var(--cizgi); border-radius: 2px; overflow: hidden; }
+.cl-ilerleme span { display: block; height: 100%; background: var(--vurgu); transform-origin: left; transform: scaleX(0); }
+.cl-denetim { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.25rem; }
+.cl-durum { font-family: var(--es); font-size: 0.8125rem; }
+.cl-dugmeler { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem; }
+.cl-dugmeler .dugme { min-width: 2.75rem; padding-inline: 0.7rem; font-size: 1rem; }
+.cl-ses input { width: 6rem; accent-color: var(--vurgu); }

@@ -67,7 +67,7 @@ alanlar:
 # Alanlar: ad, yil (2025 ya da "2025 - 2026"), ozet (tek cümle), sorun, rol, araclar, karar, sonuc,
 #          gorseller (ilki kartta görünür), video / video_baglanti, depo.
 #          depo boşsa "özel depo" yazar. etkilesim: sayfadaki etkileşimli örnek
-#          (stackout | randevu | hamming | vurgu | isg).
+#          (stackout | randevu | hamming | vurgu | isg | calar).
 projeler:
   - kimlik: balon-takip
     yil: 2025
@@ -222,6 +222,7 @@ projeler:
         alt: { tr: Terminal arayüzü menüsü, en: Terminal interface menu }
     video_baglanti: https://www.youtube.com/watch?v=QVcJiZsK1GY
     depo: https://github.com/AliYilmaz16/Pardus-Muzik-Calar
+    etkilesim: calar
 
   - kimlik: sec-ded
     yil: 2025

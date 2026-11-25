@@ -8,6 +8,7 @@ import RandevuDemo from './RandevuDemo.astro';
 import HammingDemo from './HammingDemo.astro';
 import VurguDemo from './VurguDemo.astro';
 import IsgDemo from './IsgDemo.astro';
+import CalarDemo from './CalarDemo.astro';
 
 interface Props { proje: Proje; dil: Dil; sira: number }
 const { proje, dil, sira } = Astro.props;
@@ -80,6 +81,7 @@ const afis = proje.video && kapak ? await getImage({ src: projeGorseli(proje.kim
           {proje.etkilesim === 'hamming' && <HammingDemo dil={dil} />}
           {proje.etkilesim === 'vurgu' && <VurguDemo dil={dil} />}
           {proje.etkilesim === 'isg' && <IsgDemo dil={dil} />}
+          {proje.etkilesim === 'calar' && <CalarDemo dil={dil} />}
         </div>
       )}
       {ayrintilar.length > 0 && (

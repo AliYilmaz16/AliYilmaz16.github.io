@@ -8,6 +8,7 @@ import RandevuDemo from '../components/RandevuDemo.astro';
 import HammingDemo from '../components/HammingDemo.astro';
 import VurguDemo from '../components/VurguDemo.astro';
 import IsgDemo from '../components/IsgDemo.astro';
+import CalarDemo from '../components/CalarDemo.astro';
 
 interface Props { dil: Dil; proje: Proje }
 const { dil, proje } = Astro.props;
@@ -79,6 +80,7 @@ const dikey = (g: { dosya: string }) => {
         {proje.etkilesim === 'hamming' && <HammingDemo dil={dil} />}
           {proje.etkilesim === 'vurgu' && <VurguDemo dil={dil} />}
           {proje.etkilesim === 'isg' && <IsgDemo dil={dil} />}
+          {proje.etkilesim === 'calar' && <CalarDemo dil={dil} />}
       </section>
     )}
 

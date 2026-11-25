@@ -58,6 +58,7 @@ const kisi = icerik.kisi;
         try {
           var s = localStorage.getItem('tema');
           if (s === 'light' || s === 'dark') d.dataset.theme = s;
+          if (localStorage.getItem('suru') === 'kapali') d.dataset.suru = 'kapali';
         } catch (e) {}
         // Hareket yalnızca tarayıcı destekliyorsa ve kullanıcı "hareketi azalt" demediyse açılır.
         // Betik bir nedenle çalışmazsa içerik gizli kalmasın diye sınıf geri alınır.
@@ -93,6 +94,9 @@ const kisi = icerik.kisi;
         <div class="araclar">
           <button class="dugme-ikon js-only" type="button" data-palet-ac aria-label={t('ara', dil)} title={`${t('ara', dil)} (Ctrl K)`}>
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m16 16 4.5 4.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </button>
+          <button class="dugme-ikon suru-dugme js-only" type="button" data-suru-dugme aria-pressed="true" aria-label={t('suruDugme', dil)} title={t('suruDugme', dil)}>
+            <svg viewBox="0 0 24 24" width="19" height="19" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M7 7l10 10M17 7 7 17"/><circle cx="5.5" cy="5.5" r="2.6"/><circle cx="18.5" cy="5.5" r="2.6"/><circle cx="5.5" cy="18.5" r="2.6"/><circle cx="18.5" cy="18.5" r="2.6"/><rect x="9.6" y="9.6" width="4.8" height="4.8" rx="1.2" fill="currentColor" stroke="none"/></svg>
           </button>
           <a class="dil" href={karsiYol} hreflang={diger} lang={diger} data-dil-degistir aria-label={`TR / EN: ${t('dilDegistir', dil)}`}>
             <span aria-hidden="true" class:list={[{ secili: dil === 'tr' }]}>TR</span><span aria-hidden="true" class="ayrac">/</span><span aria-hidden="true" class:list={[{ secili: dil === 'en' }]}>EN</span>
@@ -145,8 +149,11 @@ const kisi = icerik.kisi;
       <p class="palet-bos" hidden>{t('paletBos', dil)}</p>
     </dialog>
 
+    <canvas class="suru js-only" data-suru data-etiket={dil === 'tr' ? 'sürü' : 'swarm'} data-onleme-adi={dil === 'tr' ? 'önleme' : 'intercept'} data-formasyonlar={dil === 'tr' ? 'V,halka,çizgi,elmas,kol,ok başı,ikili,dağıl' : 'V,ring,line,diamond,column,arrowhead,split,scatter'} aria-hidden="true"></canvas>
+
     <script>
       import '../scripts/site.ts';
+      import '../scripts/suru.ts';
     </script>
   </body>
 </html>

@@ -1,0 +1,56 @@
+---
+// Pardus Müzik Çalar'ın tarayıcıdaki küçük benzeri: aynı çalar hem grafik hem terminal görünümüyle kullanılır.
+// Ses dosyası yoktur, kısa ezgiler tarayıcıda üretilir. Kendiliğinden çalmaz.
+import type { Dil } from '../lib/icerik';
+interface Props { dil: Dil }
+const { dil } = Astro.props;
+const T = (tr: string, en: string) => (dil === 'tr' ? tr : en);
+const parcalar = [T('Sabah arpeji', 'Morning arpeggio'), T('Gece yürüyüşü', 'Night walk'), T('Ağır dalga', 'Slow wave')];
+---
+
+<div
+  class="demo demo-calar js-only"
+  data-demo-calar
+  data-parcalar={JSON.stringify(parcalar)}
+  data-e-caliyor={T('Çalıyor', 'Playing')}
+  data-e-durakladi={T('Duraklatıldı', 'Paused')}
+  data-e-durdu={T('Durdu', 'Stopped')}
+  data-e-cal={T('Çal', 'Play')}
+  data-e-duraklat={T('Duraklat', 'Pause')}
+  data-e-liste={T('Çalma listesi', 'Playlist')}
+  data-e-secim={T('Seçiminiz', 'Your choice')}
+>
+  <div class="cl-ust">
+    <div class="secenekler" role="group" aria-label={T('Arayüz', 'Interface')}>
+      <button type="button" class="secenek" data-gorunum="gui" aria-pressed="true">{T('Grafik', 'Graphical')}</button>
+      <button type="button" class="secenek" data-gorunum="tui" aria-pressed="false">{T('Terminal', 'Terminal')}</button>
+    </div>
+    <p class="demo-etiket">{T('Aynı çalar, iki arayüz', 'Same player, two interfaces')}</p>
+  </div>
+
+  <div class="cl-gui" data-gui>
+    <ol class="cl-liste" data-liste>
+      {parcalar.map((p, i) => (
+        <li><button type="button" data-parca={i}><span class="cl-no">{String(i + 1).padStart(2, '0')}</span><span>{p}</span><span class="soluk" data-sure></span></button></li>
+      ))}
+    </ol>
+    <div class="cl-cubuklar" data-cubuklar aria-hidden="true">{Array.from({ length: 20 }, () => <i></i>)}</div>
+  </div>
+  <pre class="cl-tui" data-tui hidden aria-live="off"></pre>
+
+  <div class="cl-ilerleme" aria-hidden="true"><span data-ilerleme></span></div>
+  <div class="cl-denetim">
+    <p class="cl-durum" role="status"><span data-durum></span> <span class="soluk" data-zaman>00:00 / 00:00</span></p>
+    <div class="cl-dugmeler">
+      <button type="button" class="dugme" data-onceki aria-label={T('Önceki parça', 'Previous track')}>⏮</button>
+      <button type="button" class="dugme birincil" data-cal aria-label={T('Çal', 'Play')}>▶</button>
+      <button type="button" class="dugme" data-dur aria-label={T('Durdur', 'Stop')}>■</button>
+      <button type="button" class="dugme" data-sonraki aria-label={T('Sonraki parça', 'Next track')}>⏭</button>
+      <label class="cl-ses"><span class="gizli">{T('Ses düzeyi', 'Volume')}</span><input type="range" min="0" max="100" value="60" data-ses /></label>
+    </div>
+  </div>
+</div>
+
+<script>
+  import '../scripts/demo-calar.ts';
+</script>

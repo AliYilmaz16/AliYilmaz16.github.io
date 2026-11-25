@@ -225,6 +225,7 @@ test('D5 fare kullanmadan gezinme', async ({ page, browserName }) => {
   await page.keyboard.press('ArrowLeft');
   await expect(page).toHaveURL(/isg-guard/);
   // Komut paleti klavyeyle
+  await page.waitForLoadState('load'); // kısayol dinleyicisi sayfa betiğiyle gelir
   await page.keyboard.press('Control+k');
   await expect(page.locator('dialog.palet')).toBeVisible();
   await page.keyboard.type('hamming');
@@ -238,6 +239,7 @@ test('D5-webkit klavye ile kart açma ve Esc', async ({ page, browserName }) => 
   await page.locator('#kart-isg-guard a[data-proje]').focus();
   await page.keyboard.press('Enter');
   await expect(page).toHaveURL(/\/proje\/isg-guard\/$/);
+  await page.waitForLoadState('load'); // Esc dinleyicisi sayfa betiğiyle gelir
   await page.keyboard.press('Escape');
   await expect(page.locator('#kart-isg-guard a[data-proje]')).toBeFocused();
 });

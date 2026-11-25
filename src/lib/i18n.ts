@@ -68,6 +68,11 @@ const metin = {
     tr: 'Sistemin işleyişinin benzetimi. Gerçekte konum ve ivme telefondan gelir, burada çalışanı sen yürütürsün.',
     en: 'A simulation of how the system works. In reality location and acceleration come from the phone, here you move the worker yourself.',
   },
+  demoNot_calar: {
+    tr: 'Çaların tarayıcıdaki küçük bir benzeri. Ses dosyası yok, kısa ezgiler tarayıcıda üretiliyor. Çal düğmesine basmadan ses çıkmaz.',
+    en: 'A small in-browser lookalike of the player. There are no audio files, the short tunes are generated in the browser. Nothing plays until you press play.',
+  },
+  suruDugme: { tr: 'İHA sürüsünü aç ya da kapat', en: 'Turn the drone swarm on or off' },
   demoNot_hamming: {
     tr: 'Simülatörün yaptığı işin tarayıcıda çalışan küçük bir örneği: 8 bit veri, 4 eşlik biti ve bir genel eşlik biti.',
     en: 'A small in-browser example of what the simulator does: 8 data bits, 4 parity bits and one overall parity bit.',

@@ -244,11 +244,22 @@ if (tuval) {
   const dongu = (t: number) => {
     const dt = Math.min(0.05, (t - son) / 1000 || 0.016); son = t;
     adim(t, dt); ciz();
-    kare = !document.hidden && !azalt.matches ? requestAnimationFrame(dongu) : 0;
+    kare = !document.hidden && !azalt.matches && !kapali() ? requestAnimationFrame(dongu) : 0;
   };
   // Hareket azaltma açıksa sürü hiç çizilmez: sabit duran bir süs okumayı yalnızca zorlaştırır.
+  // Ziyaretçi sürüyü üst menüdeki düğmeyle kapatabilir. Seçim tarayıcıda hatırlanır.
+  const kok = document.documentElement;
+  const kapali = () => kok.dataset.suru === 'kapali';
+  const dugme = document.querySelector<HTMLButtonElement>('[data-suru-dugme]');
+  dugme?.setAttribute('aria-pressed', String(!kapali()));
+  dugme?.addEventListener('click', () => {
+    if (kapali()) delete kok.dataset.suru; else kok.dataset.suru = 'kapali';
+    try { localStorage.setItem('suru', kapali() ? 'kapali' : 'acik'); } catch {}
+    dugme.setAttribute('aria-pressed', String(!kapali()));
+    baslat();
+  });
   const baslat = () => {
-    if (azalt.matches) { ctx.clearRect(0, 0, en, boy); return; }
+    if (azalt.matches || kapali()) { ctx.clearRect(0, 0, en, boy); return; }
     if (!basladi) { boyutla(); yerlestir(); basladi = true; }
     if (!kare && !document.hidden) { son = performance.now(); kare = requestAnimationFrame(dongu); }
   };
